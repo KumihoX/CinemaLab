@@ -25,7 +25,6 @@ class SplashFragment: Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             navigateToSignUpFragment()
         }, 3000)
-
         return binding.root
     }
 

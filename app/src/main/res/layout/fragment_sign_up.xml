@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/logo" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/iHaveAccButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,31 +34,32 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/filled_button_shape"
-        android:text="Зарегистрироваться"
+        android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/iHaveAccButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/repeatPasswordEditText"
+        android:autofillHints="password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
-        android:hint="Повторите пароль"
+        android:hint="@string/repeat_password"
         android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingTop="13dp"
@@ -67,13 +68,14 @@
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/passwordEditText"
+        android:autofillHints="password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -81,7 +83,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
-        android:hint="Пароль"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingTop="13dp"
@@ -89,15 +91,16 @@
         android:paddingBottom="13dp"
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/repeatPasswordEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText"
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/emailEditText"
+        android:autofillHints="emailAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -105,7 +108,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingTop="13dp"
@@ -114,14 +117,15 @@
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword3"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+        app:layout_constraintTop_toBottomOf="@+id/surnameEditText"
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/surnameEditText"
+        android:autofillHints="name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -134,18 +138,19 @@
         android:paddingTop="13dp"
         android:paddingEnd="16dp"
         android:paddingBottom="13dp"
-        android:hint="Фамилия"
+        android:hint="@string/surname"
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress2"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/nameEditText"
+        android:autofillHints="name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -153,7 +158,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
-        android:hint="Имя"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         android:paddingStart="16dp"
         android:paddingTop="13dp"
@@ -162,10 +167,10 @@
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/surnameEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed" />
 

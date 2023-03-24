@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cinema</string>
     <string name="this_is_a_logo">This is a logo</string>
+    <string name="i_have_acc">У меня уже есть аккаунт</string>
 </resources>

@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSignUpBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SignUpFragment: Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
@@ -48,16 +49,33 @@ class SignUpFragment: Fragment() {
 
     }
 
-    private fun createErrorDialog(message: String) {
+    private fun navigateToMainFragment() {
+
+    }
+
+    private fun createErrorDialog() {
+        val message = viewModel.message.value
         val builder = AlertDialog.Builder(context)
+
         builder.setTitle("Неправильно введенные данные")
         builder.setMessage(message)
         builder.show()
     }
 
     private fun validateFields() {
-        if (binding.nameEditText.text.toString().isEmpty()){
-            createErrorDialog("Вы оставили поле \"Имя\" пустым")
+        viewModel.validateEditTexts(
+            binding.nameEditText.text.toString(),
+            binding.surnameEditText.text.toString(),
+            binding.emailEditText.text.toString(),
+            binding.passwordEditText.text.toString(),
+            binding.repeatPasswordEditText.text.toString()
+        )
+
+        if (viewModel.allFieldsValid.value == false) {
+            createErrorDialog()
+        }
+        else {
+            navigateToMainFragment()
         }
     }
 }

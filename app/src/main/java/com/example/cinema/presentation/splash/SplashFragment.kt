@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSplashBinding
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment: Fragment() {
 
     private lateinit var binding: FragmentSplashBinding

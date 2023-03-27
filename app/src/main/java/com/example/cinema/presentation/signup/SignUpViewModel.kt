@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase,
+    private val registerUseCase: RegisterUseCase
 ): ViewModel() {
 
     private val _allFieldsValid = MutableLiveData(true)

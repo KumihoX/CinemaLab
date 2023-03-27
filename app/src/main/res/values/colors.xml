@@ -12,4 +12,6 @@
     <color name="accent_color">#FFEF3A01</color>
     <color name="gray_border">#FFA8A8A8</color>
     <color name="text_color">#FFAFAFAF</color>
+    <color name="bottom_nav_bar_background">#FF1C1A19</color>
+    <color name="bottom_nav_item">#FF757575</color>
 </resources>

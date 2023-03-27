@@ -52,7 +52,7 @@ class SignInFragment: Fragment() {
     }
 
     private fun navigateToMainFragment() {
-
+        findNavController().navigate(R.id.action_signInFragment_to_bottomNavigationFragment)
     }
 
     private fun createErrorDialog() {

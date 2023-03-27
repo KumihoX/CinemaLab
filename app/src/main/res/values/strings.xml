@@ -11,4 +11,6 @@
     <string name="repeat_password">Повторите пароль</string>
     <string name="come_in">Войти</string>
     <string name="registration">Регистрация</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

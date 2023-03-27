@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,7 @@ class SignUpFragment: Fragment() {
     }
 
     private fun navigateToSignInFragment() {
-
+        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
     }
 
     private fun navigateToMainFragment() {

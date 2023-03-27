@@ -1,4 +1,4 @@
-package com.example.cinema.presentation.signup
+package com.example.cinema.presentation.signin
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,20 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
-import com.example.cinema.databinding.FragmentSignUpBinding
+import com.example.cinema.databinding.FragmentSignInBinding
+import com.example.cinema.presentation.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment: Fragment() {
-    private lateinit var binding: FragmentSignUpBinding
-    private val viewModel: SignUpViewModel by viewModels()
+class SignInFragment: Fragment() {
+    private lateinit var binding: FragmentSignInBinding
+    private val viewModel: SignInViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val mainView = inflater.inflate(R.layout.fragment_sign_up, container, false)
-        binding = FragmentSignUpBinding.bind(mainView)
+        val mainView = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        binding = FragmentSignInBinding.bind(mainView)
 
         addClickListenersOnButtons()
 
@@ -30,24 +31,24 @@ class SignUpFragment: Fragment() {
     }
 
     private fun addClickListenersOnButtons() {
-        registerButtonClick()
-        iHaveAccButtonClick()
+        comeInButtonClick()
+        registrationButtonClick()
     }
 
-    private fun registerButtonClick() {
-        binding.registerButton.setOnClickListener{
+    private fun comeInButtonClick() {
+        binding.comeInButton.setOnClickListener{
             validateFields()
         }
     }
 
-    private fun iHaveAccButtonClick() {
-        binding.iHaveAccButton.setOnClickListener{
-            navigateToSignInFragment()
+    private fun registrationButtonClick() {
+        binding.registrationButton.setOnClickListener{
+            navigateToSignUpFragment()
         }
     }
 
-    private fun navigateToSignInFragment() {
-        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+    private fun navigateToSignUpFragment() {
+        findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
     }
 
     private fun navigateToMainFragment() {
@@ -65,11 +66,8 @@ class SignUpFragment: Fragment() {
 
     private fun validateFields() {
         viewModel.validateEditTexts(
-            binding.nameEditText.text.toString(),
-            binding.surnameEditText.text.toString(),
             binding.emailEditText.text.toString(),
-            binding.passwordEditText.text.toString(),
-            binding.repeatPasswordEditText.text.toString()
+            binding.passwordEditText.text.toString()
         )
 
         if (viewModel.allFieldsValid.value == false) {

@@ -9,4 +9,6 @@
     <string name="name">Имя</string>
     <string name="e_mail">E-mail</string>
     <string name="repeat_password">Повторите пароль</string>
+    <string name="come_in">Войти</string>
+    <string name="registration">Регистрация</string>
 </resources>

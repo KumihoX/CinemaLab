@@ -2,8 +2,11 @@ package com.example.cinema.di
 
 import com.example.cinema.common.Constants
 import com.example.cinema.data.remote.AuthApi
+import com.example.cinema.data.remote.CoverApi
 import com.example.cinema.data.repository.AuthRepositoryImpl
+import com.example.cinema.data.repository.CoverRepositoryImpl
 import com.example.cinema.domain.repository.AuthRepository
+import com.example.cinema.domain.repository.CoverRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,5 +45,22 @@ object AppModule {
     @Singleton
     fun provideAuthRepository(api: AuthApi): AuthRepository {
         return AuthRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoverApi(): CoverApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(CoverApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoverRepository(api: CoverApi): CoverRepository {
+        return CoverRepositoryImpl(api)
     }
 }

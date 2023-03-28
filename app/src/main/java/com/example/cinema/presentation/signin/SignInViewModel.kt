@@ -15,6 +15,7 @@ import com.example.cinema.domain.usecase.token.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -77,11 +78,18 @@ class SignInViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val token = comeInUseCase(userData)
-            val saveTokenUseCase = SaveTokenUseCase(context)
-            saveTokenUseCase.execute(token)
+            try
+            {
+                val token = comeInUseCase(userData)
+                val saveTokenUseCase = SaveTokenUseCase(context)
+                saveTokenUseCase.execute(token)
 
-            navController.navigate(R.id.action_signInFragment_to_bottomNavigationFragment)
+                navController.navigate(R.id.action_signInFragment_to_bottomNavigationFragment)
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+
+            }
         }
     }
 }

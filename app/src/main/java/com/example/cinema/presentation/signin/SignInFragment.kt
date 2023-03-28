@@ -65,16 +65,15 @@ class SignInFragment: Fragment() {
     }
 
     private fun validateFields() {
+        val navController = findNavController()
         viewModel.validateEditTexts(
             binding.emailEditText.text.toString(),
-            binding.passwordEditText.text.toString()
+            binding.passwordEditText.text.toString(),
+            navController
         )
 
         if (viewModel.allFieldsValid.value == false) {
             createErrorDialog()
-        }
-        else {
-            navigateToMainFragment()
         }
     }
 }

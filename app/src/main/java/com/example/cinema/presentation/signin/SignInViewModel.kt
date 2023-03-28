@@ -1,19 +1,26 @@
 package com.example.cinema.presentation.signin
 
+import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.example.cinema.R
 import com.example.cinema.data.remote.dto.AuthCredentialDto
 import com.example.cinema.data.remote.dto.RegistrationBodyDto
 import com.example.cinema.domain.usecase.signin.ComeInUseCase
+import com.example.cinema.domain.usecase.token.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val comeInUseCase: ComeInUseCase
 ): ViewModel() {
     private val _message = MutableLiveData("")
@@ -25,7 +32,8 @@ class SignInViewModel @Inject constructor(
 
     fun validateEditTexts(
         email: String,
-        password: String
+        password: String,
+        navController: NavController
     ) {
         _message.value = ""
         _allFieldsValid.value = true
@@ -33,7 +41,7 @@ class SignInViewModel @Inject constructor(
         passwordValidityCheck(password)
 
         if (allFieldsValid.value == true) {
-            comeIn(email, password)
+            comeIn(navController, email, password)
         }
     }
 
@@ -59,6 +67,7 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun comeIn(
+        navController: NavController,
         email: String,
         password: String
     ) {
@@ -68,7 +77,11 @@ class SignInViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            comeInUseCase(userData)
+            val token = comeInUseCase(userData)
+            val saveTokenUseCase = SaveTokenUseCase(context)
+            saveTokenUseCase.execute(token)
+
+            navController.navigate(R.id.action_signInFragment_to_bottomNavigationFragment)
         }
     }
 }

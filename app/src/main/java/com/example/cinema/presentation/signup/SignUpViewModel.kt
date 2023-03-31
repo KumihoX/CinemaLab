@@ -1,5 +1,6 @@
 package com.example.cinema.presentation.signup
 
+import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,14 +8,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.dto.RegistrationBodyDto
 import com.example.cinema.domain.usecase.signup.RegisterUseCase
+import com.example.cinema.domain.usecase.token.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val registerUseCase: RegisterUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _allFieldsValid = MutableLiveData(true)
     val allFieldsValid: LiveData<Boolean> = _allFieldsValid
@@ -59,7 +64,15 @@ class SignUpViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            registerUseCase(userData)
+            try {
+                val token = registerUseCase(userData)
+                val saveTokenUseCase = SaveTokenUseCase(context)
+                saveTokenUseCase.execute(token)
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+
+            }
         }
     }
 

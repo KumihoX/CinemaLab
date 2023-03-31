@@ -2,11 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< Updated upstream
     android:id="@+id/bottom_view_nav_graph"
-=======
-    android:id="@+id/mobile_navigation"
->>>>>>> Stashed changes
     app:startDestination="@+id/main">
 
     <fragment

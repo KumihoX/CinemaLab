@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val api: MovieApi
-): MovieRepository {
+) : MovieRepository {
 
     override suspend fun getMovies(token: AuthTokenPairDto, filter: String): List<MovieDto> {
         return api.getMovies("Bearer ${token.accessToken}", filter)

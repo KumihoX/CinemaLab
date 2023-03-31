@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val api: AuthApi
-): AuthRepository {
+) : AuthRepository {
     override suspend fun register(body: RegistrationBodyDto): AuthTokenPairDto {
         return api.register(body)
     }

@@ -77,7 +77,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val youWatchedData = getMoviesUseCase(context, "lastView")
-                if (youWatchedData.isNotEmpty()){
+                if (youWatchedData.isNotEmpty()) {
                     _youWatchedCover.value = youWatchedData[0].poster
                     _youWatchedText.value = youWatchedData[0].name
                 }

@@ -1,12 +1,13 @@
 package com.example.cinema.presentation.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
@@ -96,8 +97,10 @@ class MainFragment : Fragment() {
         val inTrendRecyclerView = binding.inTrendRecyclerView
         inTrendRecyclerView.visibility = View.VISIBLE
 
-        inTrendRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        inTrendRecyclerView.adapter = CustomRecyclerAdapter(trendsList, this, R.layout.vertical_item)
+        inTrendRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        inTrendRecyclerView.adapter =
+            CustomRecyclerAdapter(trendsList, this, R.layout.vertical_item, findNavController())
     }
 
     private fun addYouWatched(cover: String) {
@@ -121,8 +124,10 @@ class MainFragment : Fragment() {
         val newRecyclerView = binding.newRecyclerView
         newRecyclerView.visibility = View.VISIBLE
 
-        newRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        newRecyclerView.adapter = CustomRecyclerAdapter(newsList, this, R.layout.horizontal_item)
+        newRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        newRecyclerView.adapter =
+            CustomRecyclerAdapter(newsList, this, R.layout.horizontal_item, findNavController())
     }
 
     private fun addForYou(forYouList: List<MovieDto>) {
@@ -132,8 +137,10 @@ class MainFragment : Fragment() {
         val forYouRecyclerView = binding.forYouRecyclerView
         forYouRecyclerView.visibility = View.VISIBLE
 
-        forYouRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        forYouRecyclerView.adapter = CustomRecyclerAdapter(forYouList, this, R.layout.vertical_item)
+        forYouRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        forYouRecyclerView.adapter =
+            CustomRecyclerAdapter(forYouList, this, R.layout.vertical_item, findNavController())
     }
 
 

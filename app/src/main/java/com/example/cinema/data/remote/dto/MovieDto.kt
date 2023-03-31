@@ -1,5 +1,7 @@
 package com.example.cinema.data.remote.dto
 
+import java.io.Serializable
+
 data class MovieDto(
     val movieId: String,
     val name: String,
@@ -9,4 +11,4 @@ data class MovieDto(
     val imageUrls: List<String>,
     val poster: String,
     val tags: List<TagDto>
-)
+) : Serializable

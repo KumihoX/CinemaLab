@@ -10,11 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSignInBinding
-import com.example.cinema.presentation.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment: Fragment() {
+class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
     private val viewModel: SignInViewModel by viewModels()
 
@@ -36,13 +35,13 @@ class SignInFragment: Fragment() {
     }
 
     private fun comeInButtonClick() {
-        binding.comeInButton.setOnClickListener{
+        binding.comeInButton.setOnClickListener {
             validateFields()
         }
     }
 
     private fun registrationButtonClick() {
-        binding.registrationButton.setOnClickListener{
+        binding.registrationButton.setOnClickListener {
             navigateToSignUpFragment()
         }
     }

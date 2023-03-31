@@ -9,11 +9,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.AuthCredentialDto
-import com.example.cinema.data.remote.dto.RegistrationBodyDto
 import com.example.cinema.domain.usecase.signin.ComeInUseCase
 import com.example.cinema.domain.usecase.token.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
@@ -23,7 +21,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val comeInUseCase: ComeInUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _message = MutableLiveData("")
     val message: LiveData<String> = _message
 
@@ -78,8 +76,7 @@ class SignInViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            try
-            {
+            try {
                 val token = comeInUseCase(userData)
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)

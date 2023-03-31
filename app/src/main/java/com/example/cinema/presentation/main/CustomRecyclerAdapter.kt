@@ -1,16 +1,27 @@
 package com.example.cinema.presentation.main
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 
-class CustomRecyclerAdapter(private val covers: List<MovieDto>, private val fragment: Fragment, private val typeOfRecyclerItems: Int) :
+class CustomRecyclerAdapter(
+    private val covers: List<MovieDto>,
+    private val fragment: Fragment,
+    private val typeOfRecyclerItems: Int,
+    private val navController: NavController
+) :
     RecyclerView.Adapter<CustomRecyclerAdapter.CustomViewHolder>() {
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,6 +36,10 @@ class CustomRecyclerAdapter(private val covers: List<MovieDto>, private val frag
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         Glide.with(fragment).load(covers[position].poster).into(holder.image)
+
+        holder.image.setOnClickListener {
+            navController.navigate(R.id.action_main_to_movieDetailActivity)
+        }
     }
 
     override fun getItemCount() = covers.size

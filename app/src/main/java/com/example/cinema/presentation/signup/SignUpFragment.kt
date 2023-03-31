@@ -13,7 +13,7 @@ import com.example.cinema.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment: Fragment() {
+class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
 
@@ -35,13 +35,13 @@ class SignUpFragment: Fragment() {
     }
 
     private fun registerButtonClick() {
-        binding.registerButton.setOnClickListener{
+        binding.registerButton.setOnClickListener {
             validateFields()
         }
     }
 
     private fun iHaveAccButtonClick() {
-        binding.iHaveAccButton.setOnClickListener{
+        binding.iHaveAccButton.setOnClickListener {
             navigateToSignInFragment()
         }
     }
@@ -74,8 +74,7 @@ class SignUpFragment: Fragment() {
 
         if (viewModel.allFieldsValid.value == false) {
             createErrorDialog()
-        }
-        else {
+        } else {
             navigateToMainFragment()
         }
     }

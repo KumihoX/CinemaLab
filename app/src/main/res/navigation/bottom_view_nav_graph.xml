@@ -2,35 +2,34 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< Updated upstream
     android:id="@+id/bottom_view_nav_graph"
+=======
+    android:id="@+id/mobile_navigation"
+>>>>>>> Stashed changes
     app:startDestination="@+id/main">
 
     <fragment
         android:id="@+id/main"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="main"
-        tools:layout="@layout/fragment_main">
-    </fragment>
+        android:label="Main"
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/compilation"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="compilation"
-        tools:layout="@layout/fragment_main">
-    </fragment>
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/collection"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="collection"
-        tools:layout="@layout/fragment_main">
-    </fragment>
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/profile"
         android:name="com.example.cinema.presentation.profile.ProfileFragment"
-        android:label="profile"
-        tools:layout="@layout/fragment_profile">
-    </fragment>
-
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

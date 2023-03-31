@@ -76,6 +76,7 @@ class SignInViewModel @Inject constructor(
             password = password
         )
 
+<<<<<<< Updated upstream
         viewModelScope.launch {
             val token = comeInUseCase(userData)
             val saveTokenUseCase = SaveTokenUseCase(context)
@@ -83,5 +84,22 @@ class SignInViewModel @Inject constructor(
 
             navController.navigate(R.id.action_signInFragment_to_bottomNavigationFragment)
         }
+=======
+        navController.navigate(R.id.action_signInFragment_to_bottomNavigationActivity)
+        /*viewModelScope.launch {
+            try
+            {
+                val token = comeInUseCase(userData)
+                val saveTokenUseCase = SaveTokenUseCase(context)
+                saveTokenUseCase.execute(token)
+
+                navController.navigate(R.id.action_signInFragment_to_bottomNavigationActivity)
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+
+            }
+        }*/
+>>>>>>> Stashed changes
     }
 }

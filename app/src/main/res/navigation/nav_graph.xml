@@ -40,10 +40,8 @@
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true"/>
         <action
-            android:id="@+id/action_signInFragment_to_bottomNavigationFragment"
-            app:destination="@id/bottomNavigationFragment"
-            app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_signInFragment_to_bottomNavigationActivity"
+            app:destination="@id/bottomNavigationActivity" />
     </fragment>
 
     <fragment
@@ -52,5 +50,9 @@
         android:label="fragment_bottom_navigation"
         tools:layout="@layout/bottom_nav_bar">
     </fragment>
+    <activity
+        android:id="@+id/bottomNavigationActivity"
+        android:name="com.example.cinema.presentation.BottomNavigationActivity"
+        android:label="BottomNavigationActivity" />
 
 </navigation>

@@ -22,19 +22,10 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
         val navView: BottomNavigationView = binding.bottomNavigationView
 
         val navController = findNavController(R.id.fragmentBottomBar)
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.main, R.id.compilation, R.id.collection, R.id.profile
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 }

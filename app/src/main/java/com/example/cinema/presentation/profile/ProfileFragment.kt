@@ -36,7 +36,6 @@ class ProfileFragment: Fragment() {
         val avatarUrlObserver = Observer<String> { newState ->
             if (newState.isNotEmpty()) {
                 val imageView = binding.userAvatar
-
                 Glide.with(this).load(newState).into(imageView)
             }
         }

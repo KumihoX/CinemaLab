@@ -3,12 +3,15 @@ package com.example.cinema.di
 import com.example.cinema.common.Constants
 import com.example.cinema.data.remote.AuthApi
 import com.example.cinema.data.remote.CoverApi
+import com.example.cinema.data.remote.MovieApi
 import com.example.cinema.data.remote.ProfileApi
 import com.example.cinema.data.repository.AuthRepositoryImpl
 import com.example.cinema.data.repository.CoverRepositoryImpl
+import com.example.cinema.data.repository.MovieRepositoryImpl
 import com.example.cinema.data.repository.ProfileRepositoryImpl
 import com.example.cinema.domain.repository.AuthRepository
 import com.example.cinema.domain.repository.CoverRepository
+import com.example.cinema.domain.repository.MovieRepository
 import com.example.cinema.domain.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
@@ -82,5 +85,22 @@ object AppModule {
     @Singleton
     fun provideProfileRepository(api: ProfileApi): ProfileRepository {
         return ProfileRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieApi(): MovieApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(MovieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(api: MovieApi): MovieRepository {
+        return MovieRepositoryImpl(api)
     }
 }

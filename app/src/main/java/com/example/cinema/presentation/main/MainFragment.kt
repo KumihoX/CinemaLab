@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
+import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +47,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getTrends() {
-        val trendsListObserver = Observer<List<String>> { newList ->
+        val trendsListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addTrends(newList)
             }
@@ -64,7 +65,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getNews() {
-        val newListObserver = Observer<List<String>> { newList ->
+        val newListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addNews(newList)
             }
@@ -73,7 +74,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getForYou() {
-        val forYouListObserver = Observer<List<String>> { newList ->
+        val forYouListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addForYou(newList)
             }
@@ -87,7 +88,7 @@ class MainFragment : Fragment() {
         Glide.with(this).load(imageUrl).into(imageView)
     }
 
-    private fun addTrends(trendsList: List<String>) {
+    private fun addTrends(trendsList: List<MovieDto>) {
         val inTrendText = binding.inTrendText
         inTrendText.visibility = View.VISIBLE
 
@@ -95,7 +96,7 @@ class MainFragment : Fragment() {
         inTrendRecyclerView.visibility = View.VISIBLE
 
         inTrendRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        inTrendRecyclerView.adapter = InTrendRecyclerView(trendsList, this, R.layout.vertical_item)
+        inTrendRecyclerView.adapter = CustomRecyclerAdapter(trendsList, this, R.layout.vertical_item)
     }
 
     private fun addYouWatched(cover: String) {
@@ -112,7 +113,7 @@ class MainFragment : Fragment() {
         Glide.with(this).load(cover).into(youWatchedCover)
     }
 
-    private fun addNews(newsList: List<String>) {
+    private fun addNews(newsList: List<MovieDto>) {
         val newText = binding.newFilmText
         newText.visibility = View.VISIBLE
 
@@ -120,10 +121,10 @@ class MainFragment : Fragment() {
         newRecyclerView.visibility = View.VISIBLE
 
         newRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        newRecyclerView.adapter = InTrendRecyclerView(newsList, this, R.layout.horizontal_item)
+        newRecyclerView.adapter = CustomRecyclerAdapter(newsList, this, R.layout.horizontal_item)
     }
 
-    private fun addForYou(forYouList: List<String>) {
+    private fun addForYou(forYouList: List<MovieDto>) {
         val forYouText = binding.forYouText
         forYouText.visibility = View.VISIBLE
 
@@ -131,7 +132,7 @@ class MainFragment : Fragment() {
         forYouRecyclerView.visibility = View.VISIBLE
 
         forYouRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        forYouRecyclerView.adapter = InTrendRecyclerView(forYouList, this, R.layout.vertical_item)
+        forYouRecyclerView.adapter = CustomRecyclerAdapter(forYouList, this, R.layout.vertical_item)
     }
 
 

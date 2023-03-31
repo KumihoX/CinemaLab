@@ -80,6 +80,7 @@ class MainFragment : Fragment() {
             }
         }
         viewModel.forYouList.observe(viewLifecycleOwner, forYouListObserver)
+
     }
 
     private fun addCover(imageUrl: String) {

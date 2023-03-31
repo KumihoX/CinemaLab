@@ -43,13 +43,7 @@
             android:id="@+id/action_signInFragment_to_bottomNavigationActivity"
             app:destination="@id/bottomNavigationActivity" />
     </fragment>
-
-    <fragment
-        android:id="@+id/bottomNavigationFragment"
-        android:name="com.example.cinema.presentation.BottomNavigationFragment"
-        android:label="fragment_bottom_navigation"
-        tools:layout="@layout/bottom_nav_bar">
-    </fragment>
+    
     <activity
         android:id="@+id/bottomNavigationActivity"
         android:name="com.example.cinema.presentation.BottomNavigationActivity"

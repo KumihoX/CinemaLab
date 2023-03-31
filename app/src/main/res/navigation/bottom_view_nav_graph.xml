@@ -14,13 +14,13 @@
     <fragment
         android:id="@+id/compilation"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="@string/title_dashboard"
+        android:label="compilation"
         tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/collection"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="@string/title_notifications"
+        android:label="collection"
         tools:layout="@layout/fragment_main" />
 
     <fragment

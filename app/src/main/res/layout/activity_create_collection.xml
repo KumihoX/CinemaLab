@@ -23,11 +23,9 @@
         android:id="@+id/backCollectionsButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="20dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/createCollection"
-        app:layout_constraintEnd_toStartOf="@+id/createCollection"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nameCollectionsEditText"
         app:layout_constraintTop_toTopOf="@+id/createCollection"
         app:srcCompat="@drawable/back_icon" />
 
@@ -54,10 +52,11 @@
 
     <ImageButton
         android:id="@+id/iconCollection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:scaleType="fitXY"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameCollectionsEditText"

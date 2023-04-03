@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,7 +21,8 @@ class CustomRecyclerAdapter(
     private val covers: List<MovieDto>,
     private val fragment: Fragment,
     private val typeOfRecyclerItems: Int,
-    private val navController: NavController
+    private val navController: NavController,
+    private val passData: (MovieDto) -> Unit
 ) :
     RecyclerView.Adapter<CustomRecyclerAdapter.CustomViewHolder>() {
 
@@ -38,7 +40,7 @@ class CustomRecyclerAdapter(
         Glide.with(fragment).load(covers[position].poster).into(holder.image)
 
         holder.image.setOnClickListener {
-            navController.navigate(R.id.action_main_to_movieDetailActivity)
+            passData(covers[position])
         }
     }
 

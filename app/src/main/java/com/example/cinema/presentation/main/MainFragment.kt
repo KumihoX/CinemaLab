@@ -1,5 +1,6 @@
 package com.example.cinema.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.FragmentMainBinding
+import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -87,7 +89,10 @@ class MainFragment : Fragment() {
     private fun addCover(imageUrl: String) {
         val imageView = binding.cover
 
-        Glide.with(this).load(imageUrl).into(imageView)
+        val urlArray = imageUrl.split("\t")
+        val url = (urlArray[0]+urlArray[1])
+
+        Glide.with(this).load(url).into(imageView)
     }
 
     private fun addTrends(trendsList: List<MovieDto>) {
@@ -100,7 +105,12 @@ class MainFragment : Fragment() {
         inTrendRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         inTrendRecyclerView.adapter =
-            CustomRecyclerAdapter(trendsList, this, R.layout.vertical_item, findNavController())
+            CustomRecyclerAdapter(
+                trendsList,
+                this,
+                R.layout.vertical_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
     }
 
     private fun addYouWatched(cover: String) {
@@ -127,7 +137,12 @@ class MainFragment : Fragment() {
         newRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         newRecyclerView.adapter =
-            CustomRecyclerAdapter(newsList, this, R.layout.horizontal_item, findNavController())
+            CustomRecyclerAdapter(
+                newsList,
+                this,
+                R.layout.horizontal_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
     }
 
     private fun addForYou(forYouList: List<MovieDto>) {
@@ -140,7 +155,19 @@ class MainFragment : Fragment() {
         forYouRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         forYouRecyclerView.adapter =
-            CustomRecyclerAdapter(forYouList, this, R.layout.vertical_item, findNavController())
+            CustomRecyclerAdapter(
+                forYouList,
+                this,
+                R.layout.vertical_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
+    }
+
+    private fun makeIntentToMovieInfoActivity(movieInfo: MovieDto) {
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        activity?.overridePendingTransition(0, 0)
+        intent.putExtra("movieInfo", movieInfo)
+        startActivity(intent)
     }
 
 

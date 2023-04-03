@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".presentation.collections.CreateCollectionActivity">
+
+    <TextView
+        android:id="@+id/createCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
+        android:text="Создать коллекцию"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backCollectionsButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/createCollection"
+        app:layout_constraintEnd_toStartOf="@+id/createCollection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/createCollection"
+        app:srcCompat="@drawable/back_icon" />
+
+    <EditText
+        android:id="@+id/nameCollectionsEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/unfilled_shape"
+        android:ems="10"
+        android:hint="Название"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:textColor="@color/gray_border"
+        android:textColorHint="@color/gray_border"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createCollection" />
+
+    <ImageButton
+        android:id="@+id/iconCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameCollectionsEditText"
+        app:srcCompat="@drawable/default_collection_icon" />
+
+    <Button
+        android:id="@+id/chooseIconButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/unfilled_shape"
+        android:text="Выбрать иконку"
+        android:textAllCaps="false"
+        android:textColor="@color/accent_color"
+        app:layout_constraintBottom_toBottomOf="@+id/iconCollection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconCollection"
+        app:layout_constraintTop_toTopOf="@+id/iconCollection" />
+
+    <Button
+        android:id="@+id/saveCollectionButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/filled_button_shape"
+        android:text="Сохранить"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconCollection" />
+</androidx.constraintlayout.widget.ConstraintLayout>

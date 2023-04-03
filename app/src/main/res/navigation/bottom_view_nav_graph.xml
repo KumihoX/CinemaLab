@@ -23,9 +23,13 @@
 
     <fragment
         android:id="@+id/collection"
-        android:name="com.example.cinema.presentation.main.MainFragment"
+        android:name="com.example.cinema.presentation.collections.CollectionsFragment"
         android:label="collection"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_collections" >
+        <action
+            android:id="@+id/action_collection_to_collectionsActivity2"
+            app:destination="@id/collectionsActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/profile"
@@ -39,4 +43,9 @@
         tools:layout="@layout/activity_movie_detail" >
         <argument android:name="movieInfo" />
     </activity>
+    <activity
+        android:id="@+id/collectionsActivity"
+        android:name="com.example.cinema.presentation.collections.CreateCollectionActivity"
+        android:label="activity_collections"
+        tools:layout="@layout/activity_create_collection" />
 </navigation>

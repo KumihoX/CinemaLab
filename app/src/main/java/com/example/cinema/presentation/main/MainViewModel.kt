@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.dto.toMovie
+import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.usecase.main.GetCoverUseCase
 import com.example.cinema.domain.usecase.main.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +25,8 @@ class MainViewModel @Inject constructor(
     private val _cover = MutableLiveData("")
     val cover: LiveData<String> = _cover
 
-    private val _inTrendsList: MutableLiveData<List<MovieDto>> = MutableLiveData(emptyList())
-    val inTrendsList: LiveData<List<MovieDto>> = _inTrendsList
+    private val _inTrendsList: MutableLiveData<List<Movie>> = MutableLiveData(emptyList())
+    val inTrendsList: LiveData<List<Movie>> = _inTrendsList
 
     private val _youWatchedCover = MutableLiveData("")
     val youWatchedCover: LiveData<String> = _youWatchedCover
@@ -32,11 +34,11 @@ class MainViewModel @Inject constructor(
     private val _youWatchedText = MutableLiveData("")
     val youWatchedText: LiveData<String> = _youWatchedText
 
-    private val _newList: MutableLiveData<List<MovieDto>> = MutableLiveData(emptyList())
-    val newList: LiveData<List<MovieDto>> = _newList
+    private val _newList: MutableLiveData<List<Movie>> = MutableLiveData(emptyList())
+    val newList: LiveData<List<Movie>> = _newList
 
-    private val _forYouList: MutableLiveData<List<MovieDto>> = MutableLiveData(emptyList())
-    val forYouList: LiveData<List<MovieDto>> = _forYouList
+    private val _forYouList: MutableLiveData<List<Movie>> = MutableLiveData(emptyList())
+    val forYouList: LiveData<List<Movie>> = _forYouList
 
     init {
         getCover()
@@ -63,7 +65,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val inTrendData = getMoviesUseCase(context, "inTrend")
-                _inTrendsList.value = inTrendData
+                _inTrendsList.value = inTrendData.map { it.toMovie() }
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
@@ -93,7 +95,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val newData = getMoviesUseCase(context, "new")
-                _newList.value = newData
+                _newList.value = newData.map { it.toMovie() }
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
@@ -106,7 +108,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val forMeData = getMoviesUseCase(context, "forMe")
-                _forYouList.value = forMeData
+                _forYouList.value = forMeData.map { it.toMovie() }
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {

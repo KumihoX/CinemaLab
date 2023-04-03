@@ -1,19 +1,18 @@
-package com.example.cinema.domain.usecase.main
+package com.example.cinema.domain.usecase.moviedetail
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.MovieDto
-import com.example.cinema.domain.model.Movie
+import com.example.cinema.data.remote.dto.EpisodeDto
 import com.example.cinema.domain.repository.MovieRepository
 import com.example.cinema.domain.usecase.token.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject
 
-class GetMoviesUseCase @Inject constructor(
+class GetMovieEpisodesUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
-    suspend operator fun invoke(context: Context, filter: String): List<MovieDto> {
+    suspend operator fun invoke(context: Context, movieId: String): List<EpisodeDto> {
         val getTokenFromLocalStorageUseCase = GetTokenFromLocalStorageUseCase(context)
         val token = getTokenFromLocalStorageUseCase.execute()
 
-        return repository.getMovies(token, filter)
+        return repository.getMovieEpisodes(token, movieId)
     }
 }

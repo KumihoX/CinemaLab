@@ -14,7 +14,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.dto.toMovie
 import com.example.cinema.databinding.FragmentMainBinding
+import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +52,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getTrends() {
-        val trendsListObserver = Observer<List<MovieDto>> { newList ->
+        val trendsListObserver = Observer<List<Movie>> { newList ->
             if (newList.isNotEmpty()) {
                 addTrends(newList)
             }
@@ -68,7 +70,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getNews() {
-        val newListObserver = Observer<List<MovieDto>> { newList ->
+        val newListObserver = Observer<List<Movie>> { newList ->
             if (newList.isNotEmpty()) {
                 addNews(newList)
             }
@@ -77,7 +79,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getForYou() {
-        val forYouListObserver = Observer<List<MovieDto>> { newList ->
+        val forYouListObserver = Observer<List<Movie>> { newList ->
             if (newList.isNotEmpty()) {
                 addForYou(newList)
             }
@@ -89,13 +91,10 @@ class MainFragment : Fragment() {
     private fun addCover(imageUrl: String) {
         val imageView = binding.cover
 
-        val urlArray = imageUrl.split("\t")
-        val url = (urlArray[0]+urlArray[1])
-
-        Glide.with(this).load(url).into(imageView)
+        Glide.with(this).load(imageUrl).into(imageView)
     }
 
-    private fun addTrends(trendsList: List<MovieDto>) {
+    private fun addTrends(trendsList: List<Movie>) {
         val inTrendText = binding.inTrendText
         inTrendText.visibility = View.VISIBLE
 
@@ -127,7 +126,7 @@ class MainFragment : Fragment() {
         Glide.with(this).load(cover).into(youWatchedCover)
     }
 
-    private fun addNews(newsList: List<MovieDto>) {
+    private fun addNews(newsList: List<Movie>) {
         val newText = binding.newFilmText
         newText.visibility = View.VISIBLE
 
@@ -145,7 +144,7 @@ class MainFragment : Fragment() {
             ) { makeIntentToMovieInfoActivity(it) }
     }
 
-    private fun addForYou(forYouList: List<MovieDto>) {
+    private fun addForYou(forYouList: List<Movie>) {
         val forYouText = binding.forYouText
         forYouText.visibility = View.VISIBLE
 
@@ -163,7 +162,7 @@ class MainFragment : Fragment() {
             ) { makeIntentToMovieInfoActivity(it) }
     }
 
-    private fun makeIntentToMovieInfoActivity(movieInfo: MovieDto) {
+    private fun makeIntentToMovieInfoActivity(movieInfo: Movie) {
         val intent = Intent(activity, MovieDetailActivity::class.java)
         activity?.overridePendingTransition(0, 0)
         intent.putExtra("movieInfo", movieInfo)

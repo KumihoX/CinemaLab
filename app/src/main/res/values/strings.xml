@@ -11,6 +11,12 @@
     <string name="repeat_password">Повторите пароль</string>
     <string name="come_in">Войти</string>
     <string name="registration">Регистрация</string>
+
+    <string name="eighteen">18+</string>
+    <string name="sixteen">16+</string>
+    <string name="twelve">12+</string>
+    <string name="six">6+</string>
+    <string name="zero">0+</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>

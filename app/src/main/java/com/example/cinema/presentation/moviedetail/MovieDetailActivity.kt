@@ -52,6 +52,10 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         }
         viewModel.poster.observe(this, coverObserver)
+
+        binding.backButton.setOnClickListener{
+            finish()
+        }
     }
 
     private fun getAge() {

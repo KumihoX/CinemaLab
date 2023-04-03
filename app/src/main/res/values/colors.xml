@@ -14,4 +14,10 @@
     <color name="text_color">#FFAFAFAF</color>
     <color name="bottom_nav_bar_background">#FF1C1A19</color>
     <color name="bottom_nav_item">#FF757575</color>
+
+    <color name="eighteen">#FFEF3A01</color>
+    <color name="sixteen">#FFF26E45</color>
+    <color name="twelve">#FFF4A992</color>
+    <color name="six">#FFFAD5C9</color>
+    <color name="zero">#FFFFFFFF</color>
 </resources>

@@ -15,14 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 
 class CustomRecyclerAdapter(
-    private val covers: List<MovieDto>,
+    private val covers: List<Movie>,
     private val fragment: Fragment,
     private val typeOfRecyclerItems: Int,
     private val navController: NavController,
-    private val passData: (MovieDto) -> Unit
+    private val passData: (Movie) -> Unit
 ) :
     RecyclerView.Adapter<CustomRecyclerAdapter.CustomViewHolder>() {
 

@@ -20,8 +20,8 @@
         android:layout_height="88dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/gray_border"
         app:cardCornerRadius="150dp"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            tools:src="@tools:sample/avatars" />
+            android:background="@android:color/transparent" />
 
     </androidx.cardview.widget.CardView>
 

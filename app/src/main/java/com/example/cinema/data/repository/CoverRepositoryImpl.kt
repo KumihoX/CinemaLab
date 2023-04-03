@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CoverRepositoryImpl @Inject constructor(
     private val api: CoverApi
-): CoverRepository {
+) : CoverRepository {
     override suspend fun getCover(token: AuthTokenPairDto): CoverMovieDto {
         return api.getCover("Bearer ${token.accessToken}")
     }

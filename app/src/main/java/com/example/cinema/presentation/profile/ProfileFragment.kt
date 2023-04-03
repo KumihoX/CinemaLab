@@ -10,11 +10,10 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentProfileBinding
-import com.example.cinema.presentation.signin.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -36,7 +35,6 @@ class ProfileFragment: Fragment() {
         val avatarUrlObserver = Observer<String> { newState ->
             if (newState.isNotEmpty()) {
                 val imageView = binding.userAvatar
-
                 Glide.with(this).load(newState).into(imageView)
             }
         }

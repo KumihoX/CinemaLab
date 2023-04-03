@@ -1,17 +1,21 @@
 package com.example.cinema.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
+import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.FragmentMainBinding
+import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +50,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getTrends() {
-        val trendsListObserver = Observer<List<String>> { newList ->
+        val trendsListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addTrends(newList)
             }
@@ -64,7 +68,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getNews() {
-        val newListObserver = Observer<List<String>> { newList ->
+        val newListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addNews(newList)
             }
@@ -73,29 +77,40 @@ class MainFragment : Fragment() {
     }
 
     private fun getForYou() {
-        val forYouListObserver = Observer<List<String>> { newList ->
+        val forYouListObserver = Observer<List<MovieDto>> { newList ->
             if (newList.isNotEmpty()) {
                 addForYou(newList)
             }
         }
         viewModel.forYouList.observe(viewLifecycleOwner, forYouListObserver)
+
     }
 
     private fun addCover(imageUrl: String) {
         val imageView = binding.cover
 
-        Glide.with(this).load(imageUrl).into(imageView)
+        val urlArray = imageUrl.split("\t")
+        val url = (urlArray[0]+urlArray[1])
+
+        Glide.with(this).load(url).into(imageView)
     }
 
-    private fun addTrends(trendsList: List<String>) {
+    private fun addTrends(trendsList: List<MovieDto>) {
         val inTrendText = binding.inTrendText
         inTrendText.visibility = View.VISIBLE
 
         val inTrendRecyclerView = binding.inTrendRecyclerView
         inTrendRecyclerView.visibility = View.VISIBLE
 
-        inTrendRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        inTrendRecyclerView.adapter = InTrendRecyclerView(trendsList, this, R.layout.vertical_item)
+        inTrendRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        inTrendRecyclerView.adapter =
+            CustomRecyclerAdapter(
+                trendsList,
+                this,
+                R.layout.vertical_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
     }
 
     private fun addYouWatched(cover: String) {
@@ -112,26 +127,47 @@ class MainFragment : Fragment() {
         Glide.with(this).load(cover).into(youWatchedCover)
     }
 
-    private fun addNews(newsList: List<String>) {
+    private fun addNews(newsList: List<MovieDto>) {
         val newText = binding.newFilmText
         newText.visibility = View.VISIBLE
 
         val newRecyclerView = binding.newRecyclerView
         newRecyclerView.visibility = View.VISIBLE
 
-        newRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        newRecyclerView.adapter = InTrendRecyclerView(newsList, this, R.layout.horizontal_item)
+        newRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        newRecyclerView.adapter =
+            CustomRecyclerAdapter(
+                newsList,
+                this,
+                R.layout.horizontal_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
     }
 
-    private fun addForYou(forYouList: List<String>) {
+    private fun addForYou(forYouList: List<MovieDto>) {
         val forYouText = binding.forYouText
         forYouText.visibility = View.VISIBLE
 
         val forYouRecyclerView = binding.forYouRecyclerView
         forYouRecyclerView.visibility = View.VISIBLE
 
-        forYouRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        forYouRecyclerView.adapter = InTrendRecyclerView(forYouList, this, R.layout.vertical_item)
+        forYouRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        forYouRecyclerView.adapter =
+            CustomRecyclerAdapter(
+                forYouList,
+                this,
+                R.layout.vertical_item,
+                findNavController()
+            ) { makeIntentToMovieInfoActivity(it) }
+    }
+
+    private fun makeIntentToMovieInfoActivity(movieInfo: MovieDto) {
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        activity?.overridePendingTransition(0, 0)
+        intent.putExtra("movieInfo", movieInfo)
+        startActivity(intent)
     }
 
 

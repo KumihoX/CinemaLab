@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/cover"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foreground="@drawable/gradient"
@@ -174,5 +174,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forYouText"
         tools:listitem="@layout/vertical_item" />
+
+    <Button
+        android:id="@+id/chooseInteresButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filled_button_shape"
+        android:backgroundTint="@color/accent_color"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginTop="48dp"
+        android:text="Указать интересы"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forYouRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

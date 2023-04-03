@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
     private val api: ProfileApi
-): ProfileRepository {
+) : ProfileRepository {
     override suspend fun getProfile(token: AuthTokenPairDto): UserDto {
         return api.getProfile("Bearer ${token.accessToken}")
     }

@@ -9,18 +9,22 @@
         android:id="@+id/main"
         android:name="com.example.cinema.presentation.main.MainFragment"
         android:label="Main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main_to_movieDetailActivity"
+            app:destination="@id/movieDetailActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/compilation"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="@string/title_dashboard"
+        android:label="compilation"
         tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/collection"
         android:name="com.example.cinema.presentation.main.MainFragment"
-        android:label="@string/title_notifications"
+        android:label="collection"
         tools:layout="@layout/fragment_main" />
 
     <fragment
@@ -28,4 +32,11 @@
         android:name="com.example.cinema.presentation.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/movieDetailActivity"
+        android:name="com.example.cinema.presentation.moviedetail.MovieDetailActivity"
+        android:label="activity_movie_detail"
+        tools:layout="@layout/activity_movie_detail" >
+        <argument android:name="movieInfo" />
+    </activity>
 </navigation>

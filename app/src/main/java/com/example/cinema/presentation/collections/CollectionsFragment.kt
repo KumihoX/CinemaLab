@@ -32,10 +32,14 @@ class CollectionsFragment : Fragment() {
         val mainView = inflater.inflate(R.layout.fragment_collections, container, false)
         binding = FragmentCollectionsBinding.bind(mainView)
 
+        return binding.root
+    }
+
+    override fun onStart() {
+        viewModel.getCollections()
         setOnClickOnAddButton()
         getCollections()
-
-        return binding.root
+        super.onStart()
     }
 
     private fun setOnClickOnAddButton() {
@@ -46,9 +50,7 @@ class CollectionsFragment : Fragment() {
 
     private fun getCollections() {
         val collectionsListObserver = Observer<List<CollectionListItemDto>> { newList ->
-            if (newList.isNotEmpty()) {
-                addCollections(newList)
-            }
+            addCollections(newList)
         }
         viewModel.collectionsList.observe(viewLifecycleOwner, collectionsListObserver)
     }
@@ -70,13 +72,4 @@ class CollectionsFragment : Fragment() {
         intent.putExtra("collectionInfo", collectionInfo)
         startActivity(intent)
     }
-
-    override fun onResume() {
-        viewModel.getCollections()
-
-        setOnClickOnAddButton()
-        getCollections()
-        super.onResume()
-    }
-
 }

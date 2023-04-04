@@ -21,11 +21,6 @@ class CollectionsViewModel  @Inject constructor(
     private val _collectionsList: MutableLiveData<List<CollectionListItemDto>> = MutableLiveData(emptyList())
     val collectionsList: LiveData<List<CollectionListItemDto>> = _collectionsList
 
-    init {
-        _collectionsList.value = emptyList()
-        getCollections()
-    }
-
     fun getCollections() {
         viewModelScope.launch {
             try{

@@ -12,6 +12,6 @@ class DeleteCollectionUseCase @Inject constructor(
         val getTokenFromLocalStorageUseCase = GetTokenFromLocalStorageUseCase(context)
         val token = getTokenFromLocalStorageUseCase.execute()
 
-        return repository.deleteCollection(token, collectionId)
+        repository.deleteCollection(token, collectionId)
     }
 }

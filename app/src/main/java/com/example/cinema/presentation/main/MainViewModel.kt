@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
     private val _forYouList: MutableLiveData<List<Movie>> = MutableLiveData(emptyList())
     val forYouList: LiveData<List<Movie>> = _forYouList
 
-    init {
+    fun getMainScreenInfo() {
         getCover()
         getInTrendsList()
         getYouWatched()

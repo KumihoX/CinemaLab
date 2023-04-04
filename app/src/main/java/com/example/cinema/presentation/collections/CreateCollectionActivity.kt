@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.cinema.R
+import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.ActivityCreateCollectionBinding
 import com.example.cinema.databinding.ActivityMovieDetailBinding
 import com.example.cinema.domain.model.Movie
@@ -35,7 +37,14 @@ class CreateCollectionActivity : AppCompatActivity() {
     private fun setOnClickSaveButton() {
         binding.saveCollectionButton.setOnClickListener {
             viewModel.postCollection(binding.nameCollectionsEditText.text.toString())
-            finish()
+
+            val requestEndObserver = Observer<Boolean> {newState ->
+                if (newState) {
+                    finish()
+                }
+            }
+            viewModel.requestEnd.observe(this, requestEndObserver)
+
         }
     }
 

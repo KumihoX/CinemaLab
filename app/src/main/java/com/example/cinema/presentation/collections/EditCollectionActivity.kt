@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.databinding.ActivityCollectionInfoBinding
@@ -31,8 +32,14 @@ class EditCollectionActivity : AppCompatActivity() {
 
         binding.deleteButton.setOnClickListener {
             viewModel.deleteCollection(collectionId = collectionInfo.collectionId)
-            finish()
         }
+
+        val requestEndObserver = Observer<Boolean> {newState ->
+            if (newState) {
+                finish()
+            }
+        }
+        viewModel.requestEnd.observe(this, requestEndObserver)
 
         setContentView(binding.root)
     }

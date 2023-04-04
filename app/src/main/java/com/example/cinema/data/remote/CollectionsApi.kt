@@ -3,6 +3,7 @@ package com.example.cinema.data.remote
 import com.example.cinema.data.remote.dto.CollectionFormDto
 import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.MovieDto
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CollectionsApi {
@@ -13,13 +14,13 @@ interface CollectionsApi {
     suspend fun postCollections(
         @Header("Authorization") token: String,
         @Body collectionForm: CollectionFormDto
-    )
+    ): CollectionListItemDto
 
     @DELETE("collections/{collectionId}")
     suspend fun deleteCollection(
         @Header("Authorization") token: String,
         @Path("collectionId") collectionId: String
-    )
+    ): Response<Void>
 
     @GET("collections/{collectionId}/movies")
     suspend fun getCollectionInfo(

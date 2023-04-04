@@ -12,13 +12,16 @@ import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.EpisodeDto
+import com.example.cinema.domain.model.Movie
 
 class CollectionsRecyclerAdapter(
-    private val collections: List<CollectionListItemDto>
+    private val collections: List<CollectionListItemDto>,
+    private val passData: (CollectionListItemDto) -> Unit
 ) :
     RecyclerView.Adapter<CollectionsRecyclerAdapter.CollectionsViewHolder>() {
 
     class CollectionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val item: View = itemView.findViewById(R.id.collectionItem)
         val name: TextView = itemView.findViewById(R.id.collectionName)
     }
 
@@ -29,6 +32,9 @@ class CollectionsRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: CollectionsViewHolder, position: Int) {
+        holder.item.setOnClickListener{
+            passData(collections[position])
+        }
         holder.name.text = collections[position].name
     }
 

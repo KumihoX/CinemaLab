@@ -1,5 +1,6 @@
 package com.example.cinema.presentation.collections
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -60,7 +61,22 @@ class CollectionsFragment : Fragment() {
         collectionsRecyclerView.adapter =
             CollectionsRecyclerAdapter(
                 collections
-            )
+            ) { makeIntentToCollectionInfoActivity(it) }
+    }
+
+    private fun makeIntentToCollectionInfoActivity(collectionInfo: CollectionListItemDto) {
+        val intent = Intent(activity, CollectionInfoActivity::class.java)
+        activity?.overridePendingTransition(0, 0)
+        intent.putExtra("collectionInfo", collectionInfo)
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        viewModel.getCollections()
+
+        setOnClickOnAddButton()
+        getCollections()
+        super.onResume()
     }
 
 }

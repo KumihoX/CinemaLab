@@ -69,7 +69,8 @@ class SignUpFragment : Fragment() {
             binding.surnameEditText.text.toString(),
             binding.emailEditText.text.toString(),
             binding.passwordEditText.text.toString(),
-            binding.repeatPasswordEditText.text.toString()
+            binding.repeatPasswordEditText.text.toString(),
+            findNavController()
         )
 
         if (viewModel.allFieldsValid.value == false) {

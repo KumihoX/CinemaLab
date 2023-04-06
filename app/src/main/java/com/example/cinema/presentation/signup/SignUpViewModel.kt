@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.example.cinema.R
 import com.example.cinema.data.remote.dto.RegistrationBodyDto
 import com.example.cinema.domain.usecase.signup.RegisterUseCase
 import com.example.cinema.domain.usecase.token.SaveTokenUseCase
@@ -35,7 +37,8 @@ class SignUpViewModel @Inject constructor(
         surname: String,
         email: String,
         password: String,
-        repeatPassword: String
+        repeatPassword: String,
+        navController: NavController
     ) {
         _message.value = ""
         _allFieldsValid.value = true
@@ -46,7 +49,7 @@ class SignUpViewModel @Inject constructor(
         repeatPasswordValidityCheck(password, repeatPassword)
 
         if (allFieldsValid.value == true) {
-            register(name, surname, email, password)
+            register(name, surname, email, password, navController)
         }
     }
 
@@ -54,7 +57,8 @@ class SignUpViewModel @Inject constructor(
         name: String,
         surname: String,
         email: String,
-        password: String
+        password: String,
+        navController: NavController
     ) {
         val userData = RegistrationBodyDto(
             email = email,
@@ -68,6 +72,7 @@ class SignUpViewModel @Inject constructor(
                 val token = registerUseCase(userData)
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
+                navController.navigate(R.id.action_signUpFragment_to_bottomNavigationActivity)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {

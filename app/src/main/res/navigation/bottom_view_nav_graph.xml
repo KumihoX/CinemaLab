@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/compilation"
-        android:name="com.example.cinema.presentation.main.MainFragment"
+        android:name="com.example.cinema.presentation.compilation.CompilationFragment"
         android:label="compilation"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_compilation" />
 
     <fragment
         android:id="@+id/collection"

@@ -33,13 +33,17 @@ class MainFragment : Fragment() {
         val mainView = inflater.inflate(R.layout.fragment_main, container, false)
         binding = FragmentMainBinding.bind(mainView)
 
+        return binding.root
+    }
+
+    override fun onStart() {
+        viewModel.getMainScreenInfo()
         getCover()
         getTrends()
         getYouWatched()
         getNews()
         getForYou()
-
-        return binding.root
+        super.onStart()
     }
 
     private fun getCover() {

@@ -22,6 +22,7 @@ class SignInViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val comeInUseCase: ComeInUseCase
 ) : ViewModel() {
+
     private val _message = MutableLiveData("")
     val message: LiveData<String> = _message
 

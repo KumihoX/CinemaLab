@@ -18,6 +18,15 @@
         android:theme="@style/Theme.Cinema"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.collections.EditCollectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.collections.CollectionInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.collections.CreateCollectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.moviedetail.MovieDetailActivity"
             android:exported="false" />
         <activity

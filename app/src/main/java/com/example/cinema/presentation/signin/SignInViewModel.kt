@@ -1,16 +1,15 @@
 package com.example.cinema.presentation.signin
 
 import android.content.Context
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import com.example.cinema.R
 import com.example.cinema.data.remote.dto.AuthCredentialDto
+import com.example.cinema.data.remote.dto.AuthTokenPairDto
 import com.example.cinema.domain.usecase.signin.ComeInUseCase
 import com.example.cinema.domain.usecase.token.SaveTokenUseCase
+import com.example.cinema.domain.usecase.validation.SignInValidationForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -23,51 +22,32 @@ class SignInViewModel @Inject constructor(
     private val comeInUseCase: ComeInUseCase
 ) : ViewModel() {
 
-    private val _message = MutableLiveData("")
-    val message: LiveData<String> = _message
+    sealed class SignInState {
+        object Initial : SignInState()
+        object Loading : SignInState()
+        class Failure(val errorMessage: String) : SignInState()
+        class Success(val tokenPair: AuthTokenPairDto) : SignInState()
+    }
 
-    private val _allFieldsValid = MutableLiveData(true)
-    val allFieldsValid: LiveData<Boolean> = _allFieldsValid
+    private val validateClass = SignInValidationForm()
 
+    private val _state = MutableLiveData<SignInState>(SignInState.Initial)
+    val state: LiveData<SignInState> = _state
 
     fun validateEditTexts(
         email: String,
-        password: String,
-        navController: NavController
+        password: String
     ) {
-        _message.value = ""
-        _allFieldsValid.value = true
-        emailValidityCheck(email)
-        passwordValidityCheck(password)
+        val message = validateClass.validateFields(email, password)
 
-        if (allFieldsValid.value == true) {
-            comeIn(navController, email, password)
-        }
-    }
-
-    private fun emailValidityCheck(email: String) {
-        if (email.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"E-mail\"\n"
-            return
-        }
-        if (!email.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() }) {
-            _allFieldsValid.value = false
-            _message.value += "Введенный email не соответствует шаблону: example@mail.ru\n"
-            return
-        }
-    }
-
-    private fun passwordValidityCheck(password: String) {
-        if (password.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"Пароль\"\n"
-            return
+        if (message != "") {
+            _state.value = SignInState.Failure(message)
+        } else {
+            comeIn(email, password)
         }
     }
 
     private fun comeIn(
-        navController: NavController,
         email: String,
         password: String
     ) {
@@ -78,15 +58,17 @@ class SignInViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
+                _state.value = SignInState.Loading
+
                 val token = comeInUseCase(userData)
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
 
-                navController.navigate(R.id.action_signInFragment_to_bottomNavigationActivity)
+                _state.value = SignInState.Success(token)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-
+                _state.value = SignInState.Failure(ex.message.toString())
             }
         }
     }

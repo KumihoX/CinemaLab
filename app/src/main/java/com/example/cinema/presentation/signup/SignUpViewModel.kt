@@ -1,16 +1,15 @@
 package com.example.cinema.presentation.signup
 
 import android.content.Context
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import com.example.cinema.R
+import com.example.cinema.data.remote.dto.AuthTokenPairDto
 import com.example.cinema.data.remote.dto.RegistrationBodyDto
 import com.example.cinema.domain.usecase.signup.RegisterUseCase
 import com.example.cinema.domain.usecase.token.SaveTokenUseCase
+import com.example.cinema.domain.usecase.validation.SignUpValidationForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -22,34 +21,31 @@ class SignUpViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
+    sealed class SignUpState {
+        object Initial : SignUpState()
+        object Loading : SignUpState()
+        class Failure(val errorMessage: String) : SignUpState()
+        class Success(val tokenPair: AuthTokenPairDto) : SignUpState()
+    }
 
-    private val _allFieldsValid = MutableLiveData(true)
-    val allFieldsValid: LiveData<Boolean> = _allFieldsValid
+    private val validateClass = SignUpValidationForm()
 
-    private val _serverErrors = MutableLiveData(false)
-    val serverErrors: LiveData<Boolean> = _serverErrors
-
-    private val _message = MutableLiveData("")
-    val message: LiveData<String> = _message
+    private val _state = MutableLiveData<SignUpState>(SignUpState.Initial)
+    val state: LiveData<SignUpState> = _state
 
     fun validateEditTexts(
         name: String,
         surname: String,
         email: String,
         password: String,
-        repeatPassword: String,
-        navController: NavController
+        repeatPassword: String
     ) {
-        _message.value = ""
-        _allFieldsValid.value = true
-        nameValidityCheck(name)
-        surnameValidityCheck(surname)
-        emailValidityCheck(email)
-        passwordValidityCheck(password)
-        repeatPasswordValidityCheck(password, repeatPassword)
+        val message = validateClass.validateFields(name, surname, email, password, repeatPassword)
 
-        if (allFieldsValid.value == true) {
-            register(name, surname, email, password, navController)
+        if (message != "") {
+            _state.value = SignUpState.Failure(message)
+        } else {
+            register(name, surname, email, password)
         }
     }
 
@@ -57,8 +53,7 @@ class SignUpViewModel @Inject constructor(
         name: String,
         surname: String,
         email: String,
-        password: String,
-        navController: NavController
+        password: String
     ) {
         val userData = RegistrationBodyDto(
             email = email,
@@ -69,67 +64,18 @@ class SignUpViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
+                _state.value = SignUpState.Loading
                 val token = registerUseCase(userData)
+
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
-                navController.navigate(R.id.action_signUpFragment_to_bottomNavigationActivity)
+
+                _state.value = SignUpState.Success(token)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-
+                _state.value = SignUpState.Failure(ex.message.toString())
             }
         }
     }
-
-    private fun nameValidityCheck(name: String) {
-        if (name.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"Имя\"\n"
-            return
-        }
-    }
-
-    private fun surnameValidityCheck(surname: String) {
-        if (surname.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"Фамилия\"\n"
-            return
-        }
-    }
-
-    //TODO: Переписать паттерн проверки email
-    private fun emailValidityCheck(email: String) {
-        if (email.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"E-mail\"\n"
-            return
-        }
-        if (!email.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() }) {
-            _allFieldsValid.value = false
-            _message.value += "Введенный email не соответствует шаблону: example@mail.ru\n"
-            return
-        }
-    }
-
-    private fun passwordValidityCheck(password: String) {
-        if (password.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"Пароль\"\n"
-            return
-        }
-    }
-
-    private fun repeatPasswordValidityCheck(password: String, repeatPassword: String) {
-        if (repeatPassword.isEmpty()) {
-            _allFieldsValid.value = false
-            _message.value += "Заполните поле \"Повторите пароль\"\n"
-            return
-        }
-        if (password != repeatPassword) {
-            _allFieldsValid.value = false
-            _message.value += "Введенные пароли не совпадают\n"
-            return
-        }
-    }
-
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSignUpBinding
@@ -24,9 +25,40 @@ class SignUpFragment : Fragment() {
         val mainView = inflater.inflate(R.layout.fragment_sign_up, container, false)
         binding = FragmentSignUpBinding.bind(mainView)
 
-        addClickListenersOnButtons()
-
         return binding.root
+    }
+
+    override fun onStart() {
+        addClickListenersOnButtons()
+        val stateObserver = Observer<SignUpViewModel.SignUpState> {
+            when (it) {
+                SignUpViewModel.SignUpState.Loading -> {
+                    binding.signUpProgressBar.visibility = View.VISIBLE
+                    binding.registerButton.isEnabled = false
+                    binding.iHaveAccButton.isEnabled = false
+                }
+                SignUpViewModel.SignUpState.Initial -> {
+                    binding.signUpProgressBar.visibility = View.GONE
+                    binding.registerButton.isEnabled = true
+                    binding.iHaveAccButton.isEnabled = true
+                }
+                is SignUpViewModel.SignUpState.Success -> {
+                    binding.signUpProgressBar.visibility = View.GONE
+                    binding.registerButton.isEnabled = true
+                    binding.iHaveAccButton.isEnabled = true
+                    navigateToMainFragment()
+                }
+                is SignUpViewModel.SignUpState.Failure -> {
+                    binding.signUpProgressBar.visibility = View.GONE
+                    binding.registerButton.isEnabled = true
+                    binding.iHaveAccButton.isEnabled = true
+                    createErrorDialog(it.errorMessage)
+                }
+            }
+        }
+        viewModel.state.observe(viewLifecycleOwner, stateObserver)
+
+        super.onStart()
     }
 
     private fun addClickListenersOnButtons() {
@@ -51,14 +83,13 @@ class SignUpFragment : Fragment() {
     }
 
     private fun navigateToMainFragment() {
-
+        findNavController().navigate(R.id.action_signUpFragment_to_bottomNavigationActivity)
     }
 
-    private fun createErrorDialog() {
-        val message = viewModel.message.value
+    private fun createErrorDialog(message: String) {
         val builder = AlertDialog.Builder(context)
 
-        builder.setTitle("Неправильно введенные данные")
+        builder.setTitle(getString(R.string.incorrect_input_data))
         builder.setMessage(message)
         builder.show()
     }
@@ -69,14 +100,7 @@ class SignUpFragment : Fragment() {
             binding.surnameEditText.text.toString(),
             binding.emailEditText.text.toString(),
             binding.passwordEditText.text.toString(),
-            binding.repeatPasswordEditText.text.toString(),
-            findNavController()
+            binding.repeatPasswordEditText.text.toString()
         )
-
-        if (viewModel.allFieldsValid.value == false) {
-            createErrorDialog()
-        } else {
-            navigateToMainFragment()
-        }
     }
 }

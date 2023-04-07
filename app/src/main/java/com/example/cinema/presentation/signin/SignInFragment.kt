@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSignInBinding
@@ -27,6 +28,39 @@ class SignInFragment : Fragment() {
         addClickListenersOnButtons()
 
         return binding.root
+    }
+
+    override fun onStart() {
+        addClickListenersOnButtons()
+        val stateObserver = Observer<SignInViewModel.SignInState> {
+            when (it) {
+                SignInViewModel.SignInState.Loading -> {
+                    binding.signInProgressBar.visibility = View.VISIBLE
+                    binding.comeInButton.isEnabled = false
+                    binding.registrationButton.isEnabled = false
+                }
+                SignInViewModel.SignInState.Initial -> {
+                    binding.signInProgressBar.visibility = View.GONE
+                    binding.comeInButton.isEnabled = true
+                    binding.registrationButton.isEnabled = true
+                }
+                is SignInViewModel.SignInState.Success -> {
+                    binding.signInProgressBar.visibility = View.GONE
+                    binding.comeInButton.isEnabled = true
+                    binding.registrationButton.isEnabled = true
+                    navigateToMainFragment()
+                }
+                is SignInViewModel.SignInState.Failure -> {
+                    binding.signInProgressBar.visibility = View.GONE
+                    binding.comeInButton.isEnabled = true
+                    binding.registrationButton.isEnabled = true
+                    createErrorDialog(it.errorMessage)
+                }
+            }
+        }
+        viewModel.state.observe(viewLifecycleOwner, stateObserver)
+
+        super.onStart()
     }
 
     private fun addClickListenersOnButtons() {
@@ -54,25 +88,18 @@ class SignInFragment : Fragment() {
         findNavController().navigate(R.id.action_signInFragment_to_bottomNavigationActivity)
     }
 
-    private fun createErrorDialog() {
-        val message = viewModel.message.value
+    private fun createErrorDialog(message: String) {
         val builder = AlertDialog.Builder(context)
 
-        builder.setTitle("Неправильно введенные данные")
+        builder.setTitle(R.string.incorrect_input_data)
         builder.setMessage(message)
         builder.show()
     }
 
     private fun validateFields() {
-        val navController = findNavController()
         viewModel.validateEditTexts(
             binding.emailEditText.text.toString(),
-            binding.passwordEditText.text.toString(),
-            navController
+            binding.passwordEditText.text.toString()
         )
-
-        if (viewModel.allFieldsValid.value == false) {
-            createErrorDialog()
-        }
     }
 }

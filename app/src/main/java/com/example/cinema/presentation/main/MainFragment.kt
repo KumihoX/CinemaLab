@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.MovieDto
-import com.example.cinema.data.remote.dto.toMovie
 import com.example.cinema.databinding.FragmentMainBinding
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.moviedetail.MovieDetailActivity

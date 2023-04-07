@@ -55,26 +55,17 @@
         app:layout_constraintStart_toEndOf="@+id/playCompilationButton"
         app:srcCompat="@drawable/like_icon" />
 
-    <androidx.cardview.widget.CardView
+    <com.yuyakaido.android.cardstackview.CardStackView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/rounded_corner_shape"
+        android:id="@+id/cardStackView"
+        android:background="@color/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardStackFilmName"
-        app:layout_constraintBottom_toTopOf="@+id/likeButton">
-        <com.yuyakaido.android.cardstackview.CardStackView
-            android:id="@+id/cardStackView"
-            android:layout_gravity="center"
-            android:background="@color/background"
-            android:layout_width="312dp"
-            android:layout_height="363dp"
-            android:layout_centerInParent="true"
-            tools:listitem="@layout/card_stack_item">
-        </com.yuyakaido.android.cardstackview.CardStackView>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintBottom_toTopOf="@+id/likeButton"
+        tools:listitem="@layout/card_stack_item">
+    </com.yuyakaido.android.cardstackview.CardStackView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

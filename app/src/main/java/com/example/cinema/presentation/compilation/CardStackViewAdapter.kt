@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
+import com.example.cinema.data.remote.dto.MovieDto
 
 class CardStackViewAdapter(
-    private val cardStackList: List<String>,
+    private val cardStackList: List<MovieDto>,
     private val fragment: Fragment
 ) : RecyclerView.Adapter<CardStackViewAdapter.CardStackViewHolder>() {
 
@@ -25,7 +26,7 @@ class CardStackViewAdapter(
     }
 
     override fun onBindViewHolder(holder: CardStackViewHolder, position: Int) {
-        Glide.with(fragment).load(cardStackList[position]).into(holder.image)
+        Glide.with(fragment).load(cardStackList[position].poster).into(holder.image)
 
     }
 

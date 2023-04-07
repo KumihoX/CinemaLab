@@ -5,6 +5,7 @@ import com.example.cinema.data.remote.dto.TagDto
 
 data class Movie(
     val movieId: String,
+    val name: String,
     val description: String,
     val age: AgeEnum,
     val chatInfo: ChatDto? = null,

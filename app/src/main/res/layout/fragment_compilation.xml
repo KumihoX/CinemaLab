@@ -6,6 +6,42 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/compilationBackgroundGroup"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="compilationBackground,compilationBackgroundText" />
+
+    <ImageView
+        android:id="@+id/compilationBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/compilation_background" />
+
+    <TextView
+        android:id="@+id/compilationBackgroundText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/new_films_in_compilation_is_over"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/compilationBackground" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/compilationGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="likeButton,cardStackFilmName,cardStackView,dislikeButton,playCompilationButton" />
+
     <TextView
         android:id="@+id/cardStackFilmName"
         android:layout_width="match_parent"
@@ -66,6 +102,21 @@
         app:layout_constraintBottom_toTopOf="@+id/likeButton"
         tools:listitem="@layout/card_stack_item">
     </com.yuyakaido.android.cardstackview.CardStackView>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/compilationProgressBar"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/background"
+        android:indeterminateTint="@color/accent_color"
+        android:visibility="gone"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

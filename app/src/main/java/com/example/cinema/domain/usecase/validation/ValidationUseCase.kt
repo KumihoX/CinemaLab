@@ -18,17 +18,17 @@ class ValidationUseCase {
 }
 
 class SignInValidationForm {
-    private var message = ""
     private val validation = ValidationUseCase()
 
     fun validateFields(
         email: String,
         password: String
     ): String {
+        var message = ""
 
         if (validation.checkOnEmptiness(email)) {
             message += "Заполните поле \"E-mail\"\n"
-        } else if (validation.checkEmailValidity(email)) {
+        } else if (!validation.checkEmailValidity(email)) {
             message += "Введенный email не соответствует шаблону: example@mail.ru\n"
         }
         if (validation.checkOnEmptiness(password)) message += "Заполните поле \"Пароль\"\n"
@@ -38,7 +38,6 @@ class SignInValidationForm {
 }
 
 class SignUpValidationForm {
-    private var message = ""
     private val validation = ValidationUseCase()
 
     fun validateFields(
@@ -48,12 +47,14 @@ class SignUpValidationForm {
         password: String,
         duplicatePassword: String
     ): String {
+        var message = ""
+
         if (validation.checkOnEmptiness(name)) message += "Заполните поле \"Имя\"\n"
         if (validation.checkOnEmptiness(surname)) message += "Заполните поле \"Фамилия\"\n"
 
         if (validation.checkOnEmptiness(email)) {
             message += "Заполните поле \"E-mail\"\n"
-        } else if (validation.checkEmailValidity(email)) {
+        } else if (!validation.checkEmailValidity(email)) {
             message += "Введенный email не соответствует шаблону: example@mail.ru\n"
         }
 

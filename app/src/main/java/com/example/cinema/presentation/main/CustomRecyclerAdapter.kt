@@ -20,7 +20,6 @@ import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 
 class CustomRecyclerAdapter(
     private val covers: List<Movie>,
-    private val fragment: Fragment,
     private val typeOfRecyclerItems: Int,
     private val navController: NavController,
     private val passData: (Movie) -> Unit
@@ -38,7 +37,7 @@ class CustomRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        Glide.with(fragment).load(covers[position].poster).into(holder.image)
+        Glide.with(holder.image).load(covers[position].poster).into(holder.image)
 
         holder.image.setOnClickListener {
             passData(covers[position])

@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.MainFragment">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/mainGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="chooseInterestButton,inTrendRecyclerView,newRecyclerView,coverCard,inTrendText,forYouRecyclerView,youWatchedCard,watchButton,youWatchedText,newFilmText,forYouText" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/coverCard"
         android:layout_width="match_parent"
@@ -17,6 +23,7 @@
 
         <ImageView
             android:id="@+id/cover"
+            android:contentDescription="@string/cover"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,7 +42,7 @@
         android:paddingTop="13dp"
         android:paddingEnd="32dp"
         android:paddingBottom="13dp"
-        android:text="Смотреть"
+        android:text="@string/watch"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/filled_button_shape"
@@ -49,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="В тренде"
+        android:text="@string/in_trend"
         android:textColor="@color/accent_color"
         android:textSize="24sp"
         android:visibility="gone"
@@ -75,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Вы смотрели"
+        android:text="@string/you_watched"
         android:textColor="@color/accent_color"
         android:textSize="24sp"
         android:visibility="gone"
@@ -94,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/youWatchedText">
 
         <ImageView
+            android:contentDescription="@string/you_watched_cover"
             android:id="@+id/youWatchedCover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,11 +116,13 @@
             android:elevation="8dp"
             android:gravity="bottom|start"
             android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
         <ImageButton
+            android:contentDescription="@string/play_button"
             android:id="@+id/playButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -129,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Новое"
+        android:text="@string/category_new"
         android:textColor="@color/accent_color"
         android:textSize="24sp"
         android:visibility="gone"
@@ -155,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Для вас"
+        android:text="@string/for_you"
         android:textColor="@color/accent_color"
         android:textSize="24sp"
         android:visibility="gone"
@@ -176,7 +186,7 @@
         tools:listitem="@layout/vertical_item" />
 
     <Button
-        android:id="@+id/chooseInteresButton"
+        android:id="@+id/chooseInterestButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/filled_button_shape"
@@ -187,12 +197,28 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="48dp"
         android:layout_marginTop="48dp"
-        android:text="Указать интересы"
+        android:text="@string/specify_interest"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forYouRecyclerView" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/mainProgressBar"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/background"
+        android:indeterminateTint="@color/accent_color"
+        android:visibility="gone"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

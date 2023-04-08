@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.cinema.data.remote.dto.CollectionFormDto
 import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.domain.repository.CollectionRepository
-import com.example.cinema.domain.usecase.token.GetTokenFromLocalStorageUseCase
+import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject
 
 class PostCollectionUseCase @Inject constructor(

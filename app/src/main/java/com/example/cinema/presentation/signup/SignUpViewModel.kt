@@ -5,10 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.dto.CollectionFormDto
+import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.RegistrationBodyDto
+import com.example.cinema.domain.usecase.collection.PostCollectionUseCase
 import com.example.cinema.domain.usecase.signup.RegisterUseCase
-import com.example.cinema.domain.usecase.token.SaveTokenUseCase
+import com.example.cinema.domain.usecase.storage.SaveFavoriteCollectionUseCase
+import com.example.cinema.domain.usecase.storage.SaveTokenUseCase
 import com.example.cinema.domain.usecase.validation.SignUpValidationForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,13 +24,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val postCollectionUseCase: PostCollectionUseCase
 ) : ViewModel() {
     sealed class SignUpState {
         object Initial : SignUpState()
         object Loading : SignUpState()
         class Failure(val errorMessage: String) : SignUpState()
-        class Success(val tokenPair: AuthTokenPairDto) : SignUpState()
+        class Success(val tokenPair: AuthTokenPairDto, val collection: CollectionListItemDto) : SignUpState()
     }
 
     private val validateClass = SignUpValidationForm()
@@ -70,7 +76,13 @@ class SignUpViewModel @Inject constructor(
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
 
-                _state.value = SignUpState.Success(token)
+                val collectionFrom = CollectionFormDto(context.getString(R.string.favorites))
+                val collection = postCollectionUseCase(context, collectionFrom)
+
+                val saveFavoriteCollectionUseCase = SaveFavoriteCollectionUseCase(context)
+                saveFavoriteCollectionUseCase.execute(collection)
+
+                _state.value = SignUpState.Success(token, collection)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {

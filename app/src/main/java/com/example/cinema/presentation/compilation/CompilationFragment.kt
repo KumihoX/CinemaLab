@@ -25,7 +25,7 @@ class CompilationFragment : Fragment(), CardStackListener {
 
     private val viewModel: CompilationViewModel by viewModels()
     private lateinit var compilationList: List<MovieDto>
-    private var currentPosition = 0
+    private var currentPosition = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +42,15 @@ class CompilationFragment : Fragment(), CardStackListener {
                 }
                 is CompilationViewModel.CompilationState.Success -> {
                     binding.compilationProgressBar.hide()
-                    binding.compilationGroup.isGone = false
-                    compilationList = it.compilation
-                    createCardStackView(it.compilation)
-                    setOnButtonsClickListeners()
+                    if (it.compilation.isNotEmpty()){
+                        binding.compilationGroup.isGone = false
+                        compilationList = it.compilation
+                        createCardStackView(it.compilation)
+                        setOnButtonsClickListeners()
+                    }
+                    else {
+                        binding.compilationBackgroundGroup.isGone = false
+                    }
                 }
                 is CompilationViewModel.CompilationState.Failure -> {
                     binding.compilationProgressBar.hide()
@@ -131,6 +136,7 @@ class CompilationFragment : Fragment(), CardStackListener {
 
     override fun onCardAppeared(view: View?, position: Int) {
         binding.cardStackFilmName.text = compilationList[position].name
+        currentPosition ++
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
@@ -138,7 +144,6 @@ class CompilationFragment : Fragment(), CardStackListener {
             binding.compilationGroup.isGone = true
             binding.compilationBackgroundGroup.isGone = false
         }
-        currentPosition ++
     }
 
     private fun createErrorDialog(message: String) {

@@ -1,4 +1,4 @@
-package com.example.cinema.domain.usecase.token
+package com.example.cinema.domain.usecase.storage
 
 import android.content.Context
 import com.example.cinema.data.remote.dto.AuthTokenPairDto

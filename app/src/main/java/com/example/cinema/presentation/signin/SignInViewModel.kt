@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.dto.AuthCredentialDto
 import com.example.cinema.data.remote.dto.AuthTokenPairDto
+import com.example.cinema.domain.usecase.collection.GetCollectionsUseCase
 import com.example.cinema.domain.usecase.signin.ComeInUseCase
-import com.example.cinema.domain.usecase.token.SaveTokenUseCase
+import com.example.cinema.domain.usecase.storage.SaveFavoriteCollectionUseCase
+import com.example.cinema.domain.usecase.storage.SaveTokenUseCase
 import com.example.cinema.domain.usecase.validation.SignInValidationForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val comeInUseCase: ComeInUseCase
+    private val comeInUseCase: ComeInUseCase,
+    private val getCollectionsUseCase: GetCollectionsUseCase
 ) : ViewModel() {
 
     sealed class SignInState {
@@ -63,6 +67,15 @@ class SignInViewModel @Inject constructor(
                 val token = comeInUseCase(userData)
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
+
+                val collections = getCollectionsUseCase(context)
+                for (i in collections.indices){
+                    if (collections[i].name == context.getString(R.string.favorites)){
+                        val saveFavoriteCollectionUseCase = SaveFavoriteCollectionUseCase(context)
+                        saveFavoriteCollectionUseCase.execute(collections[i])
+                        break
+                    }
+                }
 
                 _state.value = SignInState.Success(token)
             } catch (rethrow: CancellationException) {

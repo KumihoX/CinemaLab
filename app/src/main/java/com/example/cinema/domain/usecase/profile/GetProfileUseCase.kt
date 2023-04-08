@@ -3,7 +3,7 @@ package com.example.cinema.domain.usecase.profile
 import android.content.Context
 import com.example.cinema.data.remote.dto.UserDto
 import com.example.cinema.domain.repository.ProfileRepository
-import com.example.cinema.domain.usecase.token.GetTokenFromLocalStorageUseCase
+import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject
 
 class GetProfileUseCase @Inject constructor(

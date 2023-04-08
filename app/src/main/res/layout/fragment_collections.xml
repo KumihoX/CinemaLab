@@ -7,6 +7,12 @@
     android:background="@color/background"
     tools:context=".presentation.collections.CollectionsFragment">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/collectionsGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="collectionsRecyclerView,collectionsText,addButton" />
+
     <TextView
         android:id="@+id/collectionsText"
         android:layout_width="wrap_content"
@@ -40,4 +46,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/collectionsText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/collectionsText" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/collectionsProgressBar"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/background"
+        android:indeterminateTint="@color/accent_color"
+        android:visibility="gone"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,7 @@
 package com.example.cinema.data.repository
 
 import com.example.cinema.data.remote.CollectionsApi
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
-import com.example.cinema.data.remote.dto.CollectionFormDto
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.dto.*
 import com.example.cinema.domain.repository.CollectionRepository
 import retrofit2.Response
 import javax.inject.Inject
@@ -23,7 +20,10 @@ class CollectionRepositoryImpl @Inject constructor(
         return api.postCollections("Bearer ${token.accessToken}", collectionForm)
     }
 
-    override suspend fun deleteCollection(token: AuthTokenPairDto, collectionId: String): Response<Void> {
+    override suspend fun deleteCollection(
+        token: AuthTokenPairDto,
+        collectionId: String
+    ): Response<Void> {
         return api.deleteCollection("Bearer ${token.accessToken}", collectionId)
     }
 
@@ -32,5 +32,13 @@ class CollectionRepositoryImpl @Inject constructor(
         collectionId: String
     ): List<MovieDto> {
         return api.getCollectionInfo("Bearer ${token.accessToken}", collectionId)
+    }
+
+    override suspend fun postMovieInCollection(
+        token: AuthTokenPairDto,
+        collectionId: String,
+        movieValue: MovieValueDto
+    ): Response<Void> {
+        return api.postMovieInCollection("Bearer ${token.accessToken}", collectionId, movieValue)
     }
 }

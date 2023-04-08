@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.MovieDto
@@ -23,12 +24,14 @@ class CollectionInfoRecyclerAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionInfoViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.collection_item, parent, false)
+            .inflate(R.layout.collection_info_item, parent, false)
         return CollectionInfoViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CollectionInfoViewHolder, position: Int) {
+        Glide.with(holder.cover).load(collectionInfo[position].poster).into(holder.cover)
         holder.name.text = collectionInfo[position].name
+        holder.description.text = collectionInfo[position].description
 
     }
 

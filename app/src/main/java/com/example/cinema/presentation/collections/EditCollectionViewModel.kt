@@ -19,17 +19,27 @@ class EditCollectionViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val deleteCollectionUseCase: DeleteCollectionUseCase
 ) : ViewModel() {
-    private val _requestEnd: MutableLiveData<Boolean> = MutableLiveData(false)
-    val requestEnd: LiveData<Boolean> = _requestEnd
+
+    sealed class EditCollectionState {
+        object Initial: EditCollectionState()
+        object Loading : EditCollectionState()
+        object Success : EditCollectionState()
+        class Failure(val errorMessage: String) : EditCollectionState()
+    }
+
+    private val _state = MutableLiveData<EditCollectionState>(EditCollectionState.Initial)
+    val state: LiveData<EditCollectionState> = _state
+
     fun deleteCollection(collectionId: String) {
+        _state.value = EditCollectionState.Loading
         viewModelScope.launch {
             try {
                 deleteCollectionUseCase(context, collectionId)
-                _requestEnd.value = true
+                _state.value = EditCollectionState.Success
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                Log.d("error", ex.toString())
+                _state.value = EditCollectionState.Failure(ex.message.toString())
             }
         }
     }

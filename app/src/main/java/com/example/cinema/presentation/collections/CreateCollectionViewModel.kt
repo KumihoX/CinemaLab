@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.dto.CollectionFormDto
-import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.domain.usecase.collection.PostCollectionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,19 +18,27 @@ class CreateCollectionViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val postCollectionUseCase: PostCollectionUseCase
 ) : ViewModel() {
+    sealed class CreateCollectionState {
+        object Initial: CreateCollectionState()
+        object Loading : CreateCollectionState()
+        object Success : CreateCollectionState()
+        class Failure(val errorMessage: String) : CreateCollectionState()
+    }
 
-    private val _requestEnd: MutableLiveData<Boolean> = MutableLiveData(false)
-    val requestEnd: LiveData<Boolean> = _requestEnd
+    private val _state = MutableLiveData<CreateCollectionState>(CreateCollectionState.Initial)
+    val state: LiveData<CreateCollectionState> = _state
+
     fun postCollection(name:String) {
+        _state.value = CreateCollectionState.Loading
         viewModelScope.launch {
             try {
                 val collectionForm = CollectionFormDto(name)
                 postCollectionUseCase(context, collectionForm)
-                _requestEnd.value = true
+                _state.value = CreateCollectionState.Success
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-
+                _state.value = CreateCollectionState.Failure(ex.message.toString())
             }
         }
     }

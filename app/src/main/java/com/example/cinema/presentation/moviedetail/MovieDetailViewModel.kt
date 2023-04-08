@@ -6,13 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.dto.EpisodeDto
-import com.example.cinema.data.remote.dto.MovieDto
-import com.example.cinema.data.remote.dto.TagDto
-import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.usecase.moviedetail.GetMovieEpisodesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,33 +19,31 @@ class MovieDetailViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val getMovieEpisodesUseCase: GetMovieEpisodesUseCase
 ) : ViewModel() {
-    private val _poster = MutableLiveData("")
-    val poster: LiveData<String> = _poster
+    sealed class MovieDetailState {
+        object Loading : MovieDetailState()
+        class Success(
+            val movieInfo: Movie,
+            val episodes: List<EpisodeDto>
+        ) : MovieDetailState()
 
-    private val _age = MutableLiveData(AgeEnum.Zero)
-    val age: LiveData<AgeEnum> = _age
+        class Failure(val errorMessage: String) : MovieDetailState()
+    }
 
-    private val _description = MutableLiveData("")
-    val description: LiveData<String> = _description
-
-    private val _frames: MutableLiveData<List<String>> = MutableLiveData(emptyList())
-    val frames: LiveData<List<String>> = _frames
-
-    private val _episodes: MutableLiveData<List<EpisodeDto>> = MutableLiveData(emptyList())
-    val episodes: LiveData<List<EpisodeDto>> = _episodes
-
-    private val _tags: MutableLiveData<List<TagDto>> = MutableLiveData(emptyList())
-    val tags: LiveData<List<TagDto>> = _tags
+    private val _state = MutableLiveData<MovieDetailState>(MovieDetailState.Loading)
+    val state: LiveData<MovieDetailState> = _state
 
     fun getMovieInfo (movieInfo: Movie) {
+        _state.value = MovieDetailState.Loading
         viewModelScope.launch {
-            val episodesList = getMovieEpisodesUseCase(context, movieInfo.movieId)
-            _episodes.value = episodesList
+            try {
+                val episodesList = getMovieEpisodesUseCase(context, movieInfo.movieId)
+                _state.value = MovieDetailState.Success(movieInfo, episodesList)
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+                _state.value = MovieDetailState.Failure(ex.message.toString())
+            }
         }
-        _poster.value = movieInfo.poster
-        _age.value = movieInfo.age
-        _description.value = movieInfo.description
-        _frames.value = movieInfo.imageUrls
-        _tags.value = movieInfo.tags
+
     }
 }

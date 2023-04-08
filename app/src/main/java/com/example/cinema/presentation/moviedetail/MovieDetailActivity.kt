@@ -1,5 +1,6 @@
 package com.example.cinema.presentation.moviedetail
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Layout.Alignment
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.core.view.setPadding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.example.cinema.data.remote.dto.TagDto
 import com.example.cinema.databinding.ActivityMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
+import com.example.cinema.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,73 +35,38 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
 
-        movieInfo = getSerializable(this, "movieInfo", Movie::class.java)
-        viewModel.getMovieInfo(movieInfo)
-
-        getCover()
-        getAge()
-        getTags()
-        getDescription()
-        getFrames()
-        getEpisodes()
+        val stateObserver = Observer<MovieDetailViewModel.MovieDetailState> {
+            when (it) {
+                MovieDetailViewModel.MovieDetailState.Loading -> {
+                    binding.movieDetailProgressBar.show()
+                    binding.movieDetailGroup.isGone = true
+                }
+                is MovieDetailViewModel.MovieDetailState.Success -> {
+                    binding.movieDetailProgressBar.hide()
+                    binding.movieDetailGroup.isGone = false
+                    addCover(it.movieInfo.poster)
+                    addAge(it.movieInfo.age)
+                    addTags(it.movieInfo.tags)
+                    addDescription(it.movieInfo.description)
+                    addFrames(it.movieInfo.imageUrls)
+                    addEpisodes(it.episodes)
+                }
+                is MovieDetailViewModel.MovieDetailState.Failure -> {
+                    binding.movieDetailProgressBar.hide()
+                    binding.movieDetailGroup.isGone = false
+                    createErrorDialog(it.errorMessage)
+                }
+            }
+        }
+        viewModel.state.observe(this, stateObserver)
 
         setContentView(binding.root)
     }
 
-    private fun getCover() {
-        val coverObserver = Observer<String> { newState ->
-            if (newState.isNotEmpty()) {
-                addCover(newState)
-            }
-        }
-        viewModel.poster.observe(this, coverObserver)
-
-        binding.backButton.setOnClickListener{
-            finish()
-        }
-    }
-
-    private fun getAge() {
-        val ageObserver = Observer<AgeEnum> { newState ->
-            addAge(newState)
-        }
-        viewModel.age.observe(this, ageObserver)
-    }
-
-    private fun getTags() {
-        val tagsObserver = Observer<List<TagDto>> { newList ->
-            if (newList.isNotEmpty()) {
-                addTags(newList)
-            }
-        }
-        viewModel.tags.observe(this, tagsObserver)
-    }
-
-    private fun getDescription() {
-        val descriptionObserver = Observer<String> { newState ->
-            if (newState.isNotEmpty()) {
-                addDescription(newState)
-            }
-        }
-        viewModel.description.observe(this, descriptionObserver)
-    }
-
-    private fun getFrames() {
-        val framesObserver = Observer<List<String>> { newList ->
-            if (newList.isNotEmpty()) {
-                addFrames(newList)
-            }
-        }
-        viewModel.frames.observe(this, framesObserver)
-    }
-
-    private fun getEpisodes() {
-        val episodesObserver = Observer<List<EpisodeDto>> { newList ->
-            if (newList.isNotEmpty()) {
-                addEpisodes(newList)
-            }
-        }
-        viewModel.episodes.observe(this, episodesObserver)
+    override fun onStart() {
+        movieInfo = getSerializable(this, "movieInfo", Movie::class.java)
+        viewModel.getMovieInfo(movieInfo)
+        super.onStart()
     }
 
     private fun addCover(imageUrl: String) {
@@ -157,5 +125,13 @@ class MovieDetailActivity : AppCompatActivity() {
                 episodes,
                 this
             )
+    }
+
+    private fun createErrorDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(getString(R.string.error))
+        builder.setMessage(message)
+        builder.show()
     }
 }

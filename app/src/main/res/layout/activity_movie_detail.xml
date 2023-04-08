@@ -14,6 +14,12 @@
         android:background="@color/background"
         tools:context=".presentation.moviedetail.MovieDetailActivity">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/movieDetailGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="age,descriptionText,framesRecyclerView,episodesRecyclerView,description,flexBox,framesText,episodes,coverCard,chatButton" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/coverCard"
             android:layout_width="match_parent"
@@ -174,6 +180,21 @@
             app:layout_constraintBottom_toBottomOf="@+id/chatButton"
             app:layout_constraintEnd_toStartOf="@+id/chatButton"
             app:layout_constraintTop_toTopOf="@+id/chatButton" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/movieDetailProgressBar"
+            style="?android:attr/progressBarStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/background"
+            android:indeterminateTint="@color/accent_color"
+            android:visibility="gone"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

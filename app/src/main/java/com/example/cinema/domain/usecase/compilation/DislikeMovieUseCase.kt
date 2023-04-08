@@ -1,7 +1,6 @@
 package com.example.cinema.domain.usecase.compilation
 
 import android.content.Context
-import com.example.cinema.domain.repository.CoverRepository
 import com.example.cinema.domain.repository.MovieRepository
 import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import retrofit2.Response

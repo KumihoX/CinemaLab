@@ -10,7 +10,10 @@ import javax.inject.Inject
 class PostCollectionUseCase @Inject constructor(
     private val repository: CollectionRepository
 ) {
-    suspend operator fun invoke(context: Context, collectionForm: CollectionFormDto): CollectionListItemDto {
+    suspend operator fun invoke(
+        context: Context,
+        collectionForm: CollectionFormDto
+    ): CollectionListItemDto {
         val getTokenFromLocalStorageUseCase = GetTokenFromLocalStorageUseCase(context)
         val token = getTokenFromLocalStorageUseCase.execute()
 

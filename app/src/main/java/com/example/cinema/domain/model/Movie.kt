@@ -12,4 +12,4 @@ data class Movie(
     val imageUrls: List<String>,
     val poster: String,
     val tags: List<TagDto>
-): java.io.Serializable
+) : java.io.Serializable

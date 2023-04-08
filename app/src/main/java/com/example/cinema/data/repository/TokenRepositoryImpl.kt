@@ -20,7 +20,7 @@ class TokenRepositoryImpl(
         return sharedPreferencesStorage.getToken()
     }
 
-    override  fun deleteTokenFromLocalStorage() {
+    override fun deleteTokenFromLocalStorage() {
         sharedPreferencesStorage.deleteToken()
     }
 }

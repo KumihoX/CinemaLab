@@ -1,22 +1,14 @@
 package com.example.cinema.presentation.main
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 
 class CustomRecyclerAdapter(
     private val covers: List<Movie>,

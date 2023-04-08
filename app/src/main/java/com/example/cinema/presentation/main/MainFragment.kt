@@ -71,8 +71,7 @@ class MainFragment : Fragment() {
     }
 
     private fun addTrends(trendsList: List<Movie>) {
-        if (trendsList.isNotEmpty())
-        {
+        if (trendsList.isNotEmpty()) {
             binding.inTrendText.visibility = View.VISIBLE
 
             val inTrendRecyclerView = binding.inTrendRecyclerView
@@ -86,16 +85,14 @@ class MainFragment : Fragment() {
                     R.layout.vertical_item,
                     findNavController()
                 ) { makeIntentToMovieInfoActivity(it) }
-        }
-        else {
+        } else {
             binding.inTrendText.visibility = View.GONE
             binding.inTrendRecyclerView.visibility = View.GONE
         }
     }
 
     private fun addYouWatched(youWatchedCover: List<Movie>) {
-        if (youWatchedCover.isNotEmpty())
-        {
+        if (youWatchedCover.isNotEmpty()) {
             val image = youWatchedCover[0].poster
             val youWatchedText = binding.youWatchedText
             youWatchedText.visibility = View.VISIBLE
@@ -108,16 +105,14 @@ class MainFragment : Fragment() {
 
             val youWatchedCover = binding.youWatchedCover
             Glide.with(this).load(image).into(youWatchedCover)
-        }
-        else{
+        } else {
             binding.youWatchedText.visibility = View.GONE
             binding.youWatchedCard.visibility = View.GONE
         }
     }
 
     private fun addNews(newsList: List<Movie>) {
-        if (newsList.isNotEmpty())
-        {
+        if (newsList.isNotEmpty()) {
             val newText = binding.newFilmText
             newText.visibility = View.VISIBLE
 
@@ -132,16 +127,14 @@ class MainFragment : Fragment() {
                     R.layout.horizontal_item,
                     findNavController()
                 ) { makeIntentToMovieInfoActivity(it) }
-        }
-        else {
+        } else {
             binding.newFilmText.visibility = View.GONE
             binding.newRecyclerView.visibility = View.GONE
         }
     }
 
     private fun addForYou(forYouList: List<Movie>) {
-        if (forYouList.isNotEmpty())
-        {
+        if (forYouList.isNotEmpty()) {
             val forYouText = binding.forYouText
             forYouText.visibility = View.VISIBLE
 
@@ -156,8 +149,7 @@ class MainFragment : Fragment() {
                     R.layout.vertical_item,
                     findNavController()
                 ) { makeIntentToMovieInfoActivity(it) }
-        }
-        else{
+        } else {
             binding.forYouText.visibility = View.GONE
             binding.forYouRecyclerView.visibility = View.GONE
         }

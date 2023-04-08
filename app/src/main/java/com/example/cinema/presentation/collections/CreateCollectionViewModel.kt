@@ -19,7 +19,7 @@ class CreateCollectionViewModel @Inject constructor(
     private val postCollectionUseCase: PostCollectionUseCase
 ) : ViewModel() {
     sealed class CreateCollectionState {
-        object Initial: CreateCollectionState()
+        object Initial : CreateCollectionState()
         object Loading : CreateCollectionState()
         object Success : CreateCollectionState()
         class Failure(val errorMessage: String) : CreateCollectionState()
@@ -28,7 +28,7 @@ class CreateCollectionViewModel @Inject constructor(
     private val _state = MutableLiveData<CreateCollectionState>(CreateCollectionState.Initial)
     val state: LiveData<CreateCollectionState> = _state
 
-    fun postCollection(name:String) {
+    fun postCollection(name: String) {
         _state.value = CreateCollectionState.Loading
         viewModelScope.launch {
             try {

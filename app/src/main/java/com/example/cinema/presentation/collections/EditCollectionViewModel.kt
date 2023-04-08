@@ -1,13 +1,11 @@
 package com.example.cinema.presentation.collections
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.domain.usecase.collection.DeleteCollectionUseCase
-import com.example.cinema.domain.usecase.collection.GetCollectionInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -21,7 +19,7 @@ class EditCollectionViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class EditCollectionState {
-        object Initial: EditCollectionState()
+        object Initial : EditCollectionState()
         object Loading : EditCollectionState()
         object Success : EditCollectionState()
         class Failure(val errorMessage: String) : EditCollectionState()

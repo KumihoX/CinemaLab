@@ -4,16 +4,14 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.EpisodeDto
-import org.w3c.dom.Text
 
-class EpisodesRecyclerAdapter (
+class EpisodesRecyclerAdapter(
     private val episodes: List<EpisodeDto>,
     private val activity: Activity,
 ) :
@@ -34,7 +32,7 @@ class EpisodesRecyclerAdapter (
     }
 
     override fun onBindViewHolder(holder: EpisodesViewHolder, position: Int) {
-        holder.item.setOnClickListener{
+        holder.item.setOnClickListener {
 
         }
         Glide.with(activity).load(episodes[position].preview).into(holder.image)

@@ -31,7 +31,8 @@ class SignUpViewModel @Inject constructor(
         object Initial : SignUpState()
         object Loading : SignUpState()
         class Failure(val errorMessage: String) : SignUpState()
-        class Success(val tokenPair: AuthTokenPairDto, val collection: CollectionListItemDto) : SignUpState()
+        class Success(val tokenPair: AuthTokenPairDto, val collection: CollectionListItemDto) :
+            SignUpState()
     }
 
     private val validateClass = SignUpValidationForm()

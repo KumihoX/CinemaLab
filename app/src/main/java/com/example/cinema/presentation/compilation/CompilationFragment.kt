@@ -13,8 +13,6 @@ import androidx.lifecycle.Observer
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.FragmentCompilationBinding
-import com.example.cinema.presentation.main.MainViewModel
-import com.example.cinema.presentation.signin.SignInViewModel
 import com.yuyakaido.android.cardstackview.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,13 +40,12 @@ class CompilationFragment : Fragment(), CardStackListener {
                 }
                 is CompilationViewModel.CompilationState.Success -> {
                     binding.compilationProgressBar.hide()
-                    if (it.compilation.isNotEmpty()){
+                    if (it.compilation.isNotEmpty()) {
                         binding.compilationGroup.isGone = false
                         compilationList = it.compilation
                         createCardStackView(it.compilation)
                         setOnButtonsClickListeners()
-                    }
-                    else {
+                    } else {
                         binding.compilationBackgroundGroup.isGone = false
                     }
                 }
@@ -119,9 +116,13 @@ class CompilationFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
-        when(direction) {
-            Direction.Left -> {viewModel.dislike(compilationList[currentPosition].movieId)}
-            Direction.Right -> {viewModel.like(compilationList[currentPosition].movieId)}
+        when (direction) {
+            Direction.Left -> {
+                viewModel.dislike(compilationList[currentPosition].movieId)
+            }
+            Direction.Right -> {
+                viewModel.like(compilationList[currentPosition].movieId)
+            }
             else -> {}
         }
     }
@@ -136,7 +137,7 @@ class CompilationFragment : Fragment(), CardStackListener {
 
     override fun onCardAppeared(view: View?, position: Int) {
         binding.cardStackFilmName.text = compilationList[position].name
-        currentPosition ++
+        currentPosition++
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {

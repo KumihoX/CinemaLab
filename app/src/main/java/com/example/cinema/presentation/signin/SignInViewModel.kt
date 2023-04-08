@@ -69,8 +69,8 @@ class SignInViewModel @Inject constructor(
                 saveTokenUseCase.execute(token)
 
                 val collections = getCollectionsUseCase(context)
-                for (i in collections.indices){
-                    if (collections[i].name == context.getString(R.string.favorites)){
+                for (i in collections.indices) {
+                    if (collections[i].name == context.getString(R.string.favorites)) {
                         val saveFavoriteCollectionUseCase = SaveFavoriteCollectionUseCase(context)
                         saveFavoriteCollectionUseCase.execute(collections[i])
                         break

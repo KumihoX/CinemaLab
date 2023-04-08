@@ -32,7 +32,7 @@ class MovieDetailViewModel @Inject constructor(
     private val _state = MutableLiveData<MovieDetailState>(MovieDetailState.Loading)
     val state: LiveData<MovieDetailState> = _state
 
-    fun getMovieInfo (movieInfo: Movie) {
+    fun getMovieInfo(movieInfo: Movie) {
         _state.value = MovieDetailState.Loading
         viewModelScope.launch {
             try {

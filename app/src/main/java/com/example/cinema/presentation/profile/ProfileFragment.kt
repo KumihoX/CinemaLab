@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentProfileBinding
-import com.example.cinema.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

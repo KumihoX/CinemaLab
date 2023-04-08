@@ -1,9 +1,9 @@
 package com.example.cinema.presentation.collections
 
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.cinema.R
 import com.example.cinema.databinding.ActivityCreateCollectionBinding

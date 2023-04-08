@@ -3,7 +3,6 @@ package com.example.cinema.presentation.collections
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
@@ -14,7 +13,6 @@ import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.MovieDto
 import com.example.cinema.databinding.ActivityCollectionInfoBinding
 import com.example.cinema.presentation.moviedetail.getSerializable
-import com.example.cinema.presentation.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,7 +78,6 @@ class CollectionInfoActivity : AppCompatActivity() {
             finish()
         }
     }
-
 
 
     private fun addCollectionInfo(collectionInfo: List<MovieDto>) {

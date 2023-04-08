@@ -17,7 +17,10 @@ class MovieRepositoryImpl @Inject constructor(
         return api.getMovies("Bearer ${token.accessToken}", filter)
     }
 
-    override suspend fun getMovieEpisodes(token: AuthTokenPairDto, movieId: String): List<EpisodeDto> {
+    override suspend fun getMovieEpisodes(
+        token: AuthTokenPairDto,
+        movieId: String
+    ): List<EpisodeDto> {
         return api.getMovieEpisodes("Bearer ${token.accessToken}", movieId)
     }
 

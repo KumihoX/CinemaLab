@@ -27,7 +27,7 @@ interface CollectionsApi {
     suspend fun getCollectionInfo(
         @Header("Authorization") token: String,
         @Path("collectionId") collectionId: String
-    ) : List<MovieDto>
+    ): List<MovieDto>
 
     @POST("collections/{collectionId}/movies")
     suspend fun postMovieInCollection(

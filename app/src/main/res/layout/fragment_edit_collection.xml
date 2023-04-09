@@ -7,34 +7,40 @@
     android:background="@color/background"
     tools:context=".presentation.bottomnavigation.collections.change.CreateCollectionActivity">
 
-    <TextView
-        android:id="@+id/changeCollectionText"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editCollectionToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
-        android:text="Изменить коллекцию"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/backCollectionsButton"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/changeCollectionText"
-        app:layout_constraintStart_toStartOf="@+id/nameCollectionsEditText"
-        app:layout_constraintTop_toTopOf="@+id/changeCollectionText"
-        app:srcCompat="@drawable/back_icon" />
+        <ImageButton
+            android:id="@+id/backCollectionsButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/changeCollectionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="16dp"
+            android:text="Изменить коллекцию"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/nameCollectionsEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
@@ -48,7 +54,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changeCollectionText" />
+        app:layout_constraintTop_toBottomOf="@+id/editCollectionToolbar" />
 
     <ImageButton
         android:id="@+id/iconCollection"

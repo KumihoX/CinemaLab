@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_collection_to_createCollectionActivity"
             app:destination="@id/createCollectionActivity" />
+        <action
+            android:id="@+id/action_collection_to_collectionInfoActivity"
+            app:destination="@id/collectionInfoActivity" />
     </fragment>
 
     <fragment
@@ -51,4 +54,14 @@
         android:name="com.example.cinema.presentation.bottomnavigation.collections.change.CreateCollectionActivity"
         android:label="activity_create_collection"
         tools:layout="@layout/activity_create_collection" />
+
+    <activity
+        android:id="@+id/collectionInfoActivity"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionInfoActivity"
+        android:label="CollectionInfoActivity"
+        tools:layout="@layout/activity_collection_info">
+        <argument android:name="collectionInfo"
+            app:argType="com.example.cinema.data.remote.dto.CollectionListItemDto"/>
+    </activity>
+
 </navigation>

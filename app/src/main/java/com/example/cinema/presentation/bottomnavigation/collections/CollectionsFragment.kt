@@ -17,6 +17,7 @@ import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.databinding.FragmentCollectionsBinding
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionInfoActivity
+import com.example.cinema.presentation.bottomnavigation.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,14 +75,12 @@ class CollectionsFragment : Fragment() {
         collectionsRecyclerView.adapter =
             CollectionsRecyclerAdapter(
                 collections
-            ) { makeIntentToCollectionInfoActivity(it) }
+            ) { navigateToCollectionInfoActivity(it) }
     }
 
-    private fun makeIntentToCollectionInfoActivity(collectionInfo: CollectionListItemDto) {
-        val intent = Intent(activity, CollectionInfoActivity::class.java)
-        activity?.overridePendingTransition(0, 0)
-        intent.putExtra("collectionInfo", collectionInfo)
-        startActivity(intent)
+    private fun navigateToCollectionInfoActivity(collectionInfo: CollectionListItemDto) {
+        val action = CollectionsFragmentDirections.actionCollectionToCollectionInfoActivity(collectionInfo)
+        findNavController().navigate(action)
     }
 
     private fun createErrorDialog(message: String) {

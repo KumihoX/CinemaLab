@@ -9,7 +9,7 @@
         android:id="@+id/selectionGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="selectIconRecyclerView,backCollectionsButton,chooseIconText" />
+        app:constraint_referenced_ids="selectIconRecyclerView,backChooseIconButton,chooseIconText" />
 
     <TextView
         android:id="@+id/chooseIconText"
@@ -20,11 +20,11 @@
         android:text="Выбрать иконку"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/backCollectionsButton"
+        app:layout_constraintStart_toStartOf="@+id/backChooseIconButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/backCollectionsButton"
+        android:id="@+id/backChooseIconButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"

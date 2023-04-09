@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.cinema.presentation.signup.SignUpFragment"
+        android:name="com.example.cinema.presentation.authorization.signup.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.cinema.presentation.signin.SignInFragment"
+        android:name="com.example.cinema.presentation.authorization.signin.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -49,7 +49,7 @@
     
     <activity
         android:id="@+id/bottomNavigationActivity"
-        android:name="com.example.cinema.presentation.BottomNavigationActivity"
+        android:name="com.example.cinema.presentation.bottomnavigation.BottomNavigationActivity"
         android:label="BottomNavigationActivity" />
 
 </navigation>

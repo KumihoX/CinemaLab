@@ -5,7 +5,7 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main.MainFragment">
+    tools:context=".presentation.bottomnavigation.main.MainFragment">
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/mainGroup"

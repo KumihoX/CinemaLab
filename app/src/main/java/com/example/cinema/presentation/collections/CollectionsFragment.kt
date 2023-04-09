@@ -60,7 +60,7 @@ class CollectionsFragment : Fragment() {
 
     private fun setOnClickOnAddButton() {
         binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_collection_to_collectionsActivity2)
+            findNavController().navigate(R.id.action_collection_to_createCollectionActivity)
         }
     }
 

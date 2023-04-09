@@ -27,8 +27,8 @@
         android:label="collection"
         tools:layout="@layout/fragment_collections" >
         <action
-            android:id="@+id/action_collection_to_collectionsActivity2"
-            app:destination="@id/collectionsActivity" />
+            android:id="@+id/action_collection_to_createCollectionActivity"
+            app:destination="@id/createCollectionActivity" />
     </fragment>
 
     <fragment
@@ -41,11 +41,14 @@
         android:name="com.example.cinema.presentation.moviedetail.MovieDetailActivity"
         android:label="activity_movie_detail"
         tools:layout="@layout/activity_movie_detail" >
-        <argument android:name="movieInfo" />
+
+        <argument android:name="movieInfo"
+            app:argType="com.example.cinema.domain.model.Movie"/>
     </activity>
+
     <activity
-        android:id="@+id/collectionsActivity"
+        android:id="@+id/createCollectionActivity"
         android:name="com.example.cinema.presentation.collections.CreateCollectionActivity"
-        android:label="activity_collections"
+        android:label="activity_create_collection"
         tools:layout="@layout/activity_create_collection" />
 </navigation>

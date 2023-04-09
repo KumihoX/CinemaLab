@@ -1,8 +1,11 @@
 package com.example.cinema.domain.model
 
+import android.os.Parcelable
 import com.example.cinema.data.remote.dto.ChatDto
 import com.example.cinema.data.remote.dto.TagDto
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie(
     val movieId: String,
     val name: String,
@@ -12,4 +15,4 @@ data class Movie(
     val imageUrls: List<String>,
     val poster: String,
     val tags: List<TagDto>
-) : java.io.Serializable
+) : Parcelable

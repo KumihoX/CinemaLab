@@ -1,7 +1,6 @@
 package com.example.cinema.presentation.main
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import com.bumptech.glide.annotation.GlideModule
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentMainBinding
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.moviedetail.MovieDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -84,7 +82,7 @@ class MainFragment : Fragment() {
                     trendsList,
                     R.layout.vertical_item,
                     findNavController()
-                ) { makeIntentToMovieInfoActivity(it) }
+                ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.inTrendText.visibility = View.GONE
             binding.inTrendRecyclerView.visibility = View.GONE
@@ -126,7 +124,7 @@ class MainFragment : Fragment() {
                     newsList,
                     R.layout.horizontal_item,
                     findNavController()
-                ) { makeIntentToMovieInfoActivity(it) }
+                ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.newFilmText.visibility = View.GONE
             binding.newRecyclerView.visibility = View.GONE
@@ -148,18 +146,16 @@ class MainFragment : Fragment() {
                     forYouList,
                     R.layout.vertical_item,
                     findNavController()
-                ) { makeIntentToMovieInfoActivity(it) }
+                ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.forYouText.visibility = View.GONE
             binding.forYouRecyclerView.visibility = View.GONE
         }
     }
 
-    private fun makeIntentToMovieInfoActivity(movieInfo: Movie) {
-        val intent = Intent(activity, MovieDetailActivity::class.java)
-        activity?.overridePendingTransition(0, 0)
-        intent.putExtra("movieInfo", movieInfo)
-        startActivity(intent)
+    private fun navigateToMovieInfoActivity(movieInfo: Movie) {
+        val action = MainFragmentDirections.actionMainToMovieDetailActivity(movieInfo)
+        findNavController().navigate(action)
     }
 
     private fun createErrorDialog(message: String) {

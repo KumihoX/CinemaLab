@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.data.remote.dto.EpisodeDto
+import com.example.cinema.domain.model.Movie
 
 class EpisodesRecyclerAdapter(
     private val episodes: List<EpisodeDto>,
-    private val activity: Activity,
+    private val passData: (EpisodeDto) -> Unit
 ) :
     RecyclerView.Adapter<EpisodesRecyclerAdapter.EpisodesViewHolder>() {
 
@@ -33,9 +34,9 @@ class EpisodesRecyclerAdapter(
 
     override fun onBindViewHolder(holder: EpisodesViewHolder, position: Int) {
         holder.item.setOnClickListener {
-
+            passData(episodes[position])
         }
-        Glide.with(activity).load(episodes[position].preview).into(holder.image)
+        Glide.with(holder.image).load(episodes[position].preview).into(holder.image)
         holder.name.text = episodes[position].name
         holder.description.text = episodes[position].description
         holder.year.text = episodes[position].year

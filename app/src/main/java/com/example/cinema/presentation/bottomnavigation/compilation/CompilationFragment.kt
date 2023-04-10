@@ -34,9 +34,15 @@ class CompilationFragment : Fragment(), CardStackListener {
 
         val stateObserver = Observer<CompilationViewModel.CompilationState> {
             when (it) {
-                CompilationViewModel.CompilationState.Loading -> {
+                CompilationViewModel.CompilationState.FirstLoading -> {
                     binding.compilationProgressBar.show()
                     binding.compilationGroup.isGone = true
+                }
+                CompilationViewModel.CompilationState.Loading -> {
+                    binding.compilationProgressBar.show()
+                }
+                CompilationViewModel.CompilationState.Continue -> {
+                    binding.compilationProgressBar.hide()
                 }
                 is CompilationViewModel.CompilationState.Success -> {
                     binding.compilationProgressBar.hide()
@@ -122,6 +128,7 @@ class CompilationFragment : Fragment(), CardStackListener {
             }
             Direction.Right -> {
                 viewModel.like(compilationList[currentPosition].movieId)
+                viewModel.dislike(compilationList[currentPosition].movieId)
             }
             else -> {}
         }

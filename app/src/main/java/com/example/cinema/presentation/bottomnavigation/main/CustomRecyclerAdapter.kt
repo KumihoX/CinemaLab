@@ -13,7 +13,6 @@ import com.example.cinema.domain.model.Movie
 class CustomRecyclerAdapter(
     private val covers: List<Movie>,
     private val typeOfRecyclerItems: Int,
-    private val navController: NavController,
     private val passData: (Movie) -> Unit
 ) :
     RecyclerView.Adapter<CustomRecyclerAdapter.CustomViewHolder>() {

@@ -80,8 +80,7 @@ class MainFragment : Fragment() {
             inTrendRecyclerView.adapter =
                 CustomRecyclerAdapter(
                     trendsList,
-                    R.layout.vertical_item,
-                    findNavController()
+                    R.layout.vertical_item
                 ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.inTrendText.visibility = View.GONE
@@ -122,8 +121,7 @@ class MainFragment : Fragment() {
             newRecyclerView.adapter =
                 CustomRecyclerAdapter(
                     newsList,
-                    R.layout.horizontal_item,
-                    findNavController()
+                    R.layout.horizontal_item
                 ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.newFilmText.visibility = View.GONE
@@ -144,8 +142,7 @@ class MainFragment : Fragment() {
             forYouRecyclerView.adapter =
                 CustomRecyclerAdapter(
                     forYouList,
-                    R.layout.vertical_item,
-                    findNavController()
+                    R.layout.vertical_item
                 ) { navigateToMovieInfoActivity(it) }
         } else {
             binding.forYouText.visibility = View.GONE

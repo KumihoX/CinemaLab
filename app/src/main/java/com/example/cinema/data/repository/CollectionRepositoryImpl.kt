@@ -38,7 +38,7 @@ class CollectionRepositoryImpl @Inject constructor(
         token: AuthTokenPairDto,
         collectionId: String,
         movieValue: MovieValueDto
-    ): Response<Void> {
+    ) {
         return api.postMovieInCollection("Bearer ${token.accessToken}", collectionId, movieValue)
     }
 }

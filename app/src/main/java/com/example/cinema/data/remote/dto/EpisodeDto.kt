@@ -1,5 +1,9 @@
 package com.example.cinema.data.remote.dto
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class EpisodeDto(
     val episodeId: String,
     val name: String,
@@ -11,4 +15,4 @@ data class EpisodeDto(
     val runtime: Int,
     val preview: String,
     val filePath: String
-)
+) : Parcelable

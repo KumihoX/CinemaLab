@@ -11,9 +11,11 @@ import com.example.cinema.domain.usecase.collection.PostMovieInCollectionUseCase
 import com.example.cinema.domain.usecase.compilation.DislikeMovieUseCase
 import com.example.cinema.domain.usecase.main.GetMoviesUseCase
 import com.example.cinema.domain.usecase.storage.GetFavoriteCollectionUseCase
+import com.example.cinema.presentation.movie.episode.EpisodeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,18 +28,20 @@ class CompilationViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class CompilationState {
+        object FirstLoading : CompilationState()
         object Loading : CompilationState()
+        object Continue : CompilationState()
         class Failure(val errorMessage: String) : CompilationState()
         class Success(val compilation: List<MovieDto>) : CompilationState()
     }
 
     private val favoriteCollectionId = GetFavoriteCollectionUseCase(context).execute().collectionId
 
-    private val _state = MutableLiveData<CompilationState>(CompilationState.Loading)
+    private val _state = MutableLiveData<CompilationState>(CompilationState.FirstLoading)
     val state: LiveData<CompilationState> = _state
 
     fun getCompilation() {
-        _state.value = CompilationState.Loading
+        _state.value = CompilationState.FirstLoading
         viewModelScope.launch {
             try {
                 val compilation = getMoviesUseCase(context = context, "compilation")
@@ -51,9 +55,11 @@ class CompilationViewModel @Inject constructor(
     }
 
     fun dislike(movieId: String) {
+        _state.value = CompilationState.Loading
         viewModelScope.launch {
             try {
                 dislikeMovieUseCase(context, movieId)
+                _state.value = CompilationState.Continue
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
@@ -63,15 +69,22 @@ class CompilationViewModel @Inject constructor(
     }
 
     fun like(movieId: String) {
+        _state.value = CompilationState.Loading
         viewModelScope.launch {
             try {
                 val movieValue = MovieValueDto(movieId)
                 postMovieInCollectionUseCase(context, favoriteCollectionId, movieValue)
-                dislikeMovieUseCase(context, movieId)
+                _state.value = CompilationState.Continue
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                _state.value = CompilationState.Failure(ex.message.toString())
+                if (ex.message == "HTTP 409 Conflict") {
+                    _state.value =
+                        CompilationState.Failure("Этот фильм уже был добавлен вами в \"Избранное\"")
+                }
+                else{
+                    _state.value = CompilationState.Failure(ex.message.toString())
+                }
             }
         }
     }

@@ -19,5 +19,5 @@ interface CollectionRepository {
         token: AuthTokenPairDto,
         collectionId: String,
         movieValue: MovieValueDto
-    ): Response<Void>
+    )
 }

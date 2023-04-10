@@ -34,5 +34,5 @@ interface CollectionsApi {
         @Header("Authorization") token: String,
         @Path("collectionId") collectionId: String,
         @Body movieValue: MovieValueDto
-    ): Response<Void>
+    )
 }

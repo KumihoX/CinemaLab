@@ -14,7 +14,7 @@ class PostMovieInCollectionUseCase @Inject constructor(
         context: Context,
         collectionId: String,
         movieValueDto: MovieValueDto
-    ): Response<Void> {
+    ) {
         val getTokenFromLocalStorageUseCase = GetTokenFromLocalStorageUseCase(context)
         val token = getTokenFromLocalStorageUseCase.execute()
 

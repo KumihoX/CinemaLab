@@ -10,6 +10,17 @@
         android:name="com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail">
+        <action
+            android:id="@+id/action_movieDetailFragment_to_episodeFragment"
+            app:destination="@id/episodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.example.cinema.presentation.movie.episode.EpisodeFragment"
+        android:label="EpisodeFragment">
+    <argument
+        android:name="episodeInfo"
+        app:argType="com.example.cinema.data.remote.dto.EpisodeDto"/>
     </fragment>
 
 </navigation>

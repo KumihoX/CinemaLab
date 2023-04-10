@@ -14,15 +14,18 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.cinema.R
+import com.example.cinema.data.remote.dto.CollectionListItemDto
 import com.example.cinema.data.remote.dto.EpisodeDto
 import com.example.cinema.data.remote.dto.TagDto
 import com.example.cinema.databinding.FragmentMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.bottomnavigation.BottomNavigationActivity
+import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -87,7 +90,9 @@ class MovieDetailFragment: Fragment() {
     }
 
     private fun setOnBackButtonClickListener() {
-        callback?.backToMainFragment()
+        binding.backButton.setOnClickListener {
+            callback?.backToMainFragment()
+        }
     }
 
     private fun addCover(imageUrl: String) {
@@ -142,9 +147,8 @@ class MovieDetailFragment: Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         episodesRecyclerView.adapter =
             EpisodesRecyclerAdapter(
-                episodes,
-                requireActivity()
-            )
+                episodes
+            ) {navigateToEpisodeFragment(it)}
     }
 
     private fun createErrorDialog(message: String) {
@@ -153,5 +157,10 @@ class MovieDetailFragment: Fragment() {
         builder.setTitle(getString(R.string.error))
         builder.setMessage(message)
         builder.show()
+    }
+
+    private fun navigateToEpisodeFragment(episodeInfo: EpisodeDto) {
+        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
+        findNavController().navigate(action)
     }
 }

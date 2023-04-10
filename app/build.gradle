@@ -79,4 +79,9 @@ dependencies {
 
     //CardStackView
     implementation 'com.github.yuyakaido:CardStackView:v2.3.4'
+
+    //MediaPlayer
+    implementation 'androidx.media3:media3-exoplayer:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer-dash:1.0.0'
+    implementation 'androidx.media3:media3-ui:1.0.0'
 }

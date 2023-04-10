@@ -38,7 +38,11 @@
         android:id="@+id/profile"
         android:name="com.example.cinema.presentation.bottomnavigation.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_chatsActivity"
+            app:destination="@id/chatsActivity" />
+    </fragment>
     <activity
         android:id="@+id/movieDetailActivity"
         android:name="com.example.cinema.presentation.movie.MovieDetailActivity"
@@ -63,5 +67,9 @@
         <argument android:name="collectionInfo"
             app:argType="com.example.cinema.data.remote.dto.CollectionListItemDto"/>
     </activity>
+    <activity
+        android:id="@+id/chatsActivity"
+        android:name="com.example.cinema.presentation.chats.ChatsActivity"
+        android:label="ChatsActivity" />
 
 </navigation>

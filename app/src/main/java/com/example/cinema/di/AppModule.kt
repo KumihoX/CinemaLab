@@ -111,4 +111,21 @@ object AppModule {
     fun provideCollectionRepository(api: CollectionsApi): CollectionRepository {
         return CollectionRepositoryImpl(api)
     }
+
+    @Provides
+    @Singleton
+    fun provideChatsApi(): ChatsApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(ChatsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatsRepository(api: ChatsApi): ChatsRepository {
+        return ChatsRepositoryImpl(api)
+    }
 }

@@ -77,43 +77,50 @@
 
     <TextView
         android:id="@+id/discussion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/discussion"
         android:drawablePadding="18dp"
         android:text="Обсуждения"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
     <TextView
         android:id="@+id/history"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/history"
         android:drawablePadding="18dp"
         android:text="История"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/discussion" />
 
     <TextView
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:drawableLeft="@drawable/settings"
         android:drawablePadding="18dp"
         android:text="Настройки"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/history" />
 

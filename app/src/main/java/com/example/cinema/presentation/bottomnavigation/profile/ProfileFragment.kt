@@ -9,6 +9,7 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentProfileBinding
@@ -34,10 +35,11 @@ class ProfileFragment : Fragment() {
                 }
                 is ProfileViewModel.ProfileState.Success -> {
                     binding.profileProgressBar.hide()
-                    binding.profileGroup.isGone = false
+                    setOnDiscussionClickListener()
                     addAvatar(it.user.avatar.toString())
                     addName("${it.user.firstName} ${it.user.lastName}")
                     addEmail(it.user.email)
+                    binding.profileGroup.isGone = false
                 }
                 is ProfileViewModel.ProfileState.Failure -> {
                     binding.profileProgressBar.hide()
@@ -54,6 +56,12 @@ class ProfileFragment : Fragment() {
     override fun onStart() {
         viewModel.getProfileData()
         super.onStart()
+    }
+
+    private fun setOnDiscussionClickListener() {
+        binding.discussion.setOnClickListener{
+            findNavController().navigate(R.id.action_profile_to_chatsActivity)
+        }
     }
 
     private fun addAvatar(avatar: String) {

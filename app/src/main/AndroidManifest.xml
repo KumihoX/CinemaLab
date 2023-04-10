@@ -18,23 +18,23 @@
         android:theme="@style/Theme.Cinema"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.collections.EditCollectionActivity"
+            android:name=".presentation.bottomnavigation.collections.change.edit.EditCollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.collections.CollectionInfoActivity"
+            android:name=".presentation.bottomnavigation.collections.detail.CollectionInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.collections.CreateCollectionActivity"
+            android:name=".presentation.bottomnavigation.collections.change.CreateCollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.moviedetail.MovieDetailActivity"
+            android:name=".presentation.movie.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.BottomNavigationActivity"
+            android:name=".presentation.bottomnavigation.BottomNavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_bottom_navigation" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.authorization.AuthorizationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

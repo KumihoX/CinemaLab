@@ -2,10 +2,8 @@ package com.example.cinema.data.remote
 
 import com.example.cinema.data.remote.dto.EpisodeDto
 import com.example.cinema.data.remote.dto.MovieDto
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.Response
+import retrofit2.http.*
 
 interface MovieApi {
     @GET("movies")
@@ -19,4 +17,10 @@ interface MovieApi {
         @Header("Authorization") token: String,
         @Path("movieId") movieId: String
     ): List<EpisodeDto>
+
+    @POST("movies/{movieId}/dislike")
+    suspend fun postMovieDislike(
+        @Header("Authorization") token: String,
+        @Path("movieId") movieId: String
+    ): Response<Void>
 }

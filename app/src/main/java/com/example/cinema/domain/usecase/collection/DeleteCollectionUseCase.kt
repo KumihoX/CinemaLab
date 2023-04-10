@@ -2,7 +2,7 @@ package com.example.cinema.domain.usecase.collection
 
 import android.content.Context
 import com.example.cinema.domain.repository.CollectionRepository
-import com.example.cinema.domain.usecase.token.GetTokenFromLocalStorageUseCase
+import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject
 
 class DeleteCollectionUseCase @Inject constructor(

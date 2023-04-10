@@ -20,5 +20,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="incorrect_input_data">Неправильно введенные данные</string>
+    <string name="error">Ошибка</string>
+    <string name="cover">cover</string>
+    <string name="watch">Смотреть</string>
+    <string name="in_trend">В тренде</string>
+    <string name="you_watched">Вы смотрели</string>
+    <string name="you_watched_cover">You watched cover</string>
+    <string name="category_new">Новое</string>
+    <string name="for_you">Для вас</string>
+    <string name="specify_interest">Указать интересы</string>
+    <string name="play_button">Play Button</string>
+    <string name="new_films_in_compilation_is_over">Новые фильмы в подборке закончились</string>
+    <string name="favorites">Избранное</string>
 
 </resources>

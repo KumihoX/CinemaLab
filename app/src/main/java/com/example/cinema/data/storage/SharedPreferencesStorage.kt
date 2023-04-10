@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.cinema.data.remote.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.dto.CollectionListItemDto
 
-class SharedPreferencesStorage(context: Context) : TokenStorage {
+class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorage {
 
     companion object {
         const val ENCRYPTED_SHARED_PREFS_NAME = "encryptedSharedPreferences"
@@ -55,5 +56,23 @@ class SharedPreferencesStorage(context: Context) : TokenStorage {
             .remove(TokenStorage.REFRESH_TOKEN_KEY)
             .remove(TokenStorage.REFRESH_TOKEN_KEY_TIME)
             .apply()
+    }
+
+    override fun saveFavoriteCollection(collection: CollectionListItemDto) {
+        sharedPreferences.edit()
+            .putString(FavoritesStorage.FAVORITE_COLLECTION_ID, collection.collectionId)
+            .putString(FavoritesStorage.FAVORITE_COLLECTION_NAME, collection.name)
+            .apply()
+    }
+
+    override fun getFavoriteCollection(): CollectionListItemDto {
+        return CollectionListItemDto(
+            sharedPreferences.getString(
+                FavoritesStorage.FAVORITE_COLLECTION_ID, ""
+            ).toString(),
+            sharedPreferences.getString(
+                FavoritesStorage.FAVORITE_COLLECTION_NAME, ""
+            ).toString()
+        )
     }
 }

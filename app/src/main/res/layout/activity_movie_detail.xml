@@ -11,170 +11,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        tools:context=".presentation.moviedetail.MovieDetailActivity">
+        tools:context=".presentation.movie.MovieDetailActivity">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/coverCard"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
-            <ImageView
-                android:id="@+id/cover"
-                android:scaleType="centerCrop"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@drawable/gradient"
-                android:src="@drawable/empty_image" />
-
-            <Button
-                android:id="@+id/movieDetailWatchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/filled_button_shape"
-                android:paddingStart="32dp"
-                android:paddingTop="13dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="13dp"
-                android:text="Смотреть"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <ImageButton
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|top"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/back_icon" />
-
-        </androidx.cardview.widget.CardView>
-
-        <ImageButton
-            android:id="@+id/chatButton"
-            android:contentDescription="Watch Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="18dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coverCard"
-            app:srcCompat="@drawable/chat_icon" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            app:flexDirection="row"
-            app:flexWrap="wrap"
-            app:justifyContent="flex_start"
-            app:alignItems="flex_start"
-            app:alignContent="flex_start"
-            app:layout_constraintTop_toBottomOf="@id/chatButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Описание"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flexBox" />
-
-        <TextView
-            android:id="@+id/descriptionText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
-
-        <TextView
-            android:id="@+id/framesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Кадры"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/framesRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/framesText"
-            tools:listitem="@layout/frames_horizontal_item" />
-
-        <TextView
-            android:id="@+id/episodes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Эпизоды"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/framesRecyclerView" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/episodesRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/episodes"
-            tools:listitem="@layout/episode_item" />
-
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="age"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/chatButton"
-            app:layout_constraintEnd_toStartOf="@+id/chatButton"
-            app:layout_constraintTop_toTopOf="@+id/chatButton" />
-
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/movie_detail_nav_graph" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

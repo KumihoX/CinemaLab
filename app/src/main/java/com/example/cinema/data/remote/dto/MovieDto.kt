@@ -27,6 +27,7 @@ fun MovieDto.toMovie(): Movie {
 
     return Movie(
         movieId = movieId,
+        name = name,
         description = description,
         age = ageType,
         chatInfo = chatInfo,

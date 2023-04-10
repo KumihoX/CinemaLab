@@ -1,5 +1,5 @@
 package com.example.cinema.data.remote.dto
 
-data class CollectionFormDto (
+data class CollectionFormDto(
     val name: String
-        )
+)

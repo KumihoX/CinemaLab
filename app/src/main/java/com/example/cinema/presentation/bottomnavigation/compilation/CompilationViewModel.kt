@@ -36,9 +36,6 @@ class CompilationViewModel @Inject constructor(
     private val _state = MutableLiveData<CompilationState>(CompilationState.Loading)
     val state: LiveData<CompilationState> = _state
 
-    private val _compilationList: MutableLiveData<List<MovieDto>> = MutableLiveData(emptyList())
-    val compilationList: LiveData<List<MovieDto>> = _compilationList
-
     fun getCompilation() {
         _state.value = CompilationState.Loading
         viewModelScope.launch {

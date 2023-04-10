@@ -24,7 +24,7 @@ class MovieDetailActivity : AppCompatActivity(),
     }
 
     override fun navigateToEpisodeScreen(movieInfo: Movie) {
-        finish()
+
     }
 
     override fun getMovieInfo(): Movie {
@@ -32,6 +32,6 @@ class MovieDetailActivity : AppCompatActivity(),
     }
 
     override fun backToMainFragment() {
-
+        finish()
     }
 }

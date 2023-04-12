@@ -78,13 +78,18 @@ class EditCollectionFragment : Fragment() {
 
     private fun setOnSaveButtonClickListener() {
         binding.saveCollectionButton.setOnClickListener {
-
+            viewModel.saveChanges(
+                callback?.getCollectionInfo()!!.id,
+                binding.nameCollectionsEditText.text.toString(),
+                R.drawable.collection_icon_01
+            )
+            findNavController().popBackStack()
         }
     }
 
     private fun setOnDeleteButtonClickListener() {
         binding.deleteButton.setOnClickListener {
-            viewModel.deleteCollection(collectionId = callback?.getCollectionInfo()!!.collectionId)
+            viewModel.deleteCollection(collectionId = callback?.getCollectionInfo()!!.id)
         }
     }
 

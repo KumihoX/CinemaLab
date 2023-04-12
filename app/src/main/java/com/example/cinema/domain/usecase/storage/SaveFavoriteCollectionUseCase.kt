@@ -1,7 +1,7 @@
 package com.example.cinema.domain.usecase.storage
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.CollectionListItemDto
+import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.repository.FavoriteRepositoryImpl
 
 class SaveFavoriteCollectionUseCase(private val context: Context) {

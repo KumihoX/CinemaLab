@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.dto.MovieValueDto
+import com.example.cinema.data.remote.api.dto.MovieValueDto
 import com.example.cinema.domain.usecase.collection.PostMovieInCollectionUseCase
 import com.example.cinema.domain.usecase.storage.GetFavoriteCollectionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

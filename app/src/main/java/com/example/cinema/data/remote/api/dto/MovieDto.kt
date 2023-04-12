@@ -1,4 +1,4 @@
-package com.example.cinema.data.remote.dto
+package com.example.cinema.data.remote.api.dto
 
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie

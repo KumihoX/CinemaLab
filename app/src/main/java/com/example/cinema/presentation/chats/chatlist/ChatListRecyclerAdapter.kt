@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.ChatDto
+import com.example.cinema.data.remote.api.dto.ChatDto
 import com.example.cinema.databinding.ChatListItemBinding
 
 class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>) :

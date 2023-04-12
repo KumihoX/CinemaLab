@@ -1,10 +1,10 @@
 package com.example.cinema.data.repository
 
 
-import com.example.cinema.data.remote.MovieApi
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
-import com.example.cinema.data.remote.dto.EpisodeDto
-import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.api.MovieApi
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.EpisodeDto
+import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.domain.repository.MovieRepository
 import retrofit2.Response
 import javax.inject.Inject

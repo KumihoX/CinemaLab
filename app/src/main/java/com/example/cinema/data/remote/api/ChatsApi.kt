@@ -1,6 +1,6 @@
-package com.example.cinema.data.remote
+package com.example.cinema.data.remote.api
 
-import com.example.cinema.data.remote.dto.ChatDto
+import com.example.cinema.data.remote.api.dto.ChatDto
 import retrofit2.http.GET
 import retrofit2.http.Header
 

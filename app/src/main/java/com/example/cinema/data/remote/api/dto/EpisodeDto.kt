@@ -1,4 +1,4 @@
-package com.example.cinema.data.remote.dto
+package com.example.cinema.data.remote.api.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

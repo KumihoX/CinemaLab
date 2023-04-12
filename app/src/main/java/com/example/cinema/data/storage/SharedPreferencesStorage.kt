@@ -3,8 +3,8 @@ package com.example.cinema.data.storage
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
-import com.example.cinema.data.remote.dto.CollectionListItemDto
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 
 class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorage {
 

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.databinding.FragmentCompilationBinding
 import com.yuyakaido.android.cardstackview.*
 import dagger.hilt.android.AndroidEntryPoint

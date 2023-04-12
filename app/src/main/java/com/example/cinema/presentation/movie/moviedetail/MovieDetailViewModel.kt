@@ -5,13 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.dto.EpisodeDto
+import com.example.cinema.data.remote.api.dto.EpisodeDto
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.usecase.moviedetail.GetMovieEpisodesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

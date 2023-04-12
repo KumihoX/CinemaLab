@@ -8,6 +8,9 @@
         android:id="@+id/createCollectionFragment"
         android:name="com.example.cinema.presentation.bottomnavigation.collections.change.create.CreateCollectionFragment"
         android:label="CreateCollectionFragment" >
+        <argument android:name="iconId"
+            app:argType="integer"
+            android:defaultValue="0"/>
         <action
             android:id="@+id/action_createCollectionFragment_to_selectionFragment"
             app:destination="@id/selectionFragment" />

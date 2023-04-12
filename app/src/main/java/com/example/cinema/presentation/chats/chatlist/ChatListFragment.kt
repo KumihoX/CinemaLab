@@ -12,12 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.ChatDto
+import com.example.cinema.data.remote.api.dto.ChatDto
 import com.example.cinema.databinding.FragmentChatListBinding
-import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.bottomnavigation.profile.ProfileViewModel
-import com.example.cinema.presentation.movie.moviedetail.EpisodesRecyclerAdapter
-import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

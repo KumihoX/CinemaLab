@@ -1,9 +1,9 @@
-package com.example.cinema.data.remote
+package com.example.cinema.data.remote.api
 
-import com.example.cinema.data.remote.dto.CollectionFormDto
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.data.remote.dto.MovieDto
-import com.example.cinema.data.remote.dto.MovieValueDto
+import com.example.cinema.data.remote.api.dto.CollectionFormDto
+import com.example.cinema.data.remote.api.dto.CollectionListItemDto
+import com.example.cinema.data.remote.api.dto.MovieDto
+import com.example.cinema.data.remote.api.dto.MovieValueDto
 import retrofit2.Response
 import retrofit2.http.*
 

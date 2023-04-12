@@ -2,7 +2,6 @@ package com.example.cinema.presentation.movie.moviedetail
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,14 +17,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.data.remote.dto.EpisodeDto
-import com.example.cinema.data.remote.dto.TagDto
+import com.example.cinema.data.remote.api.dto.EpisodeDto
+import com.example.cinema.data.remote.api.dto.TagDto
 import com.example.cinema.databinding.FragmentMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.bottomnavigation.BottomNavigationActivity
-import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

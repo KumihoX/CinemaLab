@@ -1,6 +1,6 @@
 package com.example.cinema.data.storage
 
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
 
 interface TokenStorage {
     companion object {

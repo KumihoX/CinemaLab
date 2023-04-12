@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
                 }
                 is ProfileViewModel.ProfileState.Success -> {
                     binding.profileProgressBar.hide()
-                    setOnDiscussionClickListener()
+                    setOnButtonsClickListener()
                     addAvatar(it.user.avatar.toString())
                     addName("${it.user.firstName} ${it.user.lastName}")
                     addEmail(it.user.email)
@@ -56,6 +56,17 @@ class ProfileFragment : Fragment() {
     override fun onStart() {
         viewModel.getProfileData()
         super.onStart()
+    }
+
+    private fun setOnButtonsClickListener() {
+        setOnDiscussionClickListener()
+        setOnExitButtonClickListener()
+    }
+
+    private fun setOnExitButtonClickListener(){
+        binding.logout.setOnClickListener {
+            viewModel.logout()
+        }
     }
 
     private fun setOnDiscussionClickListener() {

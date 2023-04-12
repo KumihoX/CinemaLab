@@ -10,14 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgs
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentCreateCollectionBinding
+import com.example.cinema.presentation.movie.MovieDetailActivityArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateCollectionFragment: Fragment() {
     private lateinit var binding: FragmentCreateCollectionBinding
     private val viewModel: CreateCollectionViewModel by viewModels()
+
+    private val args: CreateCollectionFragmentArgs by navArgs()
 
     private var callback: CreateCollectionListener? = null
 
@@ -39,6 +44,7 @@ class CreateCollectionFragment: Fragment() {
                 }
                 CreateCollectionViewModel.CreateCollectionState.Initial -> {
                     binding.createCollectionProgressBar.hide()
+                    setImage()
                     setOnClickButtons()
                 }
                 is CreateCollectionViewModel.CreateCollectionState.Success -> {
@@ -61,6 +67,16 @@ class CreateCollectionFragment: Fragment() {
         super.onAttach(context)
     }
 
+    private fun setImage() {
+        if (args.iconId == 0) {
+            binding.iconCollection.setImageResource(R.drawable.collection_icon_01)
+        }
+        else {
+            binding.iconCollection.setImageResource(args.iconId)
+        }
+    }
+
+
     private fun setOnClickButtons() {
         setOnClickChooseIcon()
         setOnClickSaveButton()
@@ -75,7 +91,7 @@ class CreateCollectionFragment: Fragment() {
 
     private fun setOnClickSaveButton() {
         binding.saveCollectionButton.setOnClickListener {
-            viewModel.postCollection(binding.nameCollectionsEditText.text.toString())
+            viewModel.postCollection(binding.nameCollectionsEditText.text.toString(), args.iconId)
         }
     }
 

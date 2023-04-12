@@ -65,7 +65,7 @@
         android:label="CollectionInfoActivity"
         tools:layout="@layout/activity_collection_info">
         <argument android:name="collectionInfo"
-            app:argType="com.example.cinema.data.remote.dto.CollectionListItemDto"/>
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
     </activity>
     <activity
         android:id="@+id/chatsActivity"

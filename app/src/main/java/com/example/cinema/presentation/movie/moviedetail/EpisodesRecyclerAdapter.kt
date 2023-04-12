@@ -1,6 +1,5 @@
 package com.example.cinema.presentation.movie.moviedetail
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.EpisodeDto
-import com.example.cinema.domain.model.Movie
+import com.example.cinema.data.remote.api.dto.EpisodeDto
 
 class EpisodesRecyclerAdapter(
     private val episodes: List<EpisodeDto>,

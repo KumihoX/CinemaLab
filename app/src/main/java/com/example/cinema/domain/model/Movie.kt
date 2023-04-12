@@ -1,8 +1,8 @@
 package com.example.cinema.domain.model
 
 import android.os.Parcelable
-import com.example.cinema.data.remote.dto.ChatDto
-import com.example.cinema.data.remote.dto.TagDto
+import com.example.cinema.data.remote.api.dto.ChatDto
+import com.example.cinema.data.remote.api.dto.TagDto
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

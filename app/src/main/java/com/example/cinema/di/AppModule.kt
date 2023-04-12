@@ -1,12 +1,18 @@
 package com.example.cinema.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.cinema.common.Constants
+import com.example.cinema.common.Constants.DATABASE_NAME
 import com.example.cinema.data.remote.*
+import com.example.cinema.data.remote.api.*
+import com.example.cinema.data.remote.database.CollectionDatabase
 import com.example.cinema.data.repository.*
 import com.example.cinema.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -128,4 +134,18 @@ object AppModule {
     fun provideChatsRepository(api: ChatsApi): ChatsRepository {
         return ChatsRepositoryImpl(api)
     }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context,
+        CollectionDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+
+    @Provides
+    @Singleton
+    fun provideDao(database: CollectionDatabase) = database.collectionDao
 }

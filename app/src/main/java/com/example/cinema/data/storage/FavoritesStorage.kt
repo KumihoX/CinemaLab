@@ -1,6 +1,6 @@
 package com.example.cinema.data.storage
 
-import com.example.cinema.data.remote.dto.CollectionListItemDto
+import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 
 interface FavoritesStorage {
     companion object {

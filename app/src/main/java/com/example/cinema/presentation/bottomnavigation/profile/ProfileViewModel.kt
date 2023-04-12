@@ -5,7 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.dto.UserDto
+import com.example.cinema.data.remote.api.dto.UserDto
+import com.example.cinema.domain.usecase.collection.DeleteAllCollectionsUseCase
 import com.example.cinema.domain.usecase.profile.GetProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val getProfileUseCase: GetProfileUseCase
+    private val getProfileUseCase: GetProfileUseCase,
+    private val deleteAllCollectionsUseCase: DeleteAllCollectionsUseCase
 ) : ViewModel() {
 
     sealed class ProfileState {
@@ -44,6 +46,17 @@ class ProfileViewModel @Inject constructor(
                 _state.value = ProfileState.Failure(ex.message.toString())
             }
         }
+    }
 
+    fun logout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try{
+                deleteAllCollectionsUseCase()
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+                _state.value = ProfileState.Failure(ex.message.toString())
+            }
+        }
     }
 }

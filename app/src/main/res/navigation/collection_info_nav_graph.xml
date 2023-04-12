@@ -16,7 +16,7 @@
         android:name="com.example.cinema.presentation.bottomnavigation.collections.change.edit.EditCollectionFragment"
         android:label="EditCollectionFragment" >
         <argument android:name="collectionInfo"
-            app:argType="com.example.cinema.data.remote.dto.CollectionListItemDto"/>
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
         <action
             android:id="@+id/action_editCollectionFragment_to_selectionFragment"
             app:destination="@id/selectionFragment" />

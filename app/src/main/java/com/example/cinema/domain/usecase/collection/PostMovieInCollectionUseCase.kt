@@ -1,10 +1,9 @@
 package com.example.cinema.domain.usecase.collection
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.MovieValueDto
+import com.example.cinema.data.remote.api.dto.MovieValueDto
 import com.example.cinema.domain.repository.CollectionRepository
 import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
-import retrofit2.Response
 import javax.inject.Inject
 
 class PostMovieInCollectionUseCase @Inject constructor(

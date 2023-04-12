@@ -1,6 +1,6 @@
 package com.example.cinema.domain.repository
 
-import com.example.cinema.data.remote.dto.CollectionListItemDto
+import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 
 interface FavoriteRepository {
     fun saveFavoriteCollectionToLocalStorage(collection: CollectionListItemDto)

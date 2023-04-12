@@ -68,13 +68,20 @@ class SelectionFragment : Fragment() {
 
         addToList()
 
-        selectIconRecyclerView.adapter = SelectionRecyclerAdapter(iconsList)
+        selectIconRecyclerView.adapter =
+            SelectionRecyclerAdapter(iconsList) {navigateToCreateCollectionFragment(it)}
     }
 
     private fun setOnBackButtonClickListener() {
         binding.backChooseIconButton.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun navigateToCreateCollectionFragment(iconId: Int) {
+        val action =
+            SelectionFragmentDirections.actionSelectionFragmentToCreateCollectionFragment(iconId)
+        findNavController().navigate(action)
     }
 
     private fun addToList() {

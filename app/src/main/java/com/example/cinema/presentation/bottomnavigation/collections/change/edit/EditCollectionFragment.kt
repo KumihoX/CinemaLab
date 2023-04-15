@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentEditCollectionBinding
+import com.example.cinema.presentation.bottomnavigation.collections.CollectionsFragmentDirections
 import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +39,7 @@ class EditCollectionFragment : Fragment() {
                     binding.editCollectionProgressBar.hide()
                     setOnClickButtons()
                     setCollectionName()
+                    setCollectionIcon()
                 }
                 is EditCollectionViewModel.EditCollectionState.Success -> {
                     binding.editCollectionProgressBar.hide()
@@ -63,6 +65,10 @@ class EditCollectionFragment : Fragment() {
         binding.nameCollectionsEditText.setText(callback?.getCollectionInfo()!!.name)
     }
 
+    private fun setCollectionIcon() {
+        binding.iconCollection.setImageResource(callback?.getCollectionInfo()!!.imageId)
+    }
+
     private fun setOnClickButtons() {
         setOnBackClickListener()
         setOnSaveButtonClickListener()
@@ -81,7 +87,7 @@ class EditCollectionFragment : Fragment() {
             viewModel.saveChanges(
                 callback?.getCollectionInfo()!!.id,
                 binding.nameCollectionsEditText.text.toString(),
-                R.drawable.collection_icon_01
+                callback?.getCollectionInfo()!!.imageId
             )
             findNavController().popBackStack()
         }
@@ -95,6 +101,7 @@ class EditCollectionFragment : Fragment() {
 
     private fun setOnChooseIconButtonClickListener() {
         binding.chooseIconButton.setOnClickListener {
+            callback?.changeName(binding.nameCollectionsEditText.text.toString())
             findNavController().navigate(R.id.action_editCollectionFragment_to_selectionFragment)
         }
     }

@@ -92,7 +92,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/youWatchedCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="240dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:visibility="gone"
@@ -105,7 +105,7 @@
             android:id="@+id/youWatchedCover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:background="@android:color/transparent"
             android:foreground="@drawable/gradient" />
 

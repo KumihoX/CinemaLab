@@ -57,7 +57,10 @@
         android:id="@+id/createCollectionActivity"
         android:name="com.example.cinema.presentation.bottomnavigation.collections.change.CreateCollectionActivity"
         android:label="activity_create_collection"
-        tools:layout="@layout/activity_create_collection" />
+        tools:layout="@layout/activity_create_collection" >
+        <argument android:name="collectionInfo"
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
+    </activity>
 
     <activity
         android:id="@+id/collectionInfoActivity"

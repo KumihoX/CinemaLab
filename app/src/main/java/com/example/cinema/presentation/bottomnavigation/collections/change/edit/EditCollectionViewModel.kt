@@ -35,6 +35,10 @@ class EditCollectionViewModel @Inject constructor(
 
     fun saveChanges(collectionId: String, name: String, image: Int) {
         _state.value = EditCollectionState.Loading
+        if (name == "Избранное" || name.isEmpty()) {
+            _state.value = EditCollectionState.Failure("Нельзя создать коллекцию с таким именем")
+            return
+        }
         var scopeIsEnd = false
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -43,7 +47,6 @@ class EditCollectionViewModel @Inject constructor(
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                _state.value = EditCollectionState.Failure(ex.message.toString())
             }
         }
         while(!scopeIsEnd){}

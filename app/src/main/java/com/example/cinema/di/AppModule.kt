@@ -137,6 +137,23 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideEpisodesApi(): EpisodesApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(EpisodesApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEpisodesRepository(api: EpisodesApi): EpisodesRepository {
+        return EpisodesRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
     ) = Room.databaseBuilder(

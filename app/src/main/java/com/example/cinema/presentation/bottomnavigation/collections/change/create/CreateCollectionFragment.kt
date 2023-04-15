@@ -10,25 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgs
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentCreateCollectionBinding
-import com.example.cinema.presentation.movie.MovieDetailActivityArgs
+import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCollectionFragment: Fragment() {
+class CreateCollectionFragment : Fragment() {
     private lateinit var binding: FragmentCreateCollectionBinding
     private val viewModel: CreateCollectionViewModel by viewModels()
 
-    private val args: CreateCollectionFragmentArgs by navArgs()
-
-    private var callback: CreateCollectionListener? = null
-
-    interface CreateCollectionListener {
-        fun backToCollectionsFragment()
-    }
+    private var callback: CollectionDetailFragment.CollectionInfoListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +37,7 @@ class CreateCollectionFragment: Fragment() {
                 CreateCollectionViewModel.CreateCollectionState.Initial -> {
                     binding.createCollectionProgressBar.hide()
                     setImage()
+                    setName()
                     setOnClickButtons()
                 }
                 is CreateCollectionViewModel.CreateCollectionState.Success -> {
@@ -63,16 +56,21 @@ class CreateCollectionFragment: Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        callback = activity as CreateCollectionListener
+        callback = activity as CollectionDetailFragment.CollectionInfoListener
         super.onAttach(context)
     }
 
     private fun setImage() {
-        if (args.iconId == 0) {
+        if (callback?.getCollectionInfo()!!.imageId == 0) {
             binding.iconCollection.setImageResource(R.drawable.collection_icon_01)
+        } else {
+            binding.iconCollection.setImageResource(callback?.getCollectionInfo()!!.imageId)
         }
-        else {
-            binding.iconCollection.setImageResource(args.iconId)
+    }
+
+    private fun setName() {
+        if (callback?.getCollectionInfo()!!.name != "") {
+            binding.nameCollectionsEditText.setText(callback?.getCollectionInfo()!!.name)
         }
     }
 
@@ -85,13 +83,18 @@ class CreateCollectionFragment: Fragment() {
 
     private fun setOnClickChooseIcon() {
         binding.chooseIconButton.setOnClickListener {
+            callback?.changeName(binding.nameCollectionsEditText.text.toString())
             findNavController().navigate(R.id.action_createCollectionFragment_to_selectionFragment)
+            //findNavController().navigate(R.id.action_createCollectionFragment_to_selectionFragment)
         }
     }
 
     private fun setOnClickSaveButton() {
         binding.saveCollectionButton.setOnClickListener {
-            viewModel.postCollection(binding.nameCollectionsEditText.text.toString(), args.iconId)
+            viewModel.postCollection(
+                binding.nameCollectionsEditText.text.toString(),
+                callback?.getCollectionInfo()!!.imageId
+            )
         }
     }
 

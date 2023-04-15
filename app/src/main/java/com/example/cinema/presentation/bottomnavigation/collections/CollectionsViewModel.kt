@@ -49,7 +49,6 @@ class CollectionsViewModel @Inject constructor(
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                _state.value = CollectionsState.Failure(ex.message.toString())
             }
         }
         while (getCollections.isEmpty()) {}

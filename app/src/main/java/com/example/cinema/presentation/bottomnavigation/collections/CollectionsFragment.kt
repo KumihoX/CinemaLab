@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
-import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.FragmentCollectionsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +59,10 @@ class CollectionsFragment : Fragment() {
 
     private fun setOnClickOnAddButton() {
         binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_collection_to_createCollectionActivity)
+            val collection = CollectionEntity("", R.drawable.collection_icon_01, "")
+            val action =
+                CollectionsFragmentDirections.actionCollectionToCreateCollectionActivity(collection)
+            findNavController().navigate(action)
         }
     }
 
@@ -76,7 +78,8 @@ class CollectionsFragment : Fragment() {
     }
 
     private fun navigateToCollectionInfoActivity(collectionInfo: CollectionEntity) {
-        val action = CollectionsFragmentDirections.actionCollectionToCollectionInfoActivity(collectionInfo)
+        val action =
+            CollectionsFragmentDirections.actionCollectionToCollectionInfoActivity(collectionInfo)
         findNavController().navigate(action)
     }
 

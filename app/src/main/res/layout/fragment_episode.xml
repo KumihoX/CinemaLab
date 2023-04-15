@@ -7,6 +7,12 @@
     android:background="@color/background">
 
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/episodeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="addInCollectionButton,movieInfo,addInFavoritesButton,episodeNameDescriptionText,episodeFrame,movieCover,movieYears,episodeBackButton,episodeChatButton,movieName,episodeNameText,episodeDescriptionText" />
+
     <ImageButton
         android:id="@+id/addInFavoritesButton"
         android:layout_width="wrap_content"

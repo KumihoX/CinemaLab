@@ -10,6 +10,7 @@ import com.example.cinema.data.remote.api.dto.CollectionFormDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.domain.usecase.collection.AddCollectionInDatabaseUseCase
 import com.example.cinema.domain.usecase.collection.PostCollectionUseCase
+import com.example.cinema.presentation.bottomnavigation.collections.change.edit.EditCollectionViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -37,6 +38,11 @@ class CreateCollectionViewModel @Inject constructor(
         var iconImage = R.drawable.collection_icon_01
         if (icon != 0) {
             iconImage = icon
+        }
+
+        if (name == "Избранное" || name.isEmpty()) {
+            _state.value = CreateCollectionState.Failure("Нельзя создать коллекцию с таким именем")
+            return
         }
 
         _state.value = CreateCollectionState.Loading

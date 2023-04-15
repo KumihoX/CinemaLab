@@ -13,14 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
-import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.FragmentCollectionDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CollectionDetailFragment: Fragment() {
+class CollectionDetailFragment : Fragment() {
     private lateinit var binding: FragmentCollectionDetailBinding
     private val viewModel: CollectionInfoViewModel by viewModels()
 
@@ -29,6 +28,8 @@ class CollectionDetailFragment: Fragment() {
     interface CollectionInfoListener {
         fun backToCollectionsFragment()
         fun getCollectionInfo(): CollectionEntity
+        fun changeIcon(icon: Int)
+        fun changeName(name: String)
     }
 
     override fun onCreateView(
@@ -86,7 +87,7 @@ class CollectionDetailFragment: Fragment() {
             return
         }
         binding.editButton.setOnClickListener {
-            navigateToEditCollectionFragment(collectionInfo)
+            navigateToEditCollectionFragment()
         }
     }
 
@@ -108,9 +109,8 @@ class CollectionDetailFragment: Fragment() {
             )
     }
 
-    private fun navigateToEditCollectionFragment(collectionInfo: CollectionEntity) {
-        val action = CollectionDetailFragmentDirections.actionCollectionDetailFragmentToEditCollectionFragment(collectionInfo)
-        findNavController().navigate(action)
+    private fun navigateToEditCollectionFragment() {
+        findNavController().navigate(R.id.action_collectionDetailFragment_to_editCollectionFragment)
     }
 
     private fun createErrorDialog(message: String) {

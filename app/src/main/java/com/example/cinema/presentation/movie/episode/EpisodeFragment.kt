@@ -4,29 +4,24 @@ import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.TextureView
-import android.view.View
-import android.view.ViewGroup
-import android.widget.MediaController
-import android.widget.VideoView
+import android.view.*
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.SimpleExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.cinema.R
+import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.FragmentEpisodeBinding
-import com.example.cinema.presentation.bottomnavigation.profile.ProfileViewModel
 import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class EpisodeFragment: Fragment() {
@@ -39,6 +34,9 @@ class EpisodeFragment: Fragment() {
     private lateinit var videoView: PlayerView
     private lateinit var exoPlayer: ExoPlayer
 
+    private lateinit var popUpMenu: PopupMenu
+
+    @androidx.media3.common.util.UnstableApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,8 +46,21 @@ class EpisodeFragment: Fragment() {
 
         val stateObserver = Observer<EpisodeViewModel.EpisodeState> {
             when (it) {
+                EpisodeViewModel.EpisodeState.FirstLoading -> {
+                    binding.episodeGroup.isGone = true
+                    binding.episodeProgressBar.show()
+                }
                 EpisodeViewModel.EpisodeState.Loading -> {
                     binding.episodeProgressBar.show()
+                }
+                is EpisodeViewModel.EpisodeState.Initial -> {
+                    binding.episodeGroup.isGone = false
+                    binding.episodeProgressBar.hide()
+                    addEpisodeInfo()
+                    addVideoView(it.time)
+                    setPreview()
+                    setOnButtonsClickListener()
+                    setPopUpMenu(it.collections)
                 }
                 EpisodeViewModel.EpisodeState.Success -> {
                     binding.episodeProgressBar.hide()
@@ -76,13 +87,16 @@ class EpisodeFragment: Fragment() {
         callback = activity as MovieDetailFragment.MovieDetailListener
         super.onAttach(context)
     }
-    @androidx.media3.common.util.UnstableApi
+
     override fun onStart() {
-        addEpisodeInfo()
-        addVideoView()
-        setPreview()
-        setOnButtonsClickListener()
+        viewModel.getStartPosition(args.episodeInfo.episodeId)
         super.onStart()
+    }
+
+    override fun onPause() {
+        exoPlayer.pause()
+        viewModel.postEpisodeTime(args.episodeInfo.episodeId, (exoPlayer.currentPosition/1000).toInt())
+        super.onPause()
     }
 
     private fun setOnButtonsClickListener() {
@@ -99,7 +113,7 @@ class EpisodeFragment: Fragment() {
     }
     private fun setOnAddInCollectionButtonListener() {
         binding.addInCollectionButton.setOnClickListener {
-
+            popUpMenu.show()
         }
     }
     private fun setOnAddInFavoritesButtonListener() {
@@ -124,7 +138,7 @@ class EpisodeFragment: Fragment() {
         binding.episodeDescriptionText.text = args.episodeInfo.description
     }
 
-    private fun addVideoView() {
+    private fun addVideoView(time: Int) {
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
         videoView = binding.episodeVideoView
         videoView.player = exoPlayer
@@ -132,6 +146,7 @@ class EpisodeFragment: Fragment() {
         val mediaItem = MediaItem.fromUri(Uri.parse(args.episodeInfo.filePath))
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
+        exoPlayer.seekTo((time * 1000).toLong())
     }
     @androidx.media3.common.util.UnstableApi
     private fun setPreview() {
@@ -143,11 +158,6 @@ class EpisodeFragment: Fragment() {
         binding.startPlayButton.visibility = View.VISIBLE
     }
 
-    override fun onDestroy() {
-        exoPlayer.pause()
-        super.onDestroy()
-    }
-
     private fun createErrorDialog(message: String) {
         val builder = AlertDialog.Builder(context)
 
@@ -156,4 +166,16 @@ class EpisodeFragment: Fragment() {
         builder.show()
     }
 
+    private fun setPopUpMenu(collections: List<CollectionEntity>) {
+        popUpMenu = PopupMenu(requireContext(), binding.addInCollectionButton)
+
+        for (i in collections.indices) {
+            popUpMenu.menu.add(Menu.NONE, i, i,collections[i].name)
+        }
+
+        popUpMenu.setOnMenuItemClickListener {
+            viewModel.addMovieInCollection(it.itemId, callback?.getMovieInfo()!!.movieId)
+            return@setOnMenuItemClickListener false
+        }
+    }
 }

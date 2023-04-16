@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.remote.api.dto.EpisodeDto
 
-class SelectionRecyclerAdapter(private val iconsList: List<Int>, private val passData: (Int) -> Unit) :
+class SelectionRecyclerAdapter(
+    private val iconsList: List<Int>,
+    private val passData: (Int) -> Unit
+) :
     RecyclerView.Adapter<SelectionRecyclerAdapter.SelectionViewHolder>() {
 
     class SelectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,7 +20,8 @@ class SelectionRecyclerAdapter(private val iconsList: List<Int>, private val pas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectionViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.collection_icon_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.collection_icon_item, parent, false)
         return SelectionViewHolder(view)
     }
 
@@ -28,7 +31,7 @@ class SelectionRecyclerAdapter(private val iconsList: List<Int>, private val pas
 
     override fun onBindViewHolder(holder: SelectionViewHolder, position: Int) {
         holder.image.setImageResource(iconsList[position])
-        holder.image.setOnClickListener{
+        holder.image.setOnClickListener {
             passData(iconsList[position])
         }
     }

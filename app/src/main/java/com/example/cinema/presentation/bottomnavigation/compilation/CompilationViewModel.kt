@@ -79,8 +79,7 @@ class CompilationViewModel @Inject constructor(
                 if (ex.message == "HTTP 409 Conflict") {
                     _state.value =
                         CompilationState.Failure("Этот фильм уже был добавлен вами в \"Избранное\"")
-                }
-                else{
+                } else {
                     _state.value = CompilationState.Failure(ex.message.toString())
                 }
             }

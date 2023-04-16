@@ -5,18 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.domain.usecase.collection.GetCollectionsFromDatabaseUseCase
-import com.example.cinema.domain.usecase.collection.GetCollectionsUseCase
 import com.example.cinema.domain.usecase.storage.GetFavoriteCollectionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,7 +47,8 @@ class CollectionsViewModel @Inject constructor(
             } catch (ex: Exception) {
             }
         }
-        while (getCollections.isEmpty()) {}
+        while (getCollections.isEmpty()) {
+        }
         var favoriteCollectionIndex = 0
         for (i in getCollections.indices) {
             if (getCollections[i].id == favoriteCollectionId) {

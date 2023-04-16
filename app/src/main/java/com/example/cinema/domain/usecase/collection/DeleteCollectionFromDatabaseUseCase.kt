@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeleteCollectionFromDatabaseUseCase @Inject constructor(
     private val database: CollectionDao
 ) {
-    suspend operator fun invoke(
+    operator fun invoke(
         collectionId: String
     ) {
         return database.deleteCollection(collectionId)

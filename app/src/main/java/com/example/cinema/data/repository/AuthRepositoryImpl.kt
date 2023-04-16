@@ -17,4 +17,8 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun comeIn(body: AuthCredentialDto): AuthTokenPairDto {
         return api.comeIn(body)
     }
+
+    override suspend fun refresh(refreshToken: AuthTokenPairDto): AuthTokenPairDto {
+        return api.refresh("Bearer ${refreshToken.refreshToken}")
+    }
 }

@@ -4,6 +4,7 @@ import com.example.cinema.data.remote.api.dto.AuthCredentialDto
 import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
 import com.example.cinema.data.remote.api.dto.RegistrationBodyDto
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -13,5 +14,8 @@ interface AuthApi {
 
     @POST("auth/login")
     suspend fun comeIn(@Body body: AuthCredentialDto): AuthTokenPairDto
+
+    @POST("auth/refresh")
+    suspend fun refresh(@Header("Authorization") refreshToken: String): AuthTokenPairDto
 
 }

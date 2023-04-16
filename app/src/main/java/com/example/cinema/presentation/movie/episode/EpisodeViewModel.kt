@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.api.dto.EpisodeTimeDto
-import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.data.remote.api.dto.MovieValueDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.domain.usecase.collection.GetCollectionsFromDatabaseUseCase
@@ -35,7 +34,7 @@ class EpisodeViewModel @Inject constructor(
     sealed class EpisodeState {
         object FirstLoading : EpisodeState()
         object Loading : EpisodeState()
-        class Initial(val time: Int, val collections: List<CollectionEntity>): EpisodeState()
+        class Initial(val time: Int, val collections: List<CollectionEntity>) : EpisodeState()
         object Success : EpisodeState()
         class Failure(val errorMessage: String) : EpisodeState()
     }
@@ -62,7 +61,8 @@ class EpisodeViewModel @Inject constructor(
             try {
                 val time = getEpisodeTimeUseCase(context, episodeId)
                 getCollections()
-                while (collections.isEmpty()) {}
+                while (collections.isEmpty()) {
+                }
                 _state.value = EpisodeState.Initial(time.timeInSeconds, collections)
             } catch (rethrow: CancellationException) {
                 throw rethrow
@@ -76,7 +76,7 @@ class EpisodeViewModel @Inject constructor(
         val collectionInfo = collections[index]
 
         viewModelScope.launch {
-            try{
+            try {
                 val movieValue = MovieValueDto(movieId)
                 postMovieInCollectionUseCase(context, collectionInfo.id, movieValue)
             } catch (rethrow: CancellationException) {
@@ -101,8 +101,7 @@ class EpisodeViewModel @Inject constructor(
                 if (ex.message == "HTTP 409 Conflict") {
                     _state.value =
                         EpisodeState.Failure("Этот фильм уже был добавлен вами в \"Избранное\"")
-                }
-                else{
+                } else {
                     _state.value = EpisodeState.Failure(ex.message.toString())
                 }
             }

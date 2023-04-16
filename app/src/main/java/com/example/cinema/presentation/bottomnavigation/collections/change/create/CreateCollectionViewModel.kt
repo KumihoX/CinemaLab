@@ -10,7 +10,6 @@ import com.example.cinema.data.remote.api.dto.CollectionFormDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.domain.usecase.collection.AddCollectionInDatabaseUseCase
 import com.example.cinema.domain.usecase.collection.PostCollectionUseCase
-import com.example.cinema.presentation.bottomnavigation.collections.change.edit.EditCollectionViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -66,7 +65,7 @@ class CreateCollectionViewModel @Inject constructor(
         }
     }
 
-    private fun addCollection(collectionEntity: CollectionEntity){
+    private fun addCollection(collectionEntity: CollectionEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 addCollectionInDatabaseUseCase(collectionEntity)

@@ -50,7 +50,7 @@ class ProfileViewModel @Inject constructor(
 
     fun logout() {
         viewModelScope.launch(Dispatchers.IO) {
-            try{
+            try {
                 deleteAllCollectionsUseCase()
             } catch (rethrow: CancellationException) {
                 throw rethrow

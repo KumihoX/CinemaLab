@@ -4,7 +4,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -24,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class EpisodeFragment: Fragment() {
+class EpisodeFragment : Fragment() {
     private lateinit var binding: FragmentEpisodeBinding
     private val args: EpisodeFragmentArgs by navArgs()
     private val viewModel: EpisodeViewModel by viewModels()
@@ -95,7 +98,10 @@ class EpisodeFragment: Fragment() {
 
     override fun onPause() {
         exoPlayer.pause()
-        viewModel.postEpisodeTime(args.episodeInfo.episodeId, (exoPlayer.currentPosition/1000).toInt())
+        viewModel.postEpisodeTime(
+            args.episodeInfo.episodeId,
+            (exoPlayer.currentPosition / 1000).toInt()
+        )
         super.onPause()
     }
 
@@ -111,11 +117,13 @@ class EpisodeFragment: Fragment() {
 
         }
     }
+
     private fun setOnAddInCollectionButtonListener() {
         binding.addInCollectionButton.setOnClickListener {
             popUpMenu.show()
         }
     }
+
     private fun setOnAddInFavoritesButtonListener() {
         binding.addInFavoritesButton.setOnClickListener {
             viewModel.addMovieInFavorites(callback?.getMovieInfo()!!.movieId)
@@ -132,7 +140,8 @@ class EpisodeFragment: Fragment() {
     private fun addEpisodeInfo() {
         binding.episodeNameText.text = args.episodeInfo.name
         binding.movieName.text = callback?.getMovieInfo()?.name
-        Glide.with(binding.movieCover).load(callback?.getMovieInfo()?.poster).into(binding.movieCover)
+        Glide.with(binding.movieCover).load(callback?.getMovieInfo()?.poster)
+            .into(binding.movieCover)
         binding.movieInfo.text = args.episodeInfo.director
         binding.movieYears.text = args.episodeInfo.year
         binding.episodeDescriptionText.text = args.episodeInfo.description
@@ -148,6 +157,7 @@ class EpisodeFragment: Fragment() {
         exoPlayer.prepare()
         exoPlayer.seekTo((time * 1000).toLong())
     }
+
     @androidx.media3.common.util.UnstableApi
     private fun setPreview() {
         val image = binding.preview
@@ -170,7 +180,7 @@ class EpisodeFragment: Fragment() {
         popUpMenu = PopupMenu(requireContext(), binding.addInCollectionButton)
 
         for (i in collections.indices) {
-            popUpMenu.menu.add(Menu.NONE, i, i,collections[i].name)
+            popUpMenu.menu.add(Menu.NONE, i, i, collections[i].name)
         }
 
         popUpMenu.setOnMenuItemClickListener {

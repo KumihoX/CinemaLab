@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetChatsUseCase @Inject constructor(
     private val repository: ChatsRepository
-){
+) {
     suspend operator fun invoke(
         context: Context
     ): List<ChatDto> {

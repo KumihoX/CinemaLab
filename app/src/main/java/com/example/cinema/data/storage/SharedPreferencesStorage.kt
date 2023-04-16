@@ -1,12 +1,15 @@
 package com.example.cinema.data.storage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
 import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 
-class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorage {
+@SuppressLint("CommitPrefEdits")
+class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorage,
+    IsUserFirstTimeStorage {
 
     companion object {
         const val ENCRYPTED_SHARED_PREFS_NAME = "encryptedSharedPreferences"
@@ -21,7 +24,6 @@ class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorag
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
-
 
     override fun saveToken(token: AuthTokenPairDto) {
         sharedPreferences.edit()
@@ -73,6 +75,16 @@ class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorag
             sharedPreferences.getString(
                 FavoritesStorage.FAVORITE_COLLECTION_NAME, ""
             ).toString()
+        )
+    }
+
+    override fun changeFirstTimeStatus() {
+        sharedPreferences.edit().putBoolean(IsUserFirstTimeStorage.FIRST_TIME_STATUS, false).apply()
+    }
+
+    override fun getFirstTimeStatus(): Boolean {
+        return sharedPreferences.getBoolean(
+            IsUserFirstTimeStorage.FIRST_TIME_STATUS, true
         )
     }
 }

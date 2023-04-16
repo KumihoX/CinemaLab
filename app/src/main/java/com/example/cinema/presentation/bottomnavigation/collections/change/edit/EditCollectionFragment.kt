@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentEditCollectionBinding
-import com.example.cinema.presentation.bottomnavigation.collections.CollectionsFragmentDirections
 import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 

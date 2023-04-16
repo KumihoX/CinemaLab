@@ -6,6 +6,6 @@ import com.example.cinema.data.remote.api.dto.RegistrationBodyDto
 
 interface AuthRepository {
     suspend fun register(body: RegistrationBodyDto): AuthTokenPairDto
-
     suspend fun comeIn(body: AuthCredentialDto): AuthTokenPairDto
+    suspend fun refresh(refreshToken: AuthTokenPairDto): AuthTokenPairDto
 }

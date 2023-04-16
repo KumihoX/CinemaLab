@@ -22,7 +22,7 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>) :
     private fun getFirstLetters(): String {
         var firstLetters = ""
         for (i in chatNames.indices) {
-            firstLetters += chatNames[i].chatName[0]
+            firstLetters += chatNames[i].chatName[0].uppercaseChar()
         }
         return firstLetters
     }

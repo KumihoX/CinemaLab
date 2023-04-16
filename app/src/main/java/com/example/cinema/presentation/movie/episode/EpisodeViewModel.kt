@@ -19,6 +19,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,8 +62,7 @@ class EpisodeViewModel @Inject constructor(
             try {
                 val time = getEpisodeTimeUseCase(context, episodeId)
                 getCollections()
-                while (collections.isEmpty()) {
-                }
+                while (collections.isEmpty()) {}
                 _state.value = EpisodeState.Initial(time.timeInSeconds, collections)
             } catch (rethrow: CancellationException) {
                 throw rethrow

@@ -7,7 +7,7 @@ import com.example.cinema.presentation.chats.chatlist.ChatListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatsActivity: AppCompatActivity(), ChatListFragment.ChatsListener {
+class ChatsActivity : AppCompatActivity(), ChatListFragment.ChatsListener {
     private lateinit var binding: ActivityChatsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

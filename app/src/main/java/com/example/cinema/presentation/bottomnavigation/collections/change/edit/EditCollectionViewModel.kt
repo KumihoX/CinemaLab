@@ -42,14 +42,15 @@ class EditCollectionViewModel @Inject constructor(
         var scopeIsEnd = false
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                editCollectionInDatabaseUseCase(image,name,collectionId)
+                editCollectionInDatabaseUseCase(image, name, collectionId)
                 scopeIsEnd = true
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
             }
         }
-        while(!scopeIsEnd){}
+        while (!scopeIsEnd) {
+        }
         _state.value = EditCollectionState.Success
     }
 

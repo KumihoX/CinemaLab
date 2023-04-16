@@ -25,7 +25,7 @@ import com.example.cinema.domain.model.Movie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieDetailFragment: Fragment() {
+class MovieDetailFragment : Fragment() {
     private lateinit var movieInfo: Movie
     private lateinit var binding: FragmentMovieDetailBinding
     private val viewModel: MovieDetailViewModel by viewModels()
@@ -100,7 +100,7 @@ class MovieDetailFragment: Fragment() {
     private fun addAge(age: AgeEnum) {
         val textAge = binding.age
         textAge.text = getString(age.age)
-        textAge.setTextColor(getColor(requireActivity(),age.color))
+        textAge.setTextColor(getColor(requireActivity(), age.color))
     }
 
     private fun addTags(tags: List<TagDto>) {
@@ -110,7 +110,7 @@ class MovieDetailFragment: Fragment() {
             textView.text = tag.tagName
             textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
             textView.background = getDrawable(requireActivity(), R.drawable.tag_background)
-            textView.setTextColor(getColor(requireActivity(),R.color.white))
+            textView.setTextColor(getColor(requireActivity(), R.color.white))
 
             binding.flexBox.addView(textView)
 
@@ -144,7 +144,7 @@ class MovieDetailFragment: Fragment() {
         episodesRecyclerView.adapter =
             EpisodesRecyclerAdapter(
                 episodes
-            ) {navigateToEpisodeFragment(it)}
+            ) { navigateToEpisodeFragment(it) }
     }
 
     private fun createErrorDialog(message: String) {
@@ -156,7 +156,8 @@ class MovieDetailFragment: Fragment() {
     }
 
     private fun navigateToEpisodeFragment(episodeInfo: EpisodeDto) {
-        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
+        val action =
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
         findNavController().navigate(action)
     }
 }

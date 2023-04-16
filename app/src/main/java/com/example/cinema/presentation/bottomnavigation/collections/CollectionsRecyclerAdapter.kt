@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 
 class CollectionsRecyclerAdapter(

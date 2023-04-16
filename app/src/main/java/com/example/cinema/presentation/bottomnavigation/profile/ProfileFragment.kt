@@ -63,14 +63,14 @@ class ProfileFragment : Fragment() {
         setOnExitButtonClickListener()
     }
 
-    private fun setOnExitButtonClickListener(){
+    private fun setOnExitButtonClickListener() {
         binding.logout.setOnClickListener {
             viewModel.logout()
         }
     }
 
     private fun setOnDiscussionClickListener() {
-        binding.discussion.setOnClickListener{
+        binding.discussion.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_chatsActivity)
         }
     }

@@ -9,11 +9,18 @@ import javax.inject.Inject
 class EpisodesRepositoryImpl @Inject constructor(
     private val api: EpisodesApi
 ) : EpisodesRepository {
-    override suspend fun getEpisodeTime(token: AuthTokenPairDto, episodeId: String): EpisodeTimeDto {
+    override suspend fun getEpisodeTime(
+        token: AuthTokenPairDto,
+        episodeId: String
+    ): EpisodeTimeDto {
         return api.getEpisodeTime("Bearer ${token.accessToken}", episodeId)
     }
 
-    override suspend fun postEpisodeTime(token: AuthTokenPairDto, episodeId: String, episodeTime: EpisodeTimeDto) {
+    override suspend fun postEpisodeTime(
+        token: AuthTokenPairDto,
+        episodeId: String,
+        episodeTime: EpisodeTimeDto
+    ) {
         return api.postEpisodeTime("Bearer ${token.accessToken}", episodeId, episodeTime)
     }
 }

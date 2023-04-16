@@ -8,14 +8,15 @@ import com.example.cinema.databinding.ActivityCollectionInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CollectionInfoActivity : AppCompatActivity(), CollectionDetailFragment.CollectionInfoListener {
+class CollectionInfoActivity : AppCompatActivity(),
+    CollectionDetailFragment.CollectionInfoListener {
 
     private lateinit var binding: ActivityCollectionInfoBinding
     private val args: CollectionInfoActivityArgs by navArgs()
 
-    private lateinit var collectionId : String
-    private lateinit var collectionName : String
-    private var collectionIcon : Int = 0
+    private lateinit var collectionId: String
+    private lateinit var collectionName: String
+    private var collectionIcon: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionInfoBinding.inflate(layoutInflater)

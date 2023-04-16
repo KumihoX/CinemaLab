@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.api.dto.CollectionListItemDto
 import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.domain.usecase.collection.GetCollectionInfoUseCase

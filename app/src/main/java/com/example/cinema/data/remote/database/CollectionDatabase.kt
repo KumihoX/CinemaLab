@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 
 @Database(entities = [CollectionEntity::class], version = 1)
-abstract class CollectionDatabase: RoomDatabase() {
+abstract class CollectionDatabase : RoomDatabase() {
     abstract val collectionDao: CollectionDao
 }

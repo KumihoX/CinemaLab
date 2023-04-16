@@ -17,7 +17,7 @@ import com.example.cinema.databinding.FragmentChatListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatListFragment: Fragment() {
+class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding
     private val viewModel: ChatListViewModel by viewModels()
 

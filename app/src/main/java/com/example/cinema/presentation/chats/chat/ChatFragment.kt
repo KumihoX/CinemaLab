@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentChatBinding
-import com.example.cinema.databinding.FragmentChatListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatFragment: Fragment() {
+class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

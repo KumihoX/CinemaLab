@@ -15,9 +15,9 @@ class CreateCollectionActivity : AppCompatActivity(),
     private lateinit var binding: ActivityCreateCollectionBinding
     private val args: CreateCollectionActivityArgs by navArgs()
 
-    private lateinit var collectionId : String
-    private lateinit var collectionName : String
-    private var collectionIcon : Int = 0
+    private lateinit var collectionId: String
+    private lateinit var collectionName: String
+    private var collectionIcon: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateCollectionBinding.inflate(layoutInflater)

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSelectionBinding
@@ -76,7 +75,7 @@ class SelectionFragment : Fragment() {
             StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
 
         selectIconRecyclerView.adapter =
-            SelectionRecyclerAdapter(addToList()) {navigateToPreviousFragment(it)}
+            SelectionRecyclerAdapter(addToList()) { navigateToPreviousFragment(it) }
     }
 
     private fun setOnBackButtonClickListener() {

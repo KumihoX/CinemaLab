@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class ChatsRepositoryImpl @Inject constructor(
     private val api: ChatsApi
-): ChatsRepository {
+) : ChatsRepository {
     override suspend fun getChats(token: AuthTokenPairDto): List<ChatDto> {
         return api.getChats("Bearer ${token.accessToken}")
     }

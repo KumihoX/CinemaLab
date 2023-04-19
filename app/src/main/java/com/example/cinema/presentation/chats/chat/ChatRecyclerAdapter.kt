@@ -10,16 +10,17 @@ import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.ChatDto
 import com.example.cinema.data.remote.api.dto.MessageDto
 import com.example.cinema.databinding.ChatListItemBinding
+import com.example.cinema.databinding.MyMessageItemBinding
 import com.example.cinema.databinding.SomeonesMessageItemBinding
 
 class ChatRecyclerAdapter(private val messages: MutableList<MessageDto>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class MyMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ChatListItemBinding.bind(itemView)
-        val chatName: TextView = binding.chatNameText
-        val chatLastMessage: TextView = binding.lastMessageText
-        val onImageText: TextView = binding.chatAbbreviatedName
+        private val binding = MyMessageItemBinding.bind(itemView)
+        val myName: TextView = binding.myName
+        val myMessage: TextView = binding.myMessage
+        val cardView: View = binding.cardView
     }
 
     class SomeonesMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -67,9 +68,12 @@ class ChatRecyclerAdapter(private val messages: MutableList<MessageDto>) :
             0 -> {
                 val viewHolder: SomeonesMessageViewHolder = holder as SomeonesMessageViewHolder
                 viewHolder.someonesMessage.text = messages[position].text
+                viewHolder.someonesName.text = messages[position].authorName
             }
             1 -> {
-
+                val viewHolder: MyMessageViewHolder = holder as MyMessageViewHolder
+                viewHolder.myMessage.text = messages[position].text
+                viewHolder.myName.text = messages[position].authorName
             }
             2 -> {}
             else -> {}
@@ -79,7 +83,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<MessageDto>) :
     override fun getItemCount() = messages.size
 
     override fun getItemViewType(position: Int): Int {
-        return 0
+        return position % 2
     }
 }
 

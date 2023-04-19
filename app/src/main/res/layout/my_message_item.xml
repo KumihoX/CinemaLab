@@ -2,6 +2,10 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@android:color/transparent"
+    android:layout_marginTop="8dp"
+    app:cardElevation="0dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginStart="56dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -10,6 +14,7 @@
         android:layout_gravity="end"
         android:background="@drawable/my_message_shape"
         android:layout_marginEnd="40dp"
+        android:paddingStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -23,12 +28,11 @@
             android:text="Пересматривала несколько раз,gjdkflgjdfgkldfjgdfklg "
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/myName"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
@@ -40,7 +44,6 @@
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myMessage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -49,7 +52,7 @@
         android:id="@+id/cardView"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        app:cardCornerRadius="150dp"
+        app:cardCornerRadius="15dp"
         android:background="@color/white"
         android:layout_gravity="bottom|end">
 

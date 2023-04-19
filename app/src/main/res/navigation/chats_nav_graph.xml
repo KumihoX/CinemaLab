@@ -8,6 +8,8 @@
         android:id="@+id/chatFragment"
         android:name="com.example.cinema.presentation.chats.chat.ChatFragment"
         android:label="ChatFragment" >
+        <argument android:name="chatInfo"
+            app:argType="com.example.cinema.data.remote.api.dto.ChatDto"/>
         <action
             android:id="@+id/action_chatFragment_to_chatListFragment"
             app:destination="@id/chatListFragment"

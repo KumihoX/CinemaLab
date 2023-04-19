@@ -7,13 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.ChatDto
+import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.ChatListItemBinding
 
-class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>) :
+class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
+                              private val passData: (ChatDto) -> Unit ) :
     RecyclerView.Adapter<ChatListRecyclerAdapter.ChatListViewHolder>() {
 
     class ChatListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ChatListItemBinding.bind(itemView)
+        val item: View = binding.chatListItem
         val chatName: TextView = binding.chatNameText
         val chatLastMessage: TextView = binding.lastMessageText
         val onImageText: TextView = binding.chatAbbreviatedName
@@ -34,6 +37,9 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>) :
     }
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
+        holder.item.setOnClickListener {
+            passData(chatNames[position])
+        }
         holder.chatName.text = chatNames[position].chatName
         holder.onImageText.text = getFirstLetters()
     }

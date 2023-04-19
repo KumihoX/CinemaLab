@@ -10,10 +10,13 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.ChatDto
+import com.example.cinema.data.remote.api.dto.EpisodeDto
 import com.example.cinema.databinding.FragmentChatListBinding
+import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -77,13 +80,19 @@ class ChatListFragment : Fragment() {
         chatListRecyclerView.adapter =
             ChatListRecyclerAdapter(
                 chats
-            )
+            ) {navigateToChatFragment(it)}
     }
 
     private fun setOnBackButtonClickListener() {
         binding.backChatListButton.setOnClickListener {
             callback?.backToProfileFragment()
         }
+    }
+
+    private fun navigateToChatFragment(chatInfo: ChatDto) {
+        val action =
+            ChatListFragmentDirections.actionChatListFragmentToChatFragment(chatInfo)
+        findNavController().navigate(action)
     }
 
     private fun createErrorDialog(message: String) {

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="72dp"
             android:layout_marginTop="16dp"
-            android:text="Коллекции"
+            android:text="@string/collections"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

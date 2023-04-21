@@ -2,6 +2,7 @@ package com.example.cinema.presentation.chats
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cinema.R
 import com.example.cinema.databinding.ActivityChatsBinding
 import com.example.cinema.presentation.chats.chatlist.ChatListFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +13,8 @@ class ChatsActivity : AppCompatActivity(), ChatListFragment.ChatsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setTheme(R.style.Theme_Cinema)
 
         binding = ActivityChatsBinding.inflate(layoutInflater)
         setContentView(binding.root)

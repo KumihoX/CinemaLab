@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Cinema)
         setContentView(R.layout.activity_main)
     }
 }

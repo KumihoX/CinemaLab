@@ -16,6 +16,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Cinema)
 
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -3,6 +3,7 @@ package com.example.cinema.presentation.bottomnavigation.collections.change
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
+import com.example.cinema.R
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.ActivityCreateCollectionBinding
 import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment
@@ -21,6 +22,8 @@ class CreateCollectionActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateCollectionBinding.inflate(layoutInflater)
+
+        setTheme(R.style.Theme_Cinema)
 
         collectionId = args.collectionInfo.id
         collectionName = args.collectionInfo.name

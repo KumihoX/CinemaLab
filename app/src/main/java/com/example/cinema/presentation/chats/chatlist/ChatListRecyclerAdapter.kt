@@ -26,10 +26,17 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
         val onImageText: TextView = binding.chatAbbreviatedName
     }
 
-    private fun getFirstLetters(): String {
+    private fun getFirstLetters(shortName: String): String {
+        val words = shortName.split(" ")
         var firstLetters = ""
+        if (words.size > 2){
+            for (i in 0..1) {
+                firstLetters += words[i][0].uppercaseChar()
+            }
+            return firstLetters
+        }
         for (i in chatNames.indices) {
-            firstLetters += chatNames[i].chatName[0].uppercaseChar()
+            firstLetters += words[i][0].uppercaseChar()
         }
         return firstLetters
     }
@@ -45,7 +52,7 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
             passData(chatNames[position])
         }
         holder.chatName.text = chatNames[position].chatName
-        holder.onImageText.text = getFirstLetters()
+        holder.onImageText.text = getFirstLetters(chatNames[position].chatName)
         val spannable = SpannableString("${chatNames[position].lastMessage!!.authorName}: ${chatNames[position].lastMessage!!.text}")
         spannable.setSpan(
             ForegroundColorSpan(Color.GRAY),

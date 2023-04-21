@@ -85,7 +85,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
                     layoutParams.setMargins(0, 0, 56, 16)
                 } else {
                     viewHolder.someonesMessageBackground.setBackgroundResource(R.drawable.someones_first_message_shape)
-                    layoutParams.setMargins(0, 16, 56, 16)
+                    layoutParams.setMargins(0, 32, 56, 16)
                 }
                 viewHolder.messageCardView.layoutParams = layoutParams
 

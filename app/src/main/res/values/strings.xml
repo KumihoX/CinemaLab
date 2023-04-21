@@ -33,5 +33,22 @@
     <string name="play_button">Play Button</string>
     <string name="new_films_in_compilation_is_over">Новые фильмы в подборке закончились</string>
     <string name="favorites">Избранное</string>
+    <string name="discussions">Обсуждения</string>
+    <string name="write_message">Напишите сообщение...</string>
+    <string name="collection_name">Название коллекции</string>
+    <string name="collections">Коллекции</string>
+    <string name="create_collection">Создать коллекцию</string>
+    <string name="title">Название</string>
+    <string name="choose_icon">Выбрать иконку</string>
+    <string name="save">Сохранить</string>
+    <string name="change_collection">Изменить коллекцию</string>
+    <string name="delete">Удалить</string>
+    <string name="description">Описание</string>
+    <string name="frames">Кадры</string>
+    <string name="episodes">Эпизоды</string>
+    <string name="change">Изменить</string>
+    <string name="history">История</string>
+    <string name="settings">Настройки</string>
+    <string name="exit">Выход</string>
 
 </resources>

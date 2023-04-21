@@ -3,6 +3,7 @@ package com.example.cinema.presentation.movie
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
+import com.example.cinema.R
 import com.example.cinema.databinding.ActivityMovieDetailBinding
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment
@@ -18,6 +19,7 @@ class MovieDetailActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Cinema)
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
 
         setContentView(binding.root)

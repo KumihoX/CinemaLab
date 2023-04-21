@@ -9,6 +9,8 @@ import com.example.cinema.data.remote.api.dto.UserDto
 import com.example.cinema.domain.usecase.collection.DeleteAllCollectionsUseCase
 import com.example.cinema.domain.usecase.profile.GetProfileUseCase
 import com.example.cinema.domain.usecase.profile.PostAvatarUseCase
+import com.example.cinema.domain.usecase.storage.DeleteFavoriteCollectionUseCase
+import com.example.cinema.domain.usecase.storage.DeleteTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -68,6 +70,12 @@ class ProfileViewModel @Inject constructor(
     fun logout() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                val deleteTokenUseCase = DeleteTokenUseCase(context)
+                deleteTokenUseCase.execute()
+
+                val deleteFavoriteCollectionUseCase = DeleteFavoriteCollectionUseCase(context)
+                deleteFavoriteCollectionUseCase.execute()
+
                 deleteAllCollectionsUseCase()
             } catch (rethrow: CancellationException) {
                 throw rethrow

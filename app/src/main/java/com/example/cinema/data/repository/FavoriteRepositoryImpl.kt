@@ -17,4 +17,8 @@ class FavoriteRepositoryImpl(context: Context) : FavoriteRepository {
     override fun getFavoriteCollectionFromLocalStorage(): CollectionListItemDto {
         return sharedPreferencesStorage.getFavoriteCollection()
     }
+
+    override fun deleteFavoriteCollectionFromLocalStorage() {
+        return sharedPreferencesStorage.deleteFavoriteCollection()
+    }
 }

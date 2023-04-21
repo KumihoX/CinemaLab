@@ -1,4 +1,4 @@
-package com.example.cinema.presentation.splash
+package com.example.cinema.presentation.authorization.splash
 
 import android.os.Bundle
 import android.os.Handler
@@ -40,9 +40,7 @@ class SplashFragment : Fragment() {
         }
         viewModel.state.observe(viewLifecycleOwner, stateObserver)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getUserFirstTimeStatus()
-        }, 3000)
+        viewModel.getUserFirstTimeStatus()
         return binding.root
     }
 

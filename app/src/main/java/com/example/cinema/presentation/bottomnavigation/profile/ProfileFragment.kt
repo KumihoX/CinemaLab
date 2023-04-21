@@ -1,6 +1,7 @@
 package com.example.cinema.presentation.bottomnavigation.profile
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,13 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentProfileBinding
+import com.example.cinema.domain.model.Movie
+import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -23,6 +27,11 @@ import java.io.File
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private val viewModel: ProfileViewModel by viewModels()
+
+    private var callback: ProfileListener? = null
+    interface ProfileListener {
+        fun logout()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +84,11 @@ class ProfileFragment : Fragment() {
         super.onStart()
     }
 
+    override fun onAttach(context: Context) {
+        callback = activity as ProfileListener
+        super.onAttach(context)
+    }
+
     private fun setOnButtonsClickListener() {
         setOnDiscussionClickListener()
         setOnExitButtonClickListener()
@@ -83,6 +97,8 @@ class ProfileFragment : Fragment() {
     private fun setOnExitButtonClickListener() {
         binding.logout.setOnClickListener {
             viewModel.logout()
+            callback?.logout()
+            findNavController().navigate(R.id.action_profile_to_authorizationActivity)
         }
     }
 

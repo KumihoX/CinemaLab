@@ -11,4 +11,6 @@ interface FavoritesStorage {
     fun saveFavoriteCollection(collection: CollectionListItemDto)
 
     fun getFavoriteCollection(): CollectionListItemDto
+
+    fun deleteFavoriteCollection()
 }

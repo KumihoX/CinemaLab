@@ -6,4 +6,6 @@ interface FavoriteRepository {
     fun saveFavoriteCollectionToLocalStorage(collection: CollectionListItemDto)
 
     fun getFavoriteCollectionFromLocalStorage(): CollectionListItemDto
+
+    fun deleteFavoriteCollectionFromLocalStorage()
 }

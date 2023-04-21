@@ -78,6 +78,13 @@ class SharedPreferencesStorage(context: Context) : TokenStorage, FavoritesStorag
         )
     }
 
+    override fun deleteFavoriteCollection() {
+        sharedPreferences.edit()
+            .remove(FavoritesStorage.FAVORITE_COLLECTION_ID)
+            .remove(FavoritesStorage.FAVORITE_COLLECTION_NAME)
+            .apply()
+    }
+
     override fun changeFirstTimeStatus() {
         sharedPreferences.edit().putBoolean(IsUserFirstTimeStorage.FIRST_TIME_STATUS, false).apply()
     }

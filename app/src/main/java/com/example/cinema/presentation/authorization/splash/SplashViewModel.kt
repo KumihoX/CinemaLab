@@ -1,4 +1,4 @@
-package com.example.cinema.presentation.splash
+package com.example.cinema.presentation.authorization.splash
 
 import android.content.Context
 import androidx.lifecycle.LiveData

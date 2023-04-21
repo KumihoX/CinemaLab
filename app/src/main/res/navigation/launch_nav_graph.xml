@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lauch_nav_graph"
+    app:startDestination="@id/launchFragment">
+
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.example.cinema.presentation.launch.LaunchFragment"
+        android:label="LaunchFragment">
+        <action
+            android:id="@+id/action_launchFragment_to_authorizationActivity"
+            app:destination="@id/authorizationActivity"
+            app:popUpTo="@id/lauch_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity
+        android:id="@+id/authorizationActivity"
+        android:name="com.example.cinema.presentation.authorization.AuthorizationActivity"
+        android:label="AuthorizationActivity" />
+</navigation>

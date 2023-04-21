@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_profile_to_chatsActivity"
             app:destination="@id/chatsActivity" />
+        <action
+            android:id="@+id/action_profile_to_authorizationActivity"
+            app:destination="@id/authorizationActivity" />
     </fragment>
     <activity
         android:id="@+id/movieDetailActivity"
@@ -74,5 +77,9 @@
         android:id="@+id/chatsActivity"
         android:name="com.example.cinema.presentation.chats.ChatsActivity"
         android:label="ChatsActivity" />
+    <activity
+        android:id="@+id/authorizationActivity"
+        android:name="com.example.cinema.presentation.authorization.AuthorizationActivity"
+        android:label="AuthorizationActivity" />
 
 </navigation>

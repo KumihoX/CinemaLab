@@ -10,10 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectionViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val getCollectionInfoUseCase: GetCollectionInfoUseCase
-) : ViewModel() {
+class SelectionViewModel @Inject constructor() : ViewModel() {
 
     sealed class SelectionState {
         object Loading : SelectionState()

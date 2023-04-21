@@ -39,8 +39,9 @@ class CreateCollectionViewModel @Inject constructor(
             iconImage = icon
         }
 
-        if (name == "Избранное" || name.isEmpty()) {
-            _state.value = CreateCollectionState.Failure("Нельзя создать коллекцию с таким именем")
+        if (name == context.getString(R.string.favorites) || name.isEmpty()) {
+            _state.value =
+                CreateCollectionState.Failure(context.getString(R.string.error_cannot_create_collection_with_this_name))
             return
         }
 

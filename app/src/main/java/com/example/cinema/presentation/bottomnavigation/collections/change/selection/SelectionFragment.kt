@@ -86,7 +86,7 @@ class SelectionFragment : Fragment() {
     }
 
     private fun navigateToPreviousFragment(icon: Int) {
-        callback?.changeIcon(icon)
+        callback.changeIcon(icon)
         findNavController().popBackStack()
     }
 

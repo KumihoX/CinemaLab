@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.EpisodeTimeDto
 import com.example.cinema.data.remote.api.dto.MovieValueDto
 import com.example.cinema.data.remote.database.entity.CollectionEntity
@@ -100,7 +101,7 @@ class EpisodeViewModel @Inject constructor(
             } catch (ex: Exception) {
                 if (ex.message == "HTTP 409 Conflict") {
                     _state.value =
-                        EpisodeState.Failure("Этот фильм уже был добавлен вами в \"Избранное\"")
+                        EpisodeState.Failure(context.getString(R.string.error_this_film_in_favorites_now))
                 } else {
                     _state.value = EpisodeState.Failure(ex.message.toString())
                 }

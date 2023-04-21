@@ -185,7 +185,7 @@ class EpisodeFragment : Fragment() {
         popUpMenu = PopupMenu(requireContext(), binding.addInCollectionButton)
 
         for (i in collections.indices) {
-            if (collections[i].name != "Избранное") {
+            if (collections[i].name != context?.getString(R.string.favorites)) {
                 popUpMenu.menu.add(Menu.NONE, i, i, collections[i].name)
             }
         }

@@ -85,7 +85,6 @@ class CreateCollectionFragment : Fragment() {
         binding.chooseIconButton.setOnClickListener {
             callback?.changeName(binding.nameCollectionsEditText.text.toString())
             findNavController().navigate(R.id.action_createCollectionFragment_to_selectionFragment)
-            //findNavController().navigate(R.id.action_createCollectionFragment_to_selectionFragment)
         }
     }
 

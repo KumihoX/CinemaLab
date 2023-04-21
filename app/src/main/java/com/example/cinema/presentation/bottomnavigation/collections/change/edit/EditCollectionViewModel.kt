@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.domain.usecase.collection.DeleteCollectionFromDatabaseUseCase
 import com.example.cinema.domain.usecase.collection.DeleteCollectionUseCase
 import com.example.cinema.domain.usecase.collection.EditCollectionInDatabaseUseCase
@@ -35,8 +36,9 @@ class EditCollectionViewModel @Inject constructor(
 
     fun saveChanges(collectionId: String, name: String, image: Int) {
         _state.value = EditCollectionState.Loading
-        if (name == "Избранное" || name.isEmpty()) {
-            _state.value = EditCollectionState.Failure("Нельзя создать коллекцию с таким именем")
+        if (name == context.getString(R.string.favorites) || name.isEmpty()) {
+            _state.value =
+                EditCollectionState.Failure(context.getString(R.string.error_cannot_create_collection_with_this_name))
             return
         }
         var scopeIsEnd = false

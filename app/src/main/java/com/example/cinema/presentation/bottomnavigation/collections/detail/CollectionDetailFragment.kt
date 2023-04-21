@@ -116,7 +116,7 @@ class CollectionDetailFragment : Fragment() {
     private fun createErrorDialog(message: String) {
         val builder = AlertDialog.Builder(context)
 
-        builder.setTitle(getString(R.string.incorrect_input_data))
+        builder.setTitle(getString(R.string.error))
         builder.setMessage(message)
         builder.show()
     }

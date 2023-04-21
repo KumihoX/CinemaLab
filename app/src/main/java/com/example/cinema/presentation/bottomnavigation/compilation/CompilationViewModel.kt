@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.MovieDto
 import com.example.cinema.data.remote.api.dto.MovieValueDto
 import com.example.cinema.domain.usecase.collection.PostMovieInCollectionUseCase
@@ -42,7 +43,10 @@ class CompilationViewModel @Inject constructor(
         _state.value = CompilationState.FirstLoading
         viewModelScope.launch {
             try {
-                val compilation = getMoviesUseCase(context = context, "compilation")
+                val compilation = getMoviesUseCase(
+                    context = context,
+                    context.getString(R.string.filter_compilation)
+                )
                 _state.value = CompilationState.Success(compilation)
             } catch (rethrow: CancellationException) {
                 throw rethrow
@@ -78,7 +82,7 @@ class CompilationViewModel @Inject constructor(
             } catch (ex: Exception) {
                 if (ex.message == "HTTP 409 Conflict") {
                     _state.value =
-                        CompilationState.Failure("Этот фильм уже был добавлен вами в \"Избранное\"")
+                        CompilationState.Failure(context.getString(R.string.error_this_film_in_favorites_now))
                 } else {
                     _state.value = CompilationState.Failure(ex.message.toString())
                 }

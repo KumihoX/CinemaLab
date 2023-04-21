@@ -1,6 +1,8 @@
 package com.example.cinema.domain.usecase.validation
 
+import android.content.Context
 import android.util.Patterns
+import com.example.cinema.R
 
 class ValidationUseCase {
 
@@ -32,17 +34,18 @@ class SignInValidationForm {
     private val validation = ValidationUseCase()
 
     fun validateFields(
+        context: Context,
         email: String,
         password: String
     ): String {
         var message = ""
 
         if (validation.checkOnEmptiness(email)) {
-            message += "Заполните поле \"E-mail\"\n"
+            message += context.getString(R.string.error_empty_email)
         } else if (!validation.checkEmailValidity(email)) {
-            message += "Введенный email не соответствует шаблону: example@mail.ru\n"
+            message += context.getString(R.string.error_invalid_email)
         }
-        if (validation.checkOnEmptiness(password)) message += "Заполните поле \"Пароль\"\n"
+        if (validation.checkOnEmptiness(password)) message += context.getString(R.string.error_empty_password)
 
         return message
     }
@@ -52,6 +55,7 @@ class SignUpValidationForm {
     private val validation = ValidationUseCase()
 
     fun validateFields(
+        context: Context,
         name: String,
         surname: String,
         email: String,
@@ -60,13 +64,13 @@ class SignUpValidationForm {
     ): String {
         var message = ""
 
-        if (validation.checkOnEmptiness(name)) message += "Заполните поле \"Имя\"\n"
-        if (validation.checkOnEmptiness(surname)) message += "Заполните поле \"Фамилия\"\n"
+        if (validation.checkOnEmptiness(name)) message += context.getString(R.string.error_empty_name)
+        if (validation.checkOnEmptiness(surname)) message += context.getString(R.string.error_empty_surname)
 
         if (validation.checkOnEmptiness(email)) {
-            message += "Заполните поле \"E-mail\"\n"
+            message += context.getString(R.string.error_empty_email)
         } else if (!validation.checkEmailValidity(email)) {
-            message += "Введенный email не соответствует шаблону: example@mail.ru\n"
+            message += context.getString(R.string.error_invalid_email)
         }
 
         if (!(validation.checkOnEmptiness(password) && validation.checkOnEmptiness(duplicatePassword))) {
@@ -74,10 +78,10 @@ class SignUpValidationForm {
                     password,
                     duplicatePassword
                 )
-            ) message += "Введенные пароли не совпадают\n"
+            ) message += context.getString(R.string.error_passwords_is_not_sameness)
         } else {
-            if (validation.checkOnEmptiness(password)) message += "Заполните поле \"Пароль\"\n"
-            if (validation.checkOnEmptiness(duplicatePassword)) message += "Заполните поле \"Повторите пароль\"\n"
+            if (validation.checkOnEmptiness(password)) message += context.getString(R.string.error_empty_password)
+            if (validation.checkOnEmptiness(duplicatePassword)) message += context.getString(R.string.error_empty_duplicate_password)
         }
 
         return message

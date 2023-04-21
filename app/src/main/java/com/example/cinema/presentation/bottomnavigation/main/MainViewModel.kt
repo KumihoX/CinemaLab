@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.toMovie
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.usecase.history.GetHistoryUseCase
@@ -44,10 +45,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val coverImage = getCoverUseCase(context)
-                val inTrendData = getMoviesUseCase(context, "inTrend")
-                val youWatchedData = getMoviesUseCase(context, "lastView")
-                val newData = getMoviesUseCase(context, "new")
-                val forMeData = getMoviesUseCase(context, "forMe")
+                val inTrendData = getMoviesUseCase(context, context.getString(R.string.filter_in_trend))
+                val youWatchedData = getMoviesUseCase(context, context.getString(R.string.filter_last_view))
+                val newData = getMoviesUseCase(context, context.getString(R.string.filter_new))
+                val forMeData = getMoviesUseCase(context, context.getString(R.string.filter_for_me))
                 val history = getHistoryUseCase(context)
 
                 var youWatchedList = youWatchedData.map { it.toMovie() }

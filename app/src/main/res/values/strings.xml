@@ -50,5 +50,22 @@
     <string name="history">История</string>
     <string name="settings">Настройки</string>
     <string name="exit">Выход</string>
+    <string name="today">Сегодня</string>
+
+    <string name="filter_compilation">compilation</string>
+    <string name="filter_in_trend">inTrend</string>
+    <string name="filter_last_view">lastView</string>
+    <string name="filter_new">new</string>
+    <string name="filter_for_me">forMe</string>
+
+    <string name="error_cannot_create_collection_with_this_name">Нельзя создать коллекцию с таким именем</string>
+    <string name="error_this_film_in_favorites_now">Этот фильм уже был добавлен вами в "Избранное"</string>
+    <string name="error_empty_email">Заполните поле "E-mail"\n</string>
+    <string name="error_invalid_email">Введенный email не соответствует шаблону: example@mail.ru\n</string>
+    <string name="error_empty_password">Заполните поле "Пароль"\n</string>
+    <string name="error_empty_name">Заполните поле "Имя"\n</string>
+    <string name="error_empty_surname">Заполните поле "Фамилия"\n</string>
+    <string name="error_empty_duplicate_password">Заполните поле "Повторите пароль"\n</string>
+    <string name="error_passwords_is_not_sameness">Введенные пароли не совпадают\n</string>
 
 </resources>

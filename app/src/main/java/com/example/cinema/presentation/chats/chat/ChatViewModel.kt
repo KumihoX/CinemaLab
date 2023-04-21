@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.MessageDto
 import com.example.cinema.domain.model.ChatItem
 import com.example.cinema.domain.usecase.chats.CloseWebSocketUseCase
@@ -116,7 +117,7 @@ class ChatViewModel @Inject constructor(
                 _messageList.value?.add(
                     ChatItem(
                         type = "DATA",
-                        text = "Сегодня"
+                        text = context.getString(R.string.today)
                     )
                 )
             }

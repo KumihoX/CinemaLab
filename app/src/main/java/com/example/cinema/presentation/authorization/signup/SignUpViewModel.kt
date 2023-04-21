@@ -50,7 +50,7 @@ class SignUpViewModel @Inject constructor(
         password: String,
         repeatPassword: String
     ) {
-        val message = validateClass.validateFields(name, surname, email, password, repeatPassword)
+        val message = validateClass.validateFields(context, name, surname, email, password, repeatPassword)
 
         if (message != "") {
             _state.value = SignUpState.Failure(message)

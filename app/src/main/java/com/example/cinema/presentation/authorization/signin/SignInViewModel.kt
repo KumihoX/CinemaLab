@@ -46,7 +46,7 @@ class SignInViewModel @Inject constructor(
         email: String,
         password: String
     ) {
-        val message = validateClass.validateFields(email, password)
+        val message = validateClass.validateFields(context, email, password)
 
         if (message != "") {
             _state.value = SignInState.Failure(message)

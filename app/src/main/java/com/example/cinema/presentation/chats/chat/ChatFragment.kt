@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.MessageDto
 import com.example.cinema.databinding.FragmentChatBinding
+import com.example.cinema.domain.model.ChatItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +37,9 @@ class ChatFragment : Fragment() {
                 ChatViewModel.ChatState.Loading -> {
                     binding.chatProgressBar.show()
                     binding.chatGroup.isGone = true
+                }
+                ChatViewModel.ChatState.MessageLoading -> {
+                    binding.chatProgressBar.show()
                 }
                 ChatViewModel.ChatState.Success -> {
                     addMessages()
@@ -66,7 +70,7 @@ class ChatFragment : Fragment() {
     }
 
     private fun addMessages() {
-        val messagesObserver = Observer<MutableList<MessageDto>> {
+        val messagesObserver = Observer<MutableList<ChatItem>> {
             val chatRecyclerView = binding.chatRecyclerView
 
             chatRecyclerView.layoutManager =
@@ -91,6 +95,7 @@ class ChatFragment : Fragment() {
     private fun setOnSendButtonClickListener() {
         binding.sendButton.setOnClickListener {
             viewModel.sendMessage(binding.messageEditText.text.toString())
+            binding.messageEditText.setText("")
         }
     }
 

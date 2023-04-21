@@ -5,6 +5,6 @@ data class MessageDto(
     val creationDateTime: String,
     val authorId: String,
     val authorName: String,
-    val authorAvatar: String,
+    val authorAvatar: String? = "",
     val text: String
 )

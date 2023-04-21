@@ -6,5 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ChatDto(
     val chatId: String,
-    val chatName: String
+    val chatName: String,
+    val lastMessage: MessageDto? = null
 ) : Parcelable

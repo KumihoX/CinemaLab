@@ -1,5 +1,9 @@
 package com.example.cinema.presentation.chats.chatlist
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +46,12 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
         }
         holder.chatName.text = chatNames[position].chatName
         holder.onImageText.text = getFirstLetters()
+        val spannable = SpannableString("${chatNames[position].lastMessage!!.authorName}: ${chatNames[position].lastMessage!!.text}")
+        spannable.setSpan(
+            ForegroundColorSpan(Color.GRAY),
+            0, chatNames[position].lastMessage!!.authorName.length + 1,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        holder.chatLastMessage.text = spannable
     }
 
     override fun getItemCount() = chatNames.size

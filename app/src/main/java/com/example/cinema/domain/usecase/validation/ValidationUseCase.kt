@@ -9,7 +9,18 @@ class ValidationUseCase {
     }
 
     fun checkEmailValidity(email: String): Boolean {
-        return email.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() }
+        val parseEmail = email.split("@")
+        if (parseEmail.size == 2) {
+            val name = email.split("@")[0]
+            val domainName = email.split("@")[1]
+            val nameValid = name.matches(Regex("^[^A-Z~!@#\$%^&*+-]+$"))
+            val domainNameValid = domainName.matches(Regex("^[^A-Z~!@#\$%^&*+-]+$"))
+
+            return email.let {
+                Patterns.EMAIL_ADDRESS.matcher(it).matches()
+            } && nameValid && domainNameValid
+        }
+        return false
     }
 
     fun checkSameness(firstPasswordData: String, secondPasswordData: String): Boolean {

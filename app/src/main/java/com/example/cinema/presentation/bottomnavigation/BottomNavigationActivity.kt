@@ -6,12 +6,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cinema.R
 import com.example.cinema.databinding.ActivityBottomNavigationBinding
-import com.example.cinema.presentation.bottomnavigation.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BottomNavigationActivity : AppCompatActivity(), ProfileFragment.ProfileListener {
+class BottomNavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavigationBinding
 
@@ -26,9 +25,5 @@ class BottomNavigationActivity : AppCompatActivity(), ProfileFragment.ProfileLis
         val navController = findNavController(R.id.fragmentBottomBar)
 
         navView.setupWithNavController(navController)
-    }
-
-    override fun logout() {
-        finish()
     }
 }

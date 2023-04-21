@@ -22,7 +22,6 @@ import com.example.cinema.data.remote.api.dto.TagDto
 import com.example.cinema.databinding.FragmentMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.chats.chatlist.ChatListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +31,8 @@ class MovieDetailFragment : Fragment() {
     private val viewModel: MovieDetailViewModel by viewModels()
 
     private var callback: MovieDetailListener? = null
+
+    private lateinit var episodeId: String
 
     interface MovieDetailListener {
         fun backToMainFragment()
@@ -53,16 +54,26 @@ class MovieDetailFragment : Fragment() {
                     binding.movieDetailGroup.isGone = true
                 }
                 is MovieDetailViewModel.MovieDetailState.Success -> {
-                    binding.movieDetailProgressBar.hide()
-                    binding.movieDetailGroup.isGone = false
-                    setOnBackButtonClickListener()
-                    setOnChatButtonClickListener()
-                    addCover(it.movieInfo.poster)
-                    addAge(it.movieInfo.age)
-                    addTags(it.movieInfo.tags)
-                    addDescription(it.movieInfo.description)
-                    addFrames(it.movieInfo.imageUrls)
-                    addEpisodes(it.episodes)
+                    if (episodeId.isNotEmpty()) {
+                        for (i in it.episodes.indices) {
+                            if (it.episodes[i].episodeId == callback?.getMovieInfo()?.episodeId) {
+                                navigateToEpisodeFragment(it.episodes[i], it.interval)
+                                episodeId = ""
+                                break
+                            }
+                        }
+                    } else {
+                        binding.movieDetailProgressBar.hide()
+                        binding.movieDetailGroup.isGone = false
+                        setOnBackButtonClickListener()
+                        setOnChatButtonClickListener()
+                        addCover(it.movieInfo.poster)
+                        addAge(it.movieInfo.age)
+                        addTags(it.movieInfo.tags)
+                        addDescription(it.movieInfo.description)
+                        addFrames(it.movieInfo.imageUrls)
+                        addEpisodes(it.episodes, it.interval)
+                    }
                 }
                 is MovieDetailViewModel.MovieDetailState.Failure -> {
                     binding.movieDetailProgressBar.hide()
@@ -84,6 +95,8 @@ class MovieDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         callback = activity as MovieDetailListener
+
+        episodeId = callback?.getMovieInfo()?.episodeId.toString()
         super.onAttach(context)
     }
 
@@ -148,7 +161,7 @@ class MovieDetailFragment : Fragment() {
             )
     }
 
-    private fun addEpisodes(episodes: List<EpisodeDto>) {
+    private fun addEpisodes(episodes: List<EpisodeDto>, interval: String) {
         val episodesRecyclerView = binding.episodesRecyclerView
 
         episodesRecyclerView.layoutManager =
@@ -156,7 +169,7 @@ class MovieDetailFragment : Fragment() {
         episodesRecyclerView.adapter =
             EpisodesRecyclerAdapter(
                 episodes
-            ) { navigateToEpisodeFragment(it) }
+            ) { navigateToEpisodeFragment(it, interval) }
     }
 
     private fun createErrorDialog(message: String) {
@@ -167,9 +180,12 @@ class MovieDetailFragment : Fragment() {
         builder.show()
     }
 
-    private fun navigateToEpisodeFragment(episodeInfo: EpisodeDto) {
+    private fun navigateToEpisodeFragment(episodeInfo: EpisodeDto, interval: String) {
         val action =
-            MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(
+                episodeInfo,
+                interval
+            )
         findNavController().navigate(action)
     }
 }

@@ -28,8 +28,9 @@
             android:background="@android:color/transparent" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/messageBackground"
+        android:orientation="vertical"
         android:background="@drawable/someones_first_message_shape"
         android:layout_marginStart="40dp"
         android:elevation="0dp"
@@ -52,6 +53,7 @@
             android:id="@+id/someonesName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:text="Максим Потапов • 18:41"
@@ -61,7 +63,7 @@
             app:layout_constraintStart_toStartOf="@+id/someonesMessage"
             app:layout_constraintTop_toBottomOf="@+id/someonesMessage" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>
 
 

@@ -121,7 +121,7 @@
             android:textColor="@color/white"
             android:textSize="14sp" />
 
-        <ImageButton
+        <ImageView
             android:contentDescription="@string/play_button"
             android:id="@+id/playButton"
             android:layout_width="match_parent"

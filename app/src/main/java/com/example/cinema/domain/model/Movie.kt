@@ -14,5 +14,6 @@ data class Movie(
     val chatInfo: ChatDto? = null,
     val imageUrls: List<String>,
     val poster: String,
-    val tags: List<TagDto>
+    val tags: List<TagDto>,
+    var episodeId: String? = ""
 ) : Parcelable

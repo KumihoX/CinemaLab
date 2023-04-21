@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.example.cinema.common.Constants
 import com.example.cinema.common.Constants.DATABASE_NAME
-import com.example.cinema.common.Constants.SOCKET_URL
 import com.example.cinema.data.remote.*
 import com.example.cinema.data.remote.api.*
 import com.example.cinema.data.remote.database.CollectionDatabase
@@ -12,15 +11,12 @@ import com.example.cinema.data.repository.*
 import com.example.cinema.data.websocket.ChatsWebSocket
 import com.example.cinema.data.websocket.ChatsWebSocketListener
 import com.example.cinema.domain.repository.*
-import com.example.cinema.domain.usecase.storage.GetTokenUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.WebSocket
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -155,6 +151,23 @@ object AppModule {
     @Singleton
     fun provideEpisodesRepository(api: EpisodesApi): EpisodesRepository {
         return EpisodesRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHistoryApi(): HistoryApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(HistoryApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHistoryRepository(api: HistoryApi): HistoryRepository {
+        return HistoryRepositoryImpl(api)
     }
 
     @Provides

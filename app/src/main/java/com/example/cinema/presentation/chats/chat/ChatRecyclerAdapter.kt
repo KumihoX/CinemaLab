@@ -70,10 +70,6 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position == messages.size - 1) {
-            messages[position].avatarIsVisible = true
-            messages[position - 1].avatarIsVisible = false
-        }
         when (holder.itemViewType) {
             0 -> {
                 val viewHolder: SomeonesMessageViewHolder = holder as SomeonesMessageViewHolder
@@ -93,7 +89,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
                 }
                 viewHolder.messageCardView.layoutParams = layoutParams
 
-                if (messages[position].avatarIsVisible == true) {
+                if (messages[position].avatarIsVisible == true || position == messages.size - 1) {
                     viewHolder.imageCardView.visibility = View.VISIBLE
                 } else {
                     viewHolder.imageCardView.visibility = View.INVISIBLE
@@ -117,7 +113,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
                 }
                 viewHolder.messageCardView.layoutParams = layoutParams
 
-                if (messages[position].avatarIsVisible == true) {
+                if (messages[position].avatarIsVisible == true || position == messages.size - 1) {
                     viewHolder.imageCardView.visibility = View.VISIBLE
                 } else {
                     viewHolder.imageCardView.visibility = View.INVISIBLE

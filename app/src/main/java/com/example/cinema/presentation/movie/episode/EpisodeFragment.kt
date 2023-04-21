@@ -137,7 +137,7 @@ class EpisodeFragment : Fragment() {
 
     private fun setOnBackButtonClickListener() {
         binding.episodeBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_episodeFragment_to_movieDetailFragment)
+            findNavController().popBackStack()
         }
     }
 
@@ -148,7 +148,7 @@ class EpisodeFragment : Fragment() {
         Glide.with(binding.movieCover).load(callback?.getMovieInfo()?.poster)
             .into(binding.movieCover)
         binding.movieInfo.text = args.episodeInfo.director
-        binding.movieYears.text = args.episodeInfo.year
+        binding.movieYears.text = args.episodeInterval
         binding.episodeDescriptionText.text = args.episodeInfo.description
     }
 
@@ -185,7 +185,9 @@ class EpisodeFragment : Fragment() {
         popUpMenu = PopupMenu(requireContext(), binding.addInCollectionButton)
 
         for (i in collections.indices) {
-            popUpMenu.menu.add(Menu.NONE, i, i, collections[i].name)
+            if (collections[i].name != "Избранное") {
+                popUpMenu.menu.add(Menu.NONE, i, i, collections[i].name)
+            }
         }
 
         popUpMenu.setOnMenuItemClickListener {

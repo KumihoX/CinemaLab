@@ -23,7 +23,8 @@ class MovieDetailViewModel @Inject constructor(
         object Loading : MovieDetailState()
         class Success(
             val movieInfo: Movie,
-            val episodes: List<EpisodeDto>
+            val episodes: List<EpisodeDto>,
+            val interval: String
         ) : MovieDetailState()
 
         class Failure(val errorMessage: String) : MovieDetailState()
@@ -32,12 +33,30 @@ class MovieDetailViewModel @Inject constructor(
     private val _state = MutableLiveData<MovieDetailState>(MovieDetailState.Loading)
     val state: LiveData<MovieDetailState> = _state
 
+    fun getEpisodeInterval(listEpisodes: List<EpisodeDto>): String {
+        var min = "10000"
+        var max = "0"
+        for (i in listEpisodes.indices) {
+            if (listEpisodes[i].year.toInt() < min.toInt()) {
+                min = listEpisodes[i].year
+            }
+            if (listEpisodes[i].year.toInt() > max.toInt()) {
+                max = listEpisodes[i].year
+            }
+        }
+        if (min.toInt() == max.toInt()) {
+            return min
+        }
+        return "$min - $max"
+    }
+
     fun getMovieInfo(movieInfo: Movie) {
         _state.value = MovieDetailState.Loading
         viewModelScope.launch {
             try {
                 val episodesList = getMovieEpisodesUseCase(context, movieInfo.movieId)
-                _state.value = MovieDetailState.Success(movieInfo, episodesList)
+                val interval = getEpisodeInterval(episodesList)
+                _state.value = MovieDetailState.Success(movieInfo, episodesList, interval)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {

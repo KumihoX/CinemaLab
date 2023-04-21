@@ -88,20 +88,25 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun addYouWatched(youWatchedCover: List<Movie>) {
-        if (youWatchedCover.isNotEmpty()) {
-            val image = youWatchedCover[0].poster
+    private fun addYouWatched(youWatchedFilm: List<Movie>) {
+        if (youWatchedFilm.isNotEmpty()) {
+            val image = youWatchedFilm[0].poster
             val youWatchedText = binding.youWatchedText
             youWatchedText.visibility = View.VISIBLE
 
             val filmName = binding.filmName
-            filmName.text = youWatchedCover[0].name
+            filmName.text = youWatchedFilm[0].name
 
             val youWatchedCard = binding.youWatchedCard
             youWatchedCard.visibility = View.VISIBLE
 
             val youWatchedCover = binding.youWatchedCover
             Glide.with(this).load(image).into(youWatchedCover)
+
+            binding.youWatchedCard.setOnClickListener {
+                navigateToMovieInfoActivity(youWatchedFilm[0])
+            }
+
         } else {
             binding.youWatchedText.visibility = View.GONE
             binding.youWatchedCard.visibility = View.GONE

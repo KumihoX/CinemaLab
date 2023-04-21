@@ -10,7 +10,7 @@ data class EpisodeDto(
     val description: String,
     val director: String,
     val stars: List<String>,
-    val year: String,
+    var year: String,
     val images: List<String>,
     val runtime: Int,
     val preview: String,

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.data.remote.api.dto.toMovie
 import com.example.cinema.domain.model.Movie
+import com.example.cinema.domain.usecase.history.GetHistoryUseCase
 import com.example.cinema.domain.usecase.main.GetCoverUseCase
 import com.example.cinema.domain.usecase.main.GetMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val getCoverUseCase: GetCoverUseCase,
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
+    private val getHistoryUseCase: GetHistoryUseCase
 ) : ViewModel() {
     sealed class MainState {
         object Loading : MainState()
@@ -46,11 +48,15 @@ class MainViewModel @Inject constructor(
                 val youWatchedData = getMoviesUseCase(context, "lastView")
                 val newData = getMoviesUseCase(context, "new")
                 val forMeData = getMoviesUseCase(context, "forMe")
+                val history = getHistoryUseCase(context)
+
+                var youWatchedList = youWatchedData.map { it.toMovie() }
+                youWatchedList[0].episodeId = history[0].episodeId
 
                 _state.value = MainState.Success(
                     coverImage.backgroundImage,
                     inTrendData.map { it.toMovie() },
-                    youWatchedData.map { it.toMovie() },
+                    youWatchedList,
                     newData.map { it.toMovie() },
                     forMeData.map { it.toMovie() }
                 )

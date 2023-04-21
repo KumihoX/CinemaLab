@@ -77,6 +77,7 @@
         android:text="@string/choose_icon"
         android:textAllCaps="false"
         android:textColor="@color/accent_color"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iconCollection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iconCollection"
@@ -93,6 +94,7 @@
         android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconCollection" />

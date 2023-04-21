@@ -3,6 +3,7 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
     android:id="@+id/imageIcon"
     android:layout_marginBottom="16dp"
     android:layout_width="match_parent"

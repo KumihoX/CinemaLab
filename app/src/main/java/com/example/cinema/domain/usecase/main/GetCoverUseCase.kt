@@ -1,7 +1,7 @@
 package com.example.cinema.domain.usecase.main
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.CoverMovieDto
+import com.example.cinema.data.remote.api.dto.CoverMovieDto
 import com.example.cinema.domain.repository.CoverRepository
 import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject

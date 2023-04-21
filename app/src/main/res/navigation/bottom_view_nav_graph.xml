@@ -38,7 +38,14 @@
         android:id="@+id/profile"
         android:name="com.example.cinema.presentation.bottomnavigation.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_chatsActivity"
+            app:destination="@id/chatsActivity" />
+        <action
+            android:id="@+id/action_profile_to_authorizationActivity"
+            app:destination="@id/authorizationActivity" />
+    </fragment>
     <activity
         android:id="@+id/movieDetailActivity"
         android:name="com.example.cinema.presentation.movie.MovieDetailActivity"
@@ -53,7 +60,10 @@
         android:id="@+id/createCollectionActivity"
         android:name="com.example.cinema.presentation.bottomnavigation.collections.change.CreateCollectionActivity"
         android:label="activity_create_collection"
-        tools:layout="@layout/activity_create_collection" />
+        tools:layout="@layout/activity_create_collection" >
+        <argument android:name="collectionInfo"
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
+    </activity>
 
     <activity
         android:id="@+id/collectionInfoActivity"
@@ -61,7 +71,15 @@
         android:label="CollectionInfoActivity"
         tools:layout="@layout/activity_collection_info">
         <argument android:name="collectionInfo"
-            app:argType="com.example.cinema.data.remote.dto.CollectionListItemDto"/>
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
     </activity>
+    <activity
+        android:id="@+id/chatsActivity"
+        android:name="com.example.cinema.presentation.chats.ChatsActivity"
+        android:label="ChatsActivity" />
+    <activity
+        android:id="@+id/authorizationActivity"
+        android:name="com.example.cinema.presentation.authorization.AuthorizationActivity"
+        android:label="AuthorizationActivity" />
 
 </navigation>

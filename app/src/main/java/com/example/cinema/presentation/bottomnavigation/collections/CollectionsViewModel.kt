@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.domain.usecase.collection.GetCollectionsUseCase
+import com.example.cinema.data.remote.database.entity.CollectionEntity
+import com.example.cinema.domain.usecase.collection.GetCollectionsFromDatabaseUseCase
 import com.example.cinema.domain.usecase.storage.GetFavoriteCollectionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,13 +18,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CollectionsViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val getCollectionsUseCase: GetCollectionsUseCase
+    private val getCollectionsFromDatabaseUseCase: GetCollectionsFromDatabaseUseCase
 ) : ViewModel() {
 
     sealed class CollectionsState {
         object Loading : CollectionsState()
         class Success(
-            val collections: List<CollectionListItemDto>
+            val collections: List<CollectionEntity>
         ) : CollectionsState()
 
         class Failure(val errorMessage: String) : CollectionsState()
@@ -37,33 +37,35 @@ class CollectionsViewModel @Inject constructor(
 
     fun getCollections() {
         _state.value = CollectionsState.Loading
-        viewModelScope.launch {
+        var getCollections: List<CollectionEntity> = emptyList()
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                val getCollections = getCollectionsUseCase(context)
+                getCollections = getCollectionsFromDatabaseUseCase()
 
-                var favoriteCollectionIndex = 0
-                for (i in getCollections.indices) {
-                    if (getCollections[i].collectionId == favoriteCollectionId) {
-                        favoriteCollectionIndex = i
-                    }
-                }
-
-                val collections: MutableList<CollectionListItemDto> = mutableListOf()
-                collections.add(getCollections[favoriteCollectionIndex])
-
-                val leftPart = getCollections.slice(0 until favoriteCollectionIndex)
-                val rightPart =
-                    getCollections.slice(favoriteCollectionIndex + 1 until getCollections.size)
-
-                collections.addAll(leftPart)
-                collections.addAll(rightPart)
-
-                _state.value = CollectionsState.Success(collections)
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                _state.value = CollectionsState.Failure(ex.message.toString())
             }
         }
+        while (getCollections.isEmpty()) {
+        }
+        var favoriteCollectionIndex = 0
+        for (i in getCollections.indices) {
+            if (getCollections[i].id == favoriteCollectionId) {
+                favoriteCollectionIndex = i
+            }
+        }
+
+        val collections: MutableList<CollectionEntity> = mutableListOf()
+        collections.add(getCollections[favoriteCollectionIndex])
+
+        val leftPart = getCollections.slice(0 until favoriteCollectionIndex)
+        val rightPart =
+            getCollections.slice(favoriteCollectionIndex + 1 until getCollections.size)
+
+        collections.addAll(leftPart)
+        collections.addAll(rightPart)
+
+        _state.value = CollectionsState.Success(collections)
     }
 }

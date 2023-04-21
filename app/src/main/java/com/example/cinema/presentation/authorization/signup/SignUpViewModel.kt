@@ -6,10 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
-import com.example.cinema.data.remote.dto.CollectionFormDto
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.data.remote.dto.RegistrationBodyDto
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.CollectionFormDto
+import com.example.cinema.data.remote.api.dto.RegistrationBodyDto
+import com.example.cinema.data.remote.database.entity.CollectionEntity
+import com.example.cinema.domain.usecase.collection.AddCollectionInDatabaseUseCase
 import com.example.cinema.domain.usecase.collection.PostCollectionUseCase
 import com.example.cinema.domain.usecase.signup.RegisterUseCase
 import com.example.cinema.domain.usecase.storage.SaveFavoriteCollectionUseCase
@@ -26,13 +27,14 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val registerUseCase: RegisterUseCase,
-    private val postCollectionUseCase: PostCollectionUseCase
+    private val postCollectionUseCase: PostCollectionUseCase,
+    private val addCollectionInDatabaseUseCase: AddCollectionInDatabaseUseCase
 ) : ViewModel() {
     sealed class SignUpState {
         object Initial : SignUpState()
         object Loading : SignUpState()
         class Failure(val errorMessage: String) : SignUpState()
-        class Success(val tokenPair: AuthTokenPairDto, val collection: CollectionListItemDto) :
+        class Success(val tokenPair: AuthTokenPairDto) :
             SignUpState()
     }
 
@@ -78,17 +80,36 @@ class SignUpViewModel @Inject constructor(
                 val saveTokenUseCase = SaveTokenUseCase(context)
                 saveTokenUseCase.execute(token)
 
+                addCollectionInDatabase()
+
+                _state.value = SignUpState.Success(token)
+            } catch (rethrow: CancellationException) {
+                throw rethrow
+            } catch (ex: Exception) {
+                _state.value = SignUpState.Failure(ex.message.toString())
+            }
+        }
+    }
+
+    private fun addCollectionInDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 val collectionFrom = CollectionFormDto(context.getString(R.string.favorites))
                 val collection = postCollectionUseCase(context, collectionFrom)
 
                 val saveFavoriteCollectionUseCase = SaveFavoriteCollectionUseCase(context)
                 saveFavoriteCollectionUseCase.execute(collection)
 
-                _state.value = SignUpState.Success(token, collection)
+                val collectionEntity = CollectionEntity(
+                    collection.name,
+                    R.drawable.collection_icon_01,
+                    collection.collectionId
+                )
+                addCollectionInDatabaseUseCase(collectionEntity)
+
             } catch (rethrow: CancellationException) {
                 throw rethrow
             } catch (ex: Exception) {
-                _state.value = SignUpState.Failure(ex.message.toString())
             }
         }
     }

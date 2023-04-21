@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.MovieDto
+import com.example.cinema.data.remote.api.dto.MovieDto
 
 class CollectionInfoRecyclerAdapter(private val collectionInfo: List<MovieDto>) :
     RecyclerView.Adapter<CollectionInfoRecyclerAdapter.CollectionInfoViewHolder>() {

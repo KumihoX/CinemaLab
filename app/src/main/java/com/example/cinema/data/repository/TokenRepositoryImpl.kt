@@ -1,7 +1,7 @@
 package com.example.cinema.data.repository
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
 import com.example.cinema.data.storage.SharedPreferencesStorage
 import com.example.cinema.domain.repository.TokenRepository
 

@@ -1,7 +1,7 @@
 package com.example.cinema.domain.usecase.signup
 
-import com.example.cinema.data.remote.dto.AuthTokenPairDto
-import com.example.cinema.data.remote.dto.RegistrationBodyDto
+import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
+import com.example.cinema.data.remote.api.dto.RegistrationBodyDto
 import com.example.cinema.domain.repository.AuthRepository
 import javax.inject.Inject
 

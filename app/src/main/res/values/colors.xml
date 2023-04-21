@@ -14,6 +14,7 @@
     <color name="text_color">#FFAFAFAF</color>
     <color name="bottom_nav_bar_background">#FF1C1A19</color>
     <color name="bottom_nav_item">#FF757575</color>
+    <color name="someones_message_background">#FF2E2B2A</color>
 
     <color name="eighteen">#FFEF3A01</color>
     <color name="sixteen">#FFF26E45</color>

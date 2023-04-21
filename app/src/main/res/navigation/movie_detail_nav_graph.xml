@@ -21,7 +21,7 @@
         android:label="EpisodeFragment">
     <argument
         android:name="episodeInfo"
-        app:argType="com.example.cinema.data.remote.dto.EpisodeDto"/>
+        app:argType="com.example.cinema.data.remote.api.dto.EpisodeDto"/>
         <action
             android:id="@+id/action_episodeFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment"

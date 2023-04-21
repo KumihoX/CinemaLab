@@ -2,7 +2,6 @@ package com.example.cinema.presentation.movie.moviedetail
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,18 +17,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.cinema.R
-import com.example.cinema.data.remote.dto.CollectionListItemDto
-import com.example.cinema.data.remote.dto.EpisodeDto
-import com.example.cinema.data.remote.dto.TagDto
+import com.example.cinema.data.remote.api.dto.EpisodeDto
+import com.example.cinema.data.remote.api.dto.TagDto
 import com.example.cinema.databinding.FragmentMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.presentation.bottomnavigation.BottomNavigationActivity
-import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieDetailFragment: Fragment() {
+class MovieDetailFragment : Fragment() {
     private lateinit var movieInfo: Movie
     private lateinit var binding: FragmentMovieDetailBinding
     private val viewModel: MovieDetailViewModel by viewModels()
@@ -104,7 +100,7 @@ class MovieDetailFragment: Fragment() {
     private fun addAge(age: AgeEnum) {
         val textAge = binding.age
         textAge.text = getString(age.age)
-        textAge.setTextColor(getColor(requireActivity(),age.color))
+        textAge.setTextColor(getColor(requireActivity(), age.color))
     }
 
     private fun addTags(tags: List<TagDto>) {
@@ -114,7 +110,7 @@ class MovieDetailFragment: Fragment() {
             textView.text = tag.tagName
             textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
             textView.background = getDrawable(requireActivity(), R.drawable.tag_background)
-            textView.setTextColor(getColor(requireActivity(),R.color.white))
+            textView.setTextColor(getColor(requireActivity(), R.color.white))
 
             binding.flexBox.addView(textView)
 
@@ -148,7 +144,7 @@ class MovieDetailFragment: Fragment() {
         episodesRecyclerView.adapter =
             EpisodesRecyclerAdapter(
                 episodes
-            ) {navigateToEpisodeFragment(it)}
+            ) { navigateToEpisodeFragment(it) }
     }
 
     private fun createErrorDialog(message: String) {
@@ -160,7 +156,8 @@ class MovieDetailFragment: Fragment() {
     }
 
     private fun navigateToEpisodeFragment(episodeInfo: EpisodeDto) {
-        val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
+        val action =
+            MovieDetailFragmentDirections.actionMovieDetailFragmentToEpisodeFragment(episodeInfo)
         findNavController().navigate(action)
     }
 }

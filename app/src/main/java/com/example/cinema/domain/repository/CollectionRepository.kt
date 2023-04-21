@@ -1,6 +1,6 @@
 package com.example.cinema.domain.repository
 
-import com.example.cinema.data.remote.dto.*
+import com.example.cinema.data.remote.api.dto.*
 import retrofit2.Response
 
 interface CollectionRepository {

@@ -1,14 +1,26 @@
 package com.example.cinema.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.cinema.common.Constants
+import com.example.cinema.common.Constants.DATABASE_NAME
+import com.example.cinema.common.Constants.SOCKET_URL
 import com.example.cinema.data.remote.*
+import com.example.cinema.data.remote.api.*
+import com.example.cinema.data.remote.database.CollectionDatabase
 import com.example.cinema.data.repository.*
+import com.example.cinema.data.websocket.ChatsWebSocket
+import com.example.cinema.data.websocket.ChatsWebSocketListener
 import com.example.cinema.domain.repository.*
+import com.example.cinema.domain.usecase.storage.GetTokenUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.WebSocket
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,7 +34,6 @@ object AppModule {
         connectTimeout(15, TimeUnit.SECONDS)
         readTimeout(60, TimeUnit.SECONDS)
         writeTimeout(60, TimeUnit.SECONDS)
-
         val logLevel = HttpLoggingInterceptor.Level.BODY
         addInterceptor(HttpLoggingInterceptor().setLevel(logLevel))
     }
@@ -110,5 +121,71 @@ object AppModule {
     @Singleton
     fun provideCollectionRepository(api: CollectionsApi): CollectionRepository {
         return CollectionRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatsApi(): ChatsApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(ChatsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatsRepository(api: ChatsApi): ChatsRepository {
+        return ChatsRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEpisodesApi(): EpisodesApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+            .create(EpisodesApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEpisodesRepository(api: EpisodesApi): EpisodesRepository {
+        return EpisodesRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context,
+        CollectionDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+
+    @Provides
+    @Singleton
+    fun provideDao(database: CollectionDatabase) = database.collectionDao
+
+    @Provides
+    @Singleton
+    fun provideChatsWebSocketListener(): ChatsWebSocketListener {
+        return ChatsWebSocketListener()
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatsWebSocket(chatsWebSocketListener: ChatsWebSocketListener): ChatsWebSocket {
+        return ChatsWebSocket(client.build(), chatsWebSocketListener)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatsWebSocketRepository(chatsWebSocket: ChatsWebSocket): ChatsWebSocketRepository {
+        return ChatsWebSocketRepositoryImpl(chatsWebSocket)
     }
 }

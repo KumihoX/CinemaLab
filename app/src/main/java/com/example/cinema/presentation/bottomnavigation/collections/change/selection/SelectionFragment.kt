@@ -1,6 +1,7 @@
 package com.example.cinema.presentation.bottomnavigation.collections.change.selection
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSelectionBinding
+import com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectionFragment : Fragment() {
     private lateinit var binding: FragmentSelectionBinding
+
+    private lateinit var callback: CollectionDetailFragment.CollectionInfoListener
+
     private val viewModel: SelectionViewModel by viewModels()
-    private val iconsList = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +41,8 @@ class SelectionFragment : Fragment() {
                 is SelectionViewModel.SelectionState.Success -> {
                     binding.selectionProgressBar.hide()
                     binding.selectionGroup.isGone = false
+                    createIconRecyclerView()
+                    setOnBackButtonClickListener()
                 }
                 is SelectionViewModel.SelectionState.Failure -> {
                     binding.selectionProgressBar.hide()
@@ -51,12 +57,14 @@ class SelectionFragment : Fragment() {
     }
 
     override fun onStart() {
-        createIconRecyclerView()
-        setOnBackButtonClickListener()
-
         viewModel.changeStateOnSuccess()
 
         super.onStart()
+    }
+
+    override fun onAttach(context: Context) {
+        callback = activity as CollectionDetailFragment.CollectionInfoListener
+        super.onAttach(context)
     }
 
     private fun createIconRecyclerView() {
@@ -66,18 +74,24 @@ class SelectionFragment : Fragment() {
         selectIconRecyclerView.layoutManager =
             StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
 
-        addToList()
-
-        selectIconRecyclerView.adapter = SelectionRecyclerAdapter(iconsList)
+        selectIconRecyclerView.adapter =
+            SelectionRecyclerAdapter(addToList()) { navigateToPreviousFragment(it) }
     }
 
     private fun setOnBackButtonClickListener() {
         binding.backChooseIconButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
     }
 
-    private fun addToList() {
+    private fun navigateToPreviousFragment(icon: Int) {
+        callback?.changeIcon(icon)
+        findNavController().popBackStack()
+    }
+
+    private fun addToList(): List<Int> {
+        val iconsList = mutableListOf<Int>()
         iconsList.add(R.drawable.collection_icon_01)
         iconsList.add(R.drawable.collection_icon_02)
         iconsList.add(R.drawable.collection_icon_03)
@@ -114,6 +128,8 @@ class SelectionFragment : Fragment() {
         iconsList.add(R.drawable.collection_icon_34)
         iconsList.add(R.drawable.collection_icon_35)
         iconsList.add(R.drawable.collection_icon_36)
+
+        return iconsList
     }
 
     private fun createErrorDialog(message: String) {

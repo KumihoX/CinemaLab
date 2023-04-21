@@ -1,7 +1,7 @@
 package com.example.cinema.domain.usecase.profile
 
 import android.content.Context
-import com.example.cinema.data.remote.dto.UserDto
+import com.example.cinema.data.remote.api.dto.UserDto
 import com.example.cinema.domain.repository.ProfileRepository
 import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject

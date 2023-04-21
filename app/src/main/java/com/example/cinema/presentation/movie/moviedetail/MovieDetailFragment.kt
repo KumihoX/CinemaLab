@@ -22,6 +22,7 @@ import com.example.cinema.data.remote.api.dto.TagDto
 import com.example.cinema.databinding.FragmentMovieDetailBinding
 import com.example.cinema.domain.model.AgeEnum
 import com.example.cinema.domain.model.Movie
+import com.example.cinema.presentation.chats.chatlist.ChatListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,6 +56,7 @@ class MovieDetailFragment : Fragment() {
                     binding.movieDetailProgressBar.hide()
                     binding.movieDetailGroup.isGone = false
                     setOnBackButtonClickListener()
+                    setOnChatButtonClickListener()
                     addCover(it.movieInfo.poster)
                     addAge(it.movieInfo.age)
                     addTags(it.movieInfo.tags)
@@ -88,6 +90,16 @@ class MovieDetailFragment : Fragment() {
     private fun setOnBackButtonClickListener() {
         binding.backButton.setOnClickListener {
             callback?.backToMainFragment()
+        }
+    }
+
+    private fun setOnChatButtonClickListener() {
+        binding.chatButton.setOnClickListener {
+            val chatInfo = callback?.getMovieInfo()?.chatInfo
+            if (chatInfo != null){
+                val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
+                findNavController().navigate(action)
+            }
         }
     }
 

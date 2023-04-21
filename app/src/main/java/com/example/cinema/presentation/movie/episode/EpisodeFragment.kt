@@ -23,6 +23,7 @@ import com.example.cinema.R
 import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.FragmentEpisodeBinding
 import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment
+import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -114,7 +115,11 @@ class EpisodeFragment : Fragment() {
 
     private fun setOnChatButtonListener() {
         binding.episodeChatButton.setOnClickListener {
-
+            val chatInfo = callback?.getMovieInfo()?.chatInfo
+            if (chatInfo != null){
+                val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
+                findNavController().navigate(action)
+            }
         }
     }
 

@@ -3,7 +3,6 @@ package com.example.cinema.presentation.chats.chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,17 +16,19 @@ import com.example.cinema.domain.model.ChatItem
 
 
 class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<ViewHolder>() {
 
-    class MyMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyMessageViewHolder(itemView: View) : ViewHolder(itemView) {
         private val binding = MyMessageItemBinding.bind(itemView)
         val myName: TextView = binding.myName
         val myMessage: TextView = binding.myMessage
         val myMessageBackground = binding.myMessageBackground
-        val cardView: View = binding.cardView
+        val imageCardView: View = binding.imageCardView
+        val messageCardView: View = binding.messageCardView
+        val myAvatar: ImageView = binding.userAvatar
     }
 
-    class SomeonesMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SomeonesMessageViewHolder(itemView: View) : ViewHolder(itemView) {
         private val binding = SomeonesMessageItemBinding.bind(itemView)
         val someonesName: TextView = binding.someonesName
         val someonesMessage: TextView = binding.someonesMessage
@@ -37,7 +38,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
         val someonesAvatar: ImageView = binding.userAvatar
     }
 
-    class DateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class DateViewHolder(itemView: View) : ViewHolder(itemView) {
         private val binding = DateMessageItemBinding.bind(itemView)
         val dateText: TextView = binding.dateText
     }
@@ -69,34 +70,57 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if (position == messages.size - 1) {
+            messages[position].avatarIsVisible = true
+            messages[position - 1].avatarIsVisible = false
+        }
         when (holder.itemViewType) {
             0 -> {
                 val viewHolder: SomeonesMessageViewHolder = holder as SomeonesMessageViewHolder
                 viewHolder.someonesMessage.text = messages[position].text
                 viewHolder.someonesName.text = messages[position].author
-                Glide.with(viewHolder.someonesAvatar).load(messages[position].authorAvatar).into(viewHolder.someonesAvatar)
-                if (messages[position].firstMessage == false){
+                Glide.with(viewHolder.someonesAvatar).load(messages[position].authorAvatar)
+                    .into(viewHolder.someonesAvatar)
+
+                val layoutParams =
+                    viewHolder.messageCardView.layoutParams as RecyclerView.LayoutParams
+                if (messages[position].firstMessage == false) {
                     viewHolder.someonesMessageBackground.setBackgroundResource(R.drawable.someones_message_shape)
-                    val layoutParams = viewHolder.messageCardView.layoutParams as RecyclerView.LayoutParams
                     layoutParams.setMargins(0, 0, 56, 16)
-                    viewHolder.messageCardView.layoutParams = layoutParams
-                }
-                else {
+                } else {
                     viewHolder.someonesMessageBackground.setBackgroundResource(R.drawable.someones_first_message_shape)
-                    val layoutParams = viewHolder.messageCardView.layoutParams as RecyclerView.LayoutParams
                     layoutParams.setMargins(0, 16, 56, 16)
-                    viewHolder.messageCardView.layoutParams = layoutParams
+                }
+                viewHolder.messageCardView.layoutParams = layoutParams
+
+                if (messages[position].avatarIsVisible == true) {
+                    viewHolder.imageCardView.visibility = View.VISIBLE
+                } else {
+                    viewHolder.imageCardView.visibility = View.INVISIBLE
                 }
             }
             1 -> {
                 val viewHolder: MyMessageViewHolder = holder as MyMessageViewHolder
                 viewHolder.myMessage.text = messages[position].text
                 viewHolder.myName.text = messages[position].author
-                if (messages[position].firstMessage == false){
+                Glide.with(viewHolder.myAvatar).load(messages[position].authorAvatar)
+                    .into(viewHolder.myAvatar)
+
+                val layoutParams =
+                    viewHolder.messageCardView.layoutParams as RecyclerView.LayoutParams
+                if (messages[position].firstMessage == false) {
                     viewHolder.myMessageBackground.setBackgroundResource(R.drawable.my_message_shape)
-                }
-                else {
+                    layoutParams.setMargins(0, 0, 56, 16)
+                } else {
                     viewHolder.myMessageBackground.setBackgroundResource(R.drawable.my_first_message_shape)
+                    layoutParams.setMargins(0, 16, 56, 16)
+                }
+                viewHolder.messageCardView.layoutParams = layoutParams
+
+                if (messages[position].avatarIsVisible == true) {
+                    viewHolder.imageCardView.visibility = View.VISIBLE
+                } else {
+                    viewHolder.imageCardView.visibility = View.INVISIBLE
                 }
             }
             2 -> {
@@ -110,7 +134,7 @@ class ChatRecyclerAdapter(private val messages: MutableList<ChatItem>) :
 
     override fun getItemViewType(position: Int): Int {
         return when (messages[position].type) {
-            "DATA" ->  2
+            "DATA" -> 2
             "SOMEONE" -> 0
             "MY" -> 1
             else -> 0

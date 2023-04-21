@@ -90,4 +90,7 @@ dependencies {
     ksp "androidx.room:room-compiler:2.5.1"
     implementation "androidx.room:room-runtime:2.5.1"
     annotationProcessor "androidx.room:room-compiler:2.5.1"
+
+    //For photo
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }

@@ -10,7 +10,7 @@
         android:id="@+id/chatGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="sendButton,chatToolbar,messageEditText,chatListRecyclerView" />
+        app:constraint_referenced_ids="sendButton,chatToolbar,messageEditText,chatRecyclerView" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/chatToolbar"
@@ -35,7 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="36dp"
+            android:layout_marginEnd="48dp"
             android:text="Обсуждения"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -62,10 +65,13 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/unfilled_shape"
         android:ems="10"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="2000"
+        android:maxLines="4"
+        android:layout_weight="1"
         android:hint="Напишите сообщение..."
-        android:inputType="textPersonName"
-        android:paddingStart="16dp"
         android:paddingTop="8dp"
+        android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
         android:textColor="@color/text_color"

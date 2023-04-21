@@ -5,6 +5,7 @@ data class ChatItem(
     val text: String,
     val author: String? = "",
     val authorAvatar: String? = "",
+    var avatarIsVisible: Boolean? = false,
     val creationTime: String? = "",
-    val firstMessage: Boolean? = true
+    val firstMessage: Boolean? = true,
 )

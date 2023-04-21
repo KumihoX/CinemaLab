@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cinema.R
 import com.example.cinema.databinding.FragmentProfileBinding
+import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -36,6 +40,7 @@ class ProfileFragment : Fragment() {
                 is ProfileViewModel.ProfileState.Success -> {
                     binding.profileProgressBar.hide()
                     setOnButtonsClickListener()
+                    setOnEditAvatarClickListener()
                     addAvatar(it.user.avatar.toString())
                     addName("${it.user.firstName} ${it.user.lastName}")
                     addEmail(it.user.email)
@@ -52,6 +57,18 @@ class ProfileFragment : Fragment() {
 
         return binding.root
     }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val data = result.data
+
+            if (data?.data != null) {
+                val fileUri = data.data
+                val file = fileUri?.path?.let { File(it) }
+                viewModel.loadProfileImage(file!!)
+                binding.userAvatar.setImageURI(fileUri)
+            }
+        }
 
     override fun onStart() {
         viewModel.getProfileData()
@@ -72,6 +89,16 @@ class ProfileFragment : Fragment() {
     private fun setOnDiscussionClickListener() {
         binding.discussion.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_chatsActivity)
+        }
+    }
+
+    private fun setOnEditAvatarClickListener() {
+        binding.change.setOnClickListener {
+            ImagePicker.with(this)
+                .cropSquare()
+                .createIntent { intent ->
+                    startForProfileImageResult.launch(intent)
+                }
         }
     }
 

@@ -44,6 +44,7 @@ class ChatFragment : Fragment() {
                 ChatViewModel.ChatState.Success -> {
                     addMessages()
                     setOnButtonsClickListener()
+                    binding.discussionName.text = args.chatInfo.chatName
                     binding.chatProgressBar.hide()
                     binding.chatGroup.isGone = false
                 }
@@ -72,9 +73,9 @@ class ChatFragment : Fragment() {
     private fun addMessages() {
         val messagesObserver = Observer<MutableList<ChatItem>> {
             val chatRecyclerView = binding.chatRecyclerView
-
-            chatRecyclerView.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val a = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            a.stackFromEnd = true
+            chatRecyclerView.layoutManager = a
             chatRecyclerView.adapter =
                 ChatRecyclerAdapter(it)
         }
@@ -94,8 +95,10 @@ class ChatFragment : Fragment() {
 
     private fun setOnSendButtonClickListener() {
         binding.sendButton.setOnClickListener {
-            viewModel.sendMessage(binding.messageEditText.text.toString())
-            binding.messageEditText.setText("")
+            if (binding.messageEditText.text.toString() != ""){
+                viewModel.sendMessage(binding.messageEditText.text.toString())
+                binding.messageEditText.setText("")
+            }
         }
     }
 

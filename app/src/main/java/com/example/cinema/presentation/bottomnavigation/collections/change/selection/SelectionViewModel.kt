@@ -1,12 +1,9 @@
 package com.example.cinema.presentation.bottomnavigation.collections.change.selection
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinema.domain.usecase.collection.GetCollectionInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel

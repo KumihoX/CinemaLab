@@ -45,8 +45,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val coverImage = getCoverUseCase(context)
-                val inTrendData = getMoviesUseCase(context, context.getString(R.string.filter_in_trend))
-                val youWatchedData = getMoviesUseCase(context, context.getString(R.string.filter_last_view))
+                val inTrendData =
+                    getMoviesUseCase(context, context.getString(R.string.filter_in_trend))
+                val youWatchedData =
+                    getMoviesUseCase(context, context.getString(R.string.filter_last_view))
                 val newData = getMoviesUseCase(context, context.getString(R.string.filter_new))
                 val forMeData = getMoviesUseCase(context, context.getString(R.string.filter_for_me))
                 val history = getHistoryUseCase(context)

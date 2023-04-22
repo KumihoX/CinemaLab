@@ -66,6 +66,9 @@ class MovieDetailFragment : Fragment() {
                         binding.movieDetailProgressBar.hide()
                         binding.movieDetailGroup.isGone = false
                         setOnBackButtonClickListener()
+                        if (it.episodes.isNotEmpty()){
+                            setOnWatchButtonClickListener(it.episodes[0], it.interval)
+                        }
                         setOnChatButtonClickListener()
                         addCover(it.movieInfo.poster)
                         addAge(it.movieInfo.age)
@@ -106,11 +109,18 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
+    private fun setOnWatchButtonClickListener(episodeInfo: EpisodeDto, interval: String) {
+        binding.movieDetailWatchButton.setOnClickListener {
+            navigateToEpisodeFragment(episodeInfo, interval)
+        }
+    }
+
     private fun setOnChatButtonClickListener() {
         binding.chatButton.setOnClickListener {
             val chatInfo = callback?.getMovieInfo()?.chatInfo
-            if (chatInfo != null){
-                val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
+            if (chatInfo != null) {
+                val action =
+                    MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
                 findNavController().navigate(action)
             }
         }

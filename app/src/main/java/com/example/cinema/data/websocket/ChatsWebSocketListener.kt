@@ -1,14 +1,14 @@
 package com.example.cinema.data.websocket
 
 import android.util.Log
-import okhttp3.Response
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.runBlocking
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
 
-class ChatsWebSocketListener: WebSocketListener() {
+class ChatsWebSocketListener : WebSocketListener() {
     private val messages = MutableSharedFlow<String>()
 
     fun getMessages(): SharedFlow<String> = messages

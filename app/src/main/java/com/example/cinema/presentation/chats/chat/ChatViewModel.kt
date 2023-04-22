@@ -35,7 +35,7 @@ class ChatViewModel @Inject constructor(
 
     sealed class ChatState {
         object Loading : ChatState()
-        object MessageLoading: ChatState()
+        object MessageLoading : ChatState()
         object Success : ChatState()
         class Failure(val errorMessage: String) : ChatState()
     }
@@ -107,21 +107,22 @@ class ChatViewModel @Inject constructor(
     private fun convertMessageDtoToChatItem(messageDto: MessageDto) {
         val messageData = messageDto.creationDateTime.split("T")[0]
         if (messageData != lastData) {
-            if (_messageList.value!!.size > 1){
-                _messageList.value?.size?.let { _messageList.value?.get(it - 1)?.avatarIsVisible = true }
+            if (_messageList.value!!.size > 1) {
+                _messageList.value?.size?.let {
+                    _messageList.value?.get(it - 1)?.avatarIsVisible = true
+                }
             }
             lastData = messageData
             lastUser = ""
 
-            if(checkIdDateIsToday(messageDto.creationDateTime)){
+            if (checkIdDateIsToday(messageDto.creationDateTime)) {
                 _messageList.value?.add(
                     ChatItem(
                         type = "DATA",
                         text = context.getString(R.string.today)
                     )
                 )
-            }
-            else{
+            } else {
                 _messageList.value?.add(
                     ChatItem(
                         type = "DATA",
@@ -140,9 +141,10 @@ class ChatViewModel @Inject constructor(
         var firstMessage = true
         if (messageDto.authorId == lastUser) {
             firstMessage = false
-        }
-        else {
-            _messageList.value?.size?.let { _messageList.value?.get(it - 1)?.avatarIsVisible = true }
+        } else {
+            _messageList.value?.size?.let {
+                _messageList.value?.get(it - 1)?.avatarIsVisible = true
+            }
         }
         lastUser = messageDto.authorId
 

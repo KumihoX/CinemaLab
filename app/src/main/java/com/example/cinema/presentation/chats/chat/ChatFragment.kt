@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
-import com.example.cinema.data.remote.api.dto.MessageDto
 import com.example.cinema.databinding.FragmentChatBinding
 import com.example.cinema.domain.model.ChatItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,7 +94,7 @@ class ChatFragment : Fragment() {
 
     private fun setOnSendButtonClickListener() {
         binding.sendButton.setOnClickListener {
-            if (binding.messageEditText.text.toString() != ""){
+            if (binding.messageEditText.text.toString() != "") {
                 viewModel.sendMessage(binding.messageEditText.text.toString())
                 binding.messageEditText.setText("")
             }

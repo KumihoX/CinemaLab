@@ -1,9 +1,7 @@
 package com.example.cinema.domain.usecase.history
 
 import android.content.Context
-import com.example.cinema.data.remote.api.dto.EpisodeTimeDto
 import com.example.cinema.data.remote.api.dto.EpisodeViewDto
-import com.example.cinema.domain.repository.EpisodesRepository
 import com.example.cinema.domain.repository.HistoryRepository
 import com.example.cinema.domain.usecase.storage.GetTokenFromLocalStorageUseCase
 import javax.inject.Inject

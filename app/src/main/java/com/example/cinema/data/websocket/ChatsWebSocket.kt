@@ -1,8 +1,6 @@
 package com.example.cinema.data.websocket
 
 import com.example.cinema.common.Constants.SOCKET_URL
-import com.example.cinema.data.remote.api.dto.ChatDto
-import com.example.cinema.data.remote.api.dto.MessageDto
 import kotlinx.coroutines.flow.SharedFlow
 import okhttp3.OkHttpClient
 import okhttp3.Request

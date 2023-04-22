@@ -1,10 +1,8 @@
 package com.example.cinema.data.repository
 
-import com.example.cinema.data.remote.api.CoverApi
 import com.example.cinema.data.remote.api.HistoryApi
 import com.example.cinema.data.remote.api.dto.AuthTokenPairDto
 import com.example.cinema.data.remote.api.dto.EpisodeViewDto
-import com.example.cinema.domain.repository.CoverRepository
 import com.example.cinema.domain.repository.HistoryRepository
 import javax.inject.Inject
 

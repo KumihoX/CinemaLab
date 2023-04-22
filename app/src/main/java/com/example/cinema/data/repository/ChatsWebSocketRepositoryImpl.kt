@@ -14,9 +14,9 @@ class ChatsWebSocketRepositoryImpl @Inject constructor(
 ) : ChatsWebSocketRepository {
     override fun getMessages(): Flow<MessageDto?> {
         return flow {
-            chatsWebSocket.getMessages().collect{
+            chatsWebSocket.getMessages().collect {
                 Log.d("SOCKET", it)
-                if (it != "Switching Protocols"){
+                if (it != "Switching Protocols") {
                     emit(Gson().fromJson(it, MessageDto::class.java))
                 }
             }

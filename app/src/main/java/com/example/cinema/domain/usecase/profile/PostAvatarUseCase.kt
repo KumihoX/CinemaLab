@@ -12,7 +12,7 @@ import javax.inject.Inject
 class PostAvatarUseCase @Inject constructor(
     private val repository: ProfileRepository
 ) {
-    suspend operator fun invoke(context: Context, image: File){
+    suspend operator fun invoke(context: Context, image: File) {
         val getTokenFromLocalStorageUseCase = GetTokenFromLocalStorageUseCase(context)
         val token = getTokenFromLocalStorageUseCase.execute()
 

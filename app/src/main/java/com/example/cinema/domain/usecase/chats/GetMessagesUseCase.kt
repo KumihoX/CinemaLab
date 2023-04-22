@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetMessagesUseCase @Inject constructor(
     private val repository: ChatsWebSocketRepository
 ) {
-    operator fun invoke() : Flow<MessageDto?> {
+    operator fun invoke(): Flow<MessageDto?> {
         return repository.getMessages()
     }
 }

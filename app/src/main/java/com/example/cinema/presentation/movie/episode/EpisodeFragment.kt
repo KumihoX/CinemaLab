@@ -116,8 +116,9 @@ class EpisodeFragment : Fragment() {
     private fun setOnChatButtonListener() {
         binding.episodeChatButton.setOnClickListener {
             val chatInfo = callback?.getMovieInfo()?.chatInfo
-            if (chatInfo != null){
-                val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
+            if (chatInfo != null) {
+                val action =
+                    MovieDetailFragmentDirections.actionMovieDetailFragmentToChatFragment(chatInfo)
                 findNavController().navigate(action)
             }
         }

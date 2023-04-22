@@ -11,11 +11,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.ChatDto
-import com.example.cinema.data.remote.database.entity.CollectionEntity
 import com.example.cinema.databinding.ChatListItemBinding
 
-class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
-                              private val passData: (ChatDto) -> Unit ) :
+class ChatListRecyclerAdapter(
+    private val chatNames: List<ChatDto>,
+    private val passData: (ChatDto) -> Unit
+) :
     RecyclerView.Adapter<ChatListRecyclerAdapter.ChatListViewHolder>() {
 
     class ChatListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +30,7 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
     private fun getFirstLetters(shortName: String): String {
         val words = shortName.split(" ")
         var firstLetters = ""
-        if (words.size > 2){
+        if (words.size > 2) {
             for (i in 0..1) {
                 firstLetters += words[i][0].uppercaseChar()
             }
@@ -53,11 +54,13 @@ class ChatListRecyclerAdapter(private val chatNames: List<ChatDto>,
         }
         holder.chatName.text = chatNames[position].chatName
         holder.onImageText.text = getFirstLetters(chatNames[position].chatName)
-        val spannable = SpannableString("${chatNames[position].lastMessage!!.authorName}: ${chatNames[position].lastMessage!!.text}")
+        val spannable =
+            SpannableString("${chatNames[position].lastMessage!!.authorName}: ${chatNames[position].lastMessage!!.text}")
         spannable.setSpan(
             ForegroundColorSpan(Color.GRAY),
             0, chatNames[position].lastMessage!!.authorName.length + 1,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         holder.chatLastMessage.text = spannable
     }
 

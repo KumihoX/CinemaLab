@@ -14,9 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.R
 import com.example.cinema.data.remote.api.dto.ChatDto
-import com.example.cinema.data.remote.api.dto.EpisodeDto
 import com.example.cinema.databinding.FragmentChatListBinding
-import com.example.cinema.presentation.movie.moviedetail.MovieDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,7 +78,7 @@ class ChatListFragment : Fragment() {
         chatListRecyclerView.adapter =
             ChatListRecyclerAdapter(
                 chats
-            ) {navigateToChatFragment(it)}
+            ) { navigateToChatFragment(it) }
     }
 
     private fun setOnBackButtonClickListener() {

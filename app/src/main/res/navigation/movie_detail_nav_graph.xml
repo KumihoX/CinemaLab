@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_detail_nav_graph"
+    app:startDestination="@id/movieDetailFragment">
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.cinema.presentation.movie.moviedetail.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail">
+        <action
+            android:id="@+id/action_movieDetailFragment_to_episodeFragment"
+            app:destination="@id/episodeFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.example.cinema.presentation.movie.episode.EpisodeFragment"
+        android:label="EpisodeFragment">
+        <argument
+            android:name="episodeInfo"
+            app:argType="com.example.cinema.data.remote.api.dto.EpisodeDto"/>
+        <argument
+            android:name="episodeInterval"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_episodeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/movieDetailFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_episodeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.cinema.presentation.chats.chat.ChatFragment"
+        android:label="ChatFragment">
+        <argument android:name="chatInfo"
+            app:argType="com.example.cinema.data.remote.api.dto.ChatDto"/>
+    </fragment>
+
+</navigation>

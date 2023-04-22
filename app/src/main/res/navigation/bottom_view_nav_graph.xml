@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_view_nav_graph"
+    app:startDestination="@+id/main">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="com.example.cinema.presentation.bottomnavigation.main.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main_to_movieDetailActivity"
+            app:destination="@id/movieDetailActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/compilation"
+        android:name="com.example.cinema.presentation.bottomnavigation.compilation.CompilationFragment"
+        android:label="compilation"
+        tools:layout="@layout/fragment_compilation" />
+
+    <fragment
+        android:id="@+id/collection"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.CollectionsFragment"
+        android:label="collection"
+        tools:layout="@layout/fragment_collections" >
+        <action
+            android:id="@+id/action_collection_to_createCollectionActivity"
+            app:destination="@id/createCollectionActivity" />
+        <action
+            android:id="@+id/action_collection_to_collectionInfoActivity"
+            app:destination="@id/collectionInfoActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.cinema.presentation.bottomnavigation.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_chatsActivity"
+            app:destination="@id/chatsActivity" />
+        <action
+            android:id="@+id/action_profile_to_authorizationActivity"
+            app:destination="@id/authorizationActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/movieDetailActivity"
+        android:name="com.example.cinema.presentation.movie.MovieDetailActivity"
+        android:label="activity_movie_detail"
+        tools:layout="@layout/activity_movie_detail" >
+
+        <argument android:name="movieInfo"
+            app:argType="com.example.cinema.domain.model.Movie"/>
+    </activity>
+
+    <activity
+        android:id="@+id/createCollectionActivity"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.change.CreateCollectionActivity"
+        android:label="activity_create_collection"
+        tools:layout="@layout/activity_create_collection" >
+        <argument android:name="collectionInfo"
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
+    </activity>
+
+    <activity
+        android:id="@+id/collectionInfoActivity"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionInfoActivity"
+        android:label="CollectionInfoActivity"
+        tools:layout="@layout/activity_collection_info">
+        <argument android:name="collectionInfo"
+            app:argType="com.example.cinema.data.remote.database.entity.CollectionEntity"/>
+    </activity>
+    <activity
+        android:id="@+id/chatsActivity"
+        android:name="com.example.cinema.presentation.chats.ChatsActivity"
+        android:label="ChatsActivity" />
+    <activity
+        android:id="@+id/authorizationActivity"
+        android:name="com.example.cinema.presentation.authorization.AuthorizationActivity"
+        android:label="AuthorizationActivity" />
+
+</navigation>

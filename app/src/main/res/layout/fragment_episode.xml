@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/episodeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="addInCollectionButton,movieInfo,addInFavoritesButton,episodeNameDescriptionText,episodeFrame,movieCover,movieYears,episodeBackButton,episodeChatButton,movieName,episodeNameText,episodeDescriptionText" />
+
+    <ImageButton
+        android:id="@+id/addInFavoritesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/small_heart_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/movieYears"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/movieName" />
+
+    <ImageButton
+        android:id="@+id/addInCollectionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/orange_add_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/addInFavoritesButton"
+        app:layout_constraintEnd_toStartOf="@+id/addInFavoritesButton"
+        app:layout_constraintTop_toTopOf="@+id/addInFavoritesButton" />
+
+    <FrameLayout
+        android:id="@+id/episodeFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/episodeVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            app:animation_enabled="false"
+            app:surface_type="texture_view"
+            app:show_timeout="4000"
+            app:controller_layout_id="@layout/custom_media_player" >
+
+        </androidx.media3.ui.PlayerView>
+
+        <View
+            android:id="@+id/previewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/black"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:scaleType="centerCrop"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/startPlayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/play_video_icon" />
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/episodeNameText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/episodeFrame" />
+
+    <ImageView
+        android:id="@+id/movieCover"
+        android:layout_width="44dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/movieYears"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/movieName"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/movieName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/episodeChatButton"
+        app:layout_constraintStart_toEndOf="@+id/movieCover"
+        app:layout_constraintTop_toBottomOf="@+id/episodeNameText" />
+
+    <TextView
+        android:id="@+id/movieInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toStartOf="@+id/episodeChatButton"
+        app:layout_constraintStart_toStartOf="@+id/movieName"
+        app:layout_constraintTop_toBottomOf="@+id/movieName" />
+
+    <TextView
+        android:id="@+id/movieYears"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toStartOf="@+id/episodeChatButton"
+        app:layout_constraintStart_toStartOf="@+id/movieInfo"
+        app:layout_constraintTop_toBottomOf="@+id/movieInfo" />
+
+    <ImageButton
+        android:id="@+id/episodeChatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/addInCollectionButton"
+        app:layout_constraintEnd_toStartOf="@+id/addInCollectionButton"
+        app:layout_constraintTop_toTopOf="@+id/addInCollectionButton"
+        app:srcCompat="@drawable/chat_icon" />
+
+    <TextView
+        android:id="@+id/episodeNameDescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/description"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieCover" />
+
+    <TextView
+        android:id="@+id/episodeDescriptionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/episodeNameDescriptionText" />
+
+    <ImageButton
+        android:id="@+id/episodeBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/episodeProgressBar"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/background"
+        android:indeterminateTint="@color/accent_color"
+        android:visibility="gone"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/collection_info_nav_graph"
+    app:startDestination="@id/collectionDetailFragment">
+    <fragment
+        android:id="@+id/collectionDetailFragment"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.detail.CollectionDetailFragment"
+        android:label="CollectionInfoFragment">
+        <action
+            android:id="@+id/action_collectionDetailFragment_to_editCollectionFragment"
+            app:destination="@id/editCollectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCollectionFragment"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.change.edit.EditCollectionFragment"
+        android:label="EditCollectionFragment">
+        <action
+            android:id="@+id/action_editCollectionFragment_to_selectionFragment"
+            app:destination="@id/selectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionFragment"
+        android:name="com.example.cinema.presentation.bottomnavigation.collections.change.selection.SelectionFragment"
+        android:label="SelectionFragment">
+        <action
+            android:id="@+id/action_selectionFragment_to_editCollectionFragment"
+            app:destination="@id/editCollectionFragment" />
+    </fragment>
+</navigation>

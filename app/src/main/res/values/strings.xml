@@ -1,4 +1,71 @@
 <resources>
     <string name="app_name">Cinema</string>
     <string name="this_is_a_logo">This is a logo</string>
+    <string name="i_have_acc">У меня уже есть аккаунт</string>
+    <string name="logo">Лого</string>
+    <string name="password">Пароль</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="e_mail">E-mail</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="come_in">Войти</string>
+    <string name="registration">Регистрация</string>
+
+    <string name="eighteen">18+</string>
+    <string name="sixteen">16+</string>
+    <string name="twelve">12+</string>
+    <string name="six">6+</string>
+    <string name="zero">0+</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="incorrect_input_data">Неправильно введенные данные</string>
+    <string name="error">Ошибка</string>
+    <string name="cover">cover</string>
+    <string name="watch">Смотреть</string>
+    <string name="in_trend">В тренде</string>
+    <string name="you_watched">Вы смотрели</string>
+    <string name="you_watched_cover">You watched cover</string>
+    <string name="category_new">Новое</string>
+    <string name="for_you">Для вас</string>
+    <string name="specify_interest">Указать интересы</string>
+    <string name="play_button">Play Button</string>
+    <string name="new_films_in_compilation_is_over">Новые фильмы в подборке закончились</string>
+    <string name="favorites">Избранное</string>
+    <string name="discussions">Обсуждения</string>
+    <string name="write_message">Напишите сообщение...</string>
+    <string name="collection_name">Название коллекции</string>
+    <string name="collections">Коллекции</string>
+    <string name="create_collection">Создать коллекцию</string>
+    <string name="title">Название</string>
+    <string name="choose_icon">Выбрать иконку</string>
+    <string name="save">Сохранить</string>
+    <string name="change_collection">Изменить коллекцию</string>
+    <string name="delete">Удалить</string>
+    <string name="description">Описание</string>
+    <string name="frames">Кадры</string>
+    <string name="episodes">Эпизоды</string>
+    <string name="change">Изменить</string>
+    <string name="history">История</string>
+    <string name="settings">Настройки</string>
+    <string name="exit">Выход</string>
+    <string name="today">Сегодня</string>
+
+    <string name="filter_compilation">compilation</string>
+    <string name="filter_in_trend">inTrend</string>
+    <string name="filter_last_view">lastView</string>
+    <string name="filter_new">new</string>
+    <string name="filter_for_me">forMe</string>
+
+    <string name="error_cannot_create_collection_with_this_name">Нельзя создать коллекцию с таким именем</string>
+    <string name="error_this_film_in_favorites_now">Этот фильм уже был добавлен вами в "Избранное"</string>
+    <string name="error_empty_email">Заполните поле "E-mail"\n</string>
+    <string name="error_invalid_email">Введенный email не соответствует шаблону: example@mail.ru\n</string>
+    <string name="error_empty_password">Заполните поле "Пароль"\n</string>
+    <string name="error_empty_name">Заполните поле "Имя"\n</string>
+    <string name="error_empty_surname">Заполните поле "Фамилия"\n</string>
+    <string name="error_empty_duplicate_password">Заполните поле "Повторите пароль"\n</string>
+    <string name="error_passwords_is_not_sameness">Введенные пароли не совпадают\n</string>
+
 </resources>
